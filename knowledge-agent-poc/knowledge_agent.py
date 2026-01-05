@@ -11,8 +11,13 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from agents import PaperAgent, TalkAgent, RepositoryAgent
+from agents import ModernPaperAgent, ModernTalkAgent, ModernRepositoryAgent
 from core.schemas.base_schema import SourceType
+
+# Aliases for cleaner code compatibility
+PaperAgent = ModernPaperAgent
+TalkAgent = ModernTalkAgent
+RepositoryAgent = ModernRepositoryAgent
 
 
 # Configure logging

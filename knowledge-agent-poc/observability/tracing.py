@@ -12,8 +12,7 @@ Provides comprehensive tracing for:
 import logging
 from contextlib import contextmanager
 from typing import Any, Dict, Optional
-
-from agent_framework.observability import setup_observability
+from datetime import datetime
 
 from config import get_settings
 

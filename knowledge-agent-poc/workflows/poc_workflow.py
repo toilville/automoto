@@ -17,9 +17,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-from agents.paper_agent import PaperAgent
-from agents.talk_agent import TalkAgent
-from agents.repository_agent import RepositoryAgent
+from agents import ModernPaperAgent, ModernTalkAgent, ModernRepositoryAgent
 from core.schemas.base_schema import BaseKnowledgeArtifact
 from core.schemas.paper_schema import PaperKnowledgeArtifact
 from core.schemas.talk_schema import TalkKnowledgeArtifact
@@ -153,15 +151,15 @@ class POCWorkflowManager:
         print("\n=== STEP 3: Assign Agents ===")
         
         agents = {
-            "papers": PaperAgent(),
-            "talks": TalkAgent(),
-            "repositories": RepositoryAgent()
+            "papers": ModernPaperAgent(),
+            "talks": ModernTalkAgent(),
+            "repositories": ModernRepositoryAgent()
         }
         
         print("Created specialized agents:")
-        print("  - PaperAgent for research papers")
-        print("  - TalkAgent for talk transcripts")
-        print("  - RepositoryAgent for code/model repos")
+        print("  - ModernPaperAgent for research papers")
+        print("  - ModernTalkAgent for talk transcripts")
+        print("  - ModernRepositoryAgent for code/model repos")
         
         return agents
     

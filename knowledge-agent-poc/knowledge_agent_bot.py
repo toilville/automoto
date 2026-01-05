@@ -17,9 +17,14 @@ from tempfile import NamedTemporaryFile
 # Add knowledge-agent-poc to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 
-from agents import PaperAgent, TalkAgent, RepositoryAgent
+from agents import ModernPaperAgent, ModernTalkAgent, ModernRepositoryAgent
 from core.schemas import BaseKnowledgeArtifact
 from core_interfaces import ExtractionPipeline
+
+# Aliases for compatibility
+PaperAgent = ModernPaperAgent
+TalkAgent = ModernTalkAgent
+RepositoryAgent = ModernRepositoryAgent
 
 # Configure logging
 logging.basicConfig(

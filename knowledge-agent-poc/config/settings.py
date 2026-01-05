@@ -48,12 +48,12 @@ class Settings(BaseSettings):
     # Observability
     enable_tracing: bool = True
     
-        # POC Workflow Settings
-        poc_projects_dir: Path = Path("projects")
-        poc_minimum_expert_rating: float = 3.0
-        poc_require_human_approval: bool = False
-        poc_max_iterations: int = 2
-        poc_enable_compilation: bool = False
+    # POC Workflow Settings
+    poc_projects_dir: Path = Path("projects")
+    poc_minimum_expert_rating: float = 3.0
+    poc_require_human_approval: bool = False
+    poc_max_iterations: int = 2
+    poc_enable_compilation: bool = False
     otlp_endpoint: str = "http://localhost:4317"  # AI Toolkit gRPC endpoint
     enable_sensitive_data: bool = True  # Capture prompts/completions
     
