@@ -98,6 +98,20 @@ class BaseKnowledgeArtifact:
     created_at: datetime = field(default_factory=datetime.utcnow)
     """When this artifact was created"""
 
+    updated_at: Optional[datetime] = None
+    """When this artifact was last updated"""
+
+    # Additional/Found Knowledge (Flexible)
+    additional_knowledge: Dict[str, Any] = field(default_factory=dict)
+    """
+    Flexible container for unanticipated insights not captured in structured fields.
+    Examples:
+    - Emergent implications
+    - Cross-domain connections
+    - Implicit assumptions discovered
+    - Strategic hints or roadmap signals
+    """
+
     last_reviewed_at: Optional[datetime] = None
     """When this was last human-reviewed"""
 

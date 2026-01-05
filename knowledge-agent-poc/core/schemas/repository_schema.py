@@ -2,14 +2,16 @@
 Repository-Specific Knowledge Schema
 
 Extends BaseKnowledgeArtifact with code/model repository-specific fields.
+Implements all requirements from POC spec section 6.3.
 """
 
 from dataclasses import dataclass, field
 from typing import Optional, List
+from .base_schema import BaseKnowledgeArtifact
 
 
 @dataclass
-class RepositoryKnowledgeArtifact:
+class RepositoryKnowledgeArtifact(BaseKnowledgeArtifact):
     """Extended knowledge artifact for code/model repositories"""
 
     # Artifact classification

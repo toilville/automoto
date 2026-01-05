@@ -2,10 +2,12 @@
 Talk-Specific Knowledge Schema
 
 Extends BaseKnowledgeArtifact with research talk/transcript-specific fields.
+Implements all requirements from POC spec section 6.2.
 """
 
 from dataclasses import dataclass, field
 from typing import Optional, List
+from .base_schema import BaseKnowledgeArtifact
 
 
 @dataclass
@@ -15,32 +17,44 @@ class TalkSection:
     start_minute: int
     duration_minutes: int
     description: Optional[str] = None
+    time_code: Optional[str] = None  # e.g., "01:23:45"
 
 
 @dataclass
-class TalkKnowledgeArtifact:
+class KeySegment:
+    """Time-coded key segment in talk"""
+    time_code: str
+    title: str
+    description: str
+    importance: str  # "high", "medium", "low"
+
+
+@dataclass
+class TalkKnowledgeArtifact(BaseKnowledgeArtifact):
     """Extended knowledge artifact for research talks and transcripts"""
 
     # Talk metadata
     talk_type: str = "research_update"  # research_update|keynote|demo|tutorial|other
     duration_minutes: Optional[int] = None
 
-    # Structure
+    # Presentation Structure (Spec Section 6.2)
     section_breakdown: List[TalkSection] = field(default_factory=list)
+    key_segments: List[KeySegment] = field(default_factory=list)  # Time-coded highlights
 
     # Demonstrations
     demo_included: bool = False
     demo_description: Optional[str] = None
     demo_type: Optional[str] = None  # "live", "recorded", "simulated"
 
-    # Content analysis
-    experimental_results_discussed: bool = False
+    # Demonstration & Evidence (Spec Section 6.2)
+    experimental_results_discussed: List[str] = field(default_factory=list)
+    
+    # Challenges & Forward-Looking Content (Spec Section 6.2)
     technical_challenges_mentioned: List[str] = field(default_factory=list)
-    risks_discussed: List[str] = field(default_factory=list)
-
-    # Future direction
+    open_risks: List[str] = field(default_factory=list)
     pending_experiments: List[str] = field(default_factory=list)
-    collaboration_requests: Optional[str] = None
+    next_milestones: List[str] = field(default_factory=list)
+    collaboration_requests: List[str] = field(default_factory=list)
 
     # Audience context
     intended_audience: str = "technical"  # technical|general|mixed
