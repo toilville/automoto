@@ -5,42 +5,53 @@ enabling file-based persistence as an MVP. Future versions will migrate to SQLit
 """
 
 import json
-import os
-from pathlib import Path
-from typing import Optional, List
 from datetime import datetime
+from pathlib import Path
+from typing import List, Optional
 
-from projects.models import ProjectDefinition
 from projects.exceptions import (
-    ProjectNotFoundError,
     ProjectAlreadyExistsError,
-    StorageError,
+    ProjectNotFoundError,
     RepositoryError,
+    StorageError,
 )
+from projects.models import ProjectDefinition
+from storage.base_repository import BaseRepository
+from storage.storage_manager import StorageManager
 
 
-class ProjectRepository:
-    """Repository for managing project persistence.
-    
-    Provides CRUD operations for projects with JSON-based storage.
-    All projects are stored in individual JSON files in the storage directory.
+class ProjectRepository(BaseRepository[ProjectDefinition]):
+    """JSON repository for managing projects.
+
+    Uses a StorageManager to resolve the projects directory, enabling easy
+    migration to future backends (e.g., SQLite) without changing callers.
     """
-    
-    def __init__(self, storage_dir: str = "data/projects"):
+
+    def __init__(
+        self,
+        storage_dir: str = "data/projects",
+        storage_manager: Optional[StorageManager] = None,
+    ) -> None:
         """Initialize the repository.
-        
+
         Args:
-            storage_dir: Directory path for storing project JSON files.
-                        Will be created if it doesn't exist.
-        
+            storage_dir: Directory path for storing project JSON files when no manager is provided.
+            storage_manager: Optional shared storage manager. When provided, its projects_dir is used.
+
         Raises:
             StorageError: If the storage directory cannot be created.
         """
-        self.storage_dir = Path(storage_dir)
+        self.storage_dir = (
+            storage_manager.get_projects_dir()
+            if storage_manager is not None
+            else Path(storage_dir)
+        )
         try:
             self.storage_dir.mkdir(parents=True, exist_ok=True)
         except Exception as e:
-            raise StorageError("initialization", f"Cannot create storage directory: {str(e)}")
+            raise StorageError(
+                "initialization", f"Cannot create storage directory: {str(e)}"
+            )
     
     def _get_project_path(self, project_id: str) -> Path:
         """Get the file path for a project."""
