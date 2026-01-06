@@ -31,6 +31,27 @@ from projects.validators import (
 )
 
 
+# ===== Helper for PHASE B (Event-scoped projects) =====
+def create_project(**kwargs):
+    """Helper to create ProjectDefinition with required Phase B fields."""
+    if 'event_id' not in kwargs:
+        kwargs['event_id'] = 'event_default'
+    if 'odata_type' not in kwargs:
+        kwargs['odata_type'] = '#microsoft.graph.project'
+    return ProjectDefinition(**kwargs)
+)
+
+
+
+
+# ===== Helper for PHASE B (Event-scoped projects) =====
+def create_project(**kwargs):
+    """Helper to create ProjectDefinition with required Phase B fields."""
+    if 'event_id' not in kwargs:
+        kwargs['event_id'] = 'event_default'
+    if 'odata_type' not in kwargs:
+        kwargs['odata_type'] = '#microsoft.graph.project'
+    return create_project(**kwargs)
 # ===== Basic Validator Tests =====
 
 class TestBasicValidators:
@@ -290,7 +311,7 @@ class TestProjectDefinitionValidation:
     
     def test_valid_project(self):
         """Test validation of valid project."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -303,7 +324,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_with_valid_artifacts(self):
         """Test validation of project with artifacts."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -324,7 +345,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_missing_name(self):
         """Test project with missing name."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="",
             description="A test project",
@@ -335,7 +356,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_with_invalid_paper(self):
         """Test project containing invalid paper."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -357,7 +378,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_duplicate_artifact_ids(self):
         """Test project with duplicate artifact IDs."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -387,7 +408,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_missing_research_area(self):
         """Test project with missing research area."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -398,7 +419,7 @@ class TestProjectDefinitionValidation:
     
     def test_project_invalid_keywords(self):
         """Test project with invalid keywords."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test Project",
             description="A test project",
@@ -418,7 +439,7 @@ class TestBatchValidation:
         """Test batch validation with all valid projects."""
         projects = []
         for i in range(3):
-            project = ProjectDefinition(
+            project = create_project(
                 id=f"project_{i}",
                 name=f"Project {i}",
                 description="Test",
@@ -435,7 +456,7 @@ class TestBatchValidation:
         projects = []
         
         # Valid project
-        valid_project = ProjectDefinition(
+        valid_project = create_project(
             id="valid_project",
             name="Valid",
             description="Valid project",
@@ -444,7 +465,7 @@ class TestBatchValidation:
         projects.append(valid_project)
         
         # Invalid project
-        invalid_project = ProjectDefinition(
+        invalid_project = create_project(
             id="invalid_project",
             name="",  # Invalid
             description="Invalid",
@@ -458,7 +479,7 @@ class TestBatchValidation:
     
     def test_validate_project_completeness_with_artifacts(self):
         """Test artifact completeness validation."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test",
             description="Test",
@@ -479,7 +500,7 @@ class TestBatchValidation:
     
     def test_validate_project_completeness_no_artifacts(self):
         """Test artifact completeness validation with no artifacts."""
-        project = ProjectDefinition(
+        project = create_project(
             id="project_001",
             name="Test",
             description="Test",

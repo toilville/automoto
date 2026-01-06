@@ -20,6 +20,16 @@ from projects import (
 from projects.repository import ProjectRepository
 
 
+# ===== Helper for PHASE B (Event-scoped projects) =====
+def create_project(**kwargs):
+    """Helper to create ProjectDefinition with required Phase B fields."""
+    if 'event_id' not in kwargs:
+        kwargs['event_id'] = 'event_default'
+    if 'odata_type' not in kwargs:
+        kwargs['odata_type'] = '#microsoft.graph.project'
+    return ProjectDefinition(**kwargs)
+
+
 @pytest.fixture
 def temp_storage():
     """Create a temporary storage directory."""
@@ -36,7 +46,7 @@ def repository(temp_storage):
 @pytest.fixture
 def sample_project():
     """Create a sample project."""
-    project = ProjectDefinition(
+    project = create_project(
         id="test_project_001",
         name="Test Project",
         description="A test project",
@@ -216,7 +226,7 @@ class TestRepositoryList:
     def test_list_multiple_projects(self, repository):
         """Test listing a repository with multiple projects."""
         for i in range(3):
-            project = ProjectDefinition(
+            project = create_project(
                 id=f"project_{i}",
                 name=f"Project {i}",
                 description="Test",
@@ -264,7 +274,7 @@ class TestRepositoryCount:
     def test_count_multiple_projects(self, repository):
         """Test counting multiple projects."""
         for i in range(5):
-            project = ProjectDefinition(
+            project = create_project(
                 id=f"project_{i}",
                 name=f"Project {i}",
                 description="Test",
@@ -345,7 +355,7 @@ class TestRepositoryClear:
     def test_clear_removes_all_projects(self, repository):
         """Test that clear removes all projects."""
         for i in range(3):
-            project = ProjectDefinition(
+            project = create_project(
                 id=f"project_{i}",
                 name=f"Project {i}",
                 description="Test",
@@ -423,7 +433,7 @@ class TestRepositoryIntegration:
     def test_create_update_retrieve_workflow(self, repository):
         """Test complete create-update-retrieve workflow."""
         # Create
-        project = ProjectDefinition(
+        project = create_project(
             id="workflow_test",
             name="Workflow Test",
             description="Test workflow",
@@ -443,7 +453,7 @@ class TestRepositoryIntegration:
         """Test complete backup-restore workflow."""
         # Create projects
         for i in range(2):
-            project = ProjectDefinition(
+            project = create_project(
                 id=f"backup_test_{i}",
                 name=f"Backup Test {i}",
                 description="Test",

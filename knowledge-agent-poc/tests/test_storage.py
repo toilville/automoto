@@ -10,6 +10,16 @@ from projects.repository import ProjectRepository
 from projects import ProjectDefinition
 
 
+# ===== Helper for PHASE B (Event-scoped projects) =====
+def create_project(**kwargs):
+    """Helper to create ProjectDefinition with required Phase B fields."""
+    if 'event_id' not in kwargs:
+        kwargs['event_id'] = 'event_default'
+    if 'odata_type' not in kwargs:
+        kwargs['odata_type'] = '#microsoft.graph.project'
+    return ProjectDefinition(**kwargs)
+
+
 class DummyRepository(BaseRepository[str]):
     """Minimal in-memory repository for interface validation in tests."""
 
@@ -91,7 +101,7 @@ class TestProjectRepositoryWithManager:
         with tempfile.TemporaryDirectory() as tmpdir:
             manager = StorageManager(base_dir=tmpdir)
             repo = ProjectRepository(storage_manager=manager)
-            project = ProjectDefinition(
+            project = create_project(
                 id="proj1",
                 name="Proj",
                 description="Desc",
@@ -105,7 +115,7 @@ class TestProjectRepositoryWithManager:
         with tempfile.TemporaryDirectory() as tmpdir:
             manager = StorageManager(base_dir=tmpdir)
             repo = ProjectRepository(storage_manager=manager)
-            project = ProjectDefinition(
+            project = create_project(
                 id="proj1",
                 name="Proj",
                 description="Desc",

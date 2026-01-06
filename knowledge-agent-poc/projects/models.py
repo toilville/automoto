@@ -1,15 +1,16 @@
 """Project data models for knowledge artifact management.
 
-Defines the core domain models representing projects and their associated
-knowledge artifacts (papers, talks, repositories), along with execution
-configuration and quality metrics.
+Refactored to align with OpenAPI spec: projects are event-scoped,
+knowledge split into draft (PKA) and published variants.
 """
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from enum import Enum
 import json
+
+from core.graph_models import GraphEntity, ODataType
 
 
 class SourceType(str, Enum):
@@ -28,17 +29,7 @@ class ResearchMaturityStage(str, Enum):
 
 @dataclass
 class PaperReference:
-    """Reference to an academic paper source.
-    
-    Attributes:
-        id: Unique identifier for this paper reference
-        title: Paper title
-        authors: List of author names
-        publication_venue: Conference, journal, or workshop name
-        publication_year: Year of publication
-        doi_or_url: DOI or URL for accessing the paper
-        abstract: Short abstract of the paper
-    """
+    """Reference to an academic paper source."""
     id: str
     title: str
     authors: list[str]
@@ -48,7 +39,6 @@ class PaperReference:
     abstract: Optional[str] = None
     
     def to_dict(self) -> dict:
-        """Convert to dictionary."""
         return {
             "id": self.id,
             "title": self.title,
@@ -61,7 +51,6 @@ class PaperReference:
     
     @classmethod
     def from_dict(cls, data: dict) -> "PaperReference":
-        """Create from dictionary."""
         return cls(
             id=data["id"],
             title=data["title"],
@@ -75,18 +64,7 @@ class PaperReference:
 
 @dataclass
 class TalkReference:
-    """Reference to a talk/presentation source.
-    
-    Attributes:
-        id: Unique identifier for this talk reference
-        title: Talk title
-        speaker: Primary speaker name
-        event_name: Conference, meetup, or event name
-        event_date: Date of the event
-        video_url: URL to the talk video (if available)
-        slides_url: URL to slides (if available)
-        summary: Summary of key points from the talk
-    """
+    """Reference to a talk/presentation source."""
     id: str
     title: str
     speaker: str
@@ -97,7 +75,6 @@ class TalkReference:
     summary: Optional[str] = None
     
     def to_dict(self) -> dict:
-        """Convert to dictionary."""
         return {
             "id": self.id,
             "title": self.title,
@@ -111,7 +88,6 @@ class TalkReference:
     
     @classmethod
     def from_dict(cls, data: dict) -> "TalkReference":
-        """Create from dictionary."""
         return cls(
             id=data["id"],
             title=data["title"],
@@ -126,17 +102,7 @@ class TalkReference:
 
 @dataclass
 class RepositoryReference:
-    """Reference to a code repository source.
-    
-    Attributes:
-        id: Unique identifier for this repository reference
-        name: Repository name
-        url: Repository URL (GitHub, GitLab, etc.)
-        language: Primary programming language
-        description: Repository description
-        stars: GitHub stars (if available)
-        last_updated: Last commit date
-    """
+    """Reference to a code repository source."""
     id: str
     name: str
     url: str
@@ -146,7 +112,6 @@ class RepositoryReference:
     last_updated: Optional[str] = None  # ISO format date
     
     def to_dict(self) -> dict:
-        """Convert to dictionary."""
         return {
             "id": self.id,
             "name": self.name,
@@ -159,7 +124,6 @@ class RepositoryReference:
     
     @classmethod
     def from_dict(cls, data: dict) -> "RepositoryReference":
-        """Create from dictionary."""
         return cls(
             id=data["id"],
             name=data["name"],
@@ -173,15 +137,7 @@ class RepositoryReference:
 
 @dataclass
 class ExecutionConfig:
-    """Configuration for how agents execute on a project.
-    
-    Attributes:
-        extraction_agent_type: Type of agent to use for extraction ("paper", "talk", "repository")
-        max_iterations: Maximum number of refinement iterations
-        quality_threshold: Minimum confidence score (1-5) required to pass review
-        parallelization: Whether to process artifacts in parallel
-        timeout_seconds: Timeout for agent execution per artifact
-    """
+    """Configuration for how agents execute on a project."""
     extraction_agent_type: str = "paper"
     max_iterations: int = 2
     quality_threshold: float = 3.0
@@ -189,7 +145,6 @@ class ExecutionConfig:
     timeout_seconds: int = 300
     
     def to_dict(self) -> dict:
-        """Convert to dictionary."""
         return {
             "extraction_agent_type": self.extraction_agent_type,
             "max_iterations": self.max_iterations,
@@ -200,7 +155,6 @@ class ExecutionConfig:
     
     @classmethod
     def from_dict(cls, data: dict) -> "ExecutionConfig":
-        """Create from dictionary."""
         return cls(
             extraction_agent_type=data.get("extraction_agent_type", "paper"),
             max_iterations=data.get("max_iterations", 2),
@@ -212,15 +166,7 @@ class ExecutionConfig:
 
 @dataclass
 class QualityMetrics:
-    """Quality metrics aggregated across all artifacts in a project.
-    
-    Attributes:
-        total_artifacts: Total number of artifacts (papers + talks + repositories)
-        artifacts_reviewed: Number of artifacts completed review
-        average_confidence: Average confidence score across all artifacts
-        average_coverage: Average coverage percentage across artifacts
-        last_updated: When metrics were last calculated
-    """
+    """Quality metrics aggregated across all artifacts in a project."""
     total_artifacts: int = 0
     artifacts_reviewed: int = 0
     average_confidence: float = 0.0
@@ -228,7 +174,6 @@ class QualityMetrics:
     last_updated: Optional[datetime] = None
     
     def to_dict(self) -> dict:
-        """Convert to dictionary."""
         return {
             "total_artifacts": self.total_artifacts,
             "artifacts_reviewed": self.artifacts_reviewed,
@@ -239,11 +184,9 @@ class QualityMetrics:
     
     @classmethod
     def from_dict(cls, data: dict) -> "QualityMetrics":
-        """Create from dictionary."""
         last_updated = None
         if data.get("last_updated"):
             last_updated = datetime.fromisoformat(data["last_updated"])
-        
         return cls(
             total_artifacts=data.get("total_artifacts", 0),
             artifacts_reviewed=data.get("artifacts_reviewed", 0),
@@ -254,47 +197,32 @@ class QualityMetrics:
 
 
 @dataclass
-class ProjectDefinition:
-    """Complete project definition for knowledge artifact collection and compilation.
+class ProjectDefinition(GraphEntity):
+    """Complete project definition—now event-scoped with split knowledge.
     
-    Represents a research project that collects knowledge from multiple sources
-    (papers, talks, repositories) and compiles them into a unified knowledge graph.
-    
-    Attributes:
-        id: Unique project identifier
-        name: Human-readable project name
-        description: Detailed description of the project
-        research_area: Domain or research area (e.g., "distributed systems", "machine learning")
-        papers: List of paper references to extract from
-        talks: List of talk references to extract from
-        repositories: List of repository references to extract from
-        objectives: Key objectives for the project
-        keywords: Searchable keywords associated with the project
-        maturity_stage: Current research maturity stage
-        created_at: Project creation timestamp
-        updated_at: Last modification timestamp
-        status: Current project status ("created", "active", "compiled", etc.)
-        execution_config: Configuration for agent execution
-        compiled_knowledge: Compiled knowledge graph (if completed)
-        quality_metrics: Aggregated quality metrics
+    Breaking change: projects now require event_id and belong to an event.
+    Knowledge split: draft_artifacts (extraction) vs published_knowledge (approved).
     """
-    id: str
-    name: str
-    description: str
-    research_area: str
+    event_id: str = ""  # NEW: projects are scoped to events
+    name: str = ""
+    description: str = ""
+    research_area: str = ""
     papers: list[PaperReference] = field(default_factory=list)
     talks: list[TalkReference] = field(default_factory=list)
     repositories: list[RepositoryReference] = field(default_factory=list)
     objectives: list[str] = field(default_factory=list)
     keywords: list[str] = field(default_factory=list)
     maturity_stage: ResearchMaturityStage = ResearchMaturityStage.EXPLORATORY
-    created_at: datetime = field(default_factory=datetime.now)
-    updated_at: datetime = field(default_factory=datetime.now)
     status: str = "created"
     execution_config: ExecutionConfig = field(default_factory=ExecutionConfig)
-    compiled_knowledge: Optional[dict] = None
     quality_metrics: QualityMetrics = field(default_factory=QualityMetrics)
-    
+    draft_artifacts: list[str] = field(default_factory=list)  # KnowledgeArtifact IDs
+    published_knowledge: Optional[str] = None  # PublishedKnowledge ID
+
+    def __post_init__(self):
+        if not self.odata_type:
+            self.odata_type = ODataType.PROJECT.value
+
     def artifact_count(self) -> int:
         """Get total count of artifacts in this project."""
         return len(self.papers) + len(self.talks) + len(self.repositories)
@@ -337,8 +265,9 @@ class ProjectDefinition:
     
     def to_dict(self) -> dict:
         """Convert to dictionary for serialization."""
-        return {
-            "id": self.id,
+        result = super().to_dict()
+        result.update({
+            "eventId": self.event_id,
             "name": self.name,
             "description": self.description,
             "research_area": self.research_area,
@@ -348,13 +277,13 @@ class ProjectDefinition:
             "objectives": self.objectives,
             "keywords": self.keywords,
             "maturity_stage": self.maturity_stage.value,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
             "status": self.status,
             "execution_config": self.execution_config.to_dict(),
-            "compiled_knowledge": self.compiled_knowledge,
             "quality_metrics": self.quality_metrics.to_dict(),
-        }
+            "draftArtifacts": self.draft_artifacts,
+            "publishedKnowledge": self.published_knowledge,
+        })
+        return {k: v for k, v in result.items() if v is not None}
     
     @classmethod
     def from_dict(cls, data: dict) -> "ProjectDefinition":
@@ -372,6 +301,7 @@ class ProjectDefinition:
         
         return cls(
             id=data["id"],
+            event_id=data.get("event_id") or data.get("eventId", ""),
             name=data["name"],
             description=data["description"],
             research_area=data["research_area"],
@@ -385,6 +315,9 @@ class ProjectDefinition:
             updated_at=updated_at,
             status=data.get("status", "created"),
             execution_config=execution_config,
-            compiled_knowledge=data.get("compiled_knowledge"),
             quality_metrics=quality_metrics,
+            odata_type=data.get("@odata.type", ODataType.PROJECT.value),
+            odata_etag=data.get("@odata.etag"),
+            draft_artifacts=data.get("draft_artifacts", []) or data.get("draftArtifacts", []),
+            published_knowledge=data.get("published_knowledge") or data.get("publishedKnowledge"),
         )

@@ -21,6 +21,19 @@ from projects import (
 )
 
 
+# ===== Helper for PHASE B (Event-scoped projects) =====
+def create_project(**kwargs):
+    """Helper to create ProjectDefinition with required Phase B fields.
+    
+    Automatically injects event_id and odata_type if not provided.
+    """
+    if "event_id" not in kwargs:
+        kwargs["event_id"] = "event_default"
+    if "odata_type" not in kwargs:
+        kwargs["odata_type"] = "#microsoft.graph.project"
+    return ProjectDefinition(**kwargs)
+
+
 # ===== Fixtures =====
 
 @pytest.fixture
@@ -69,8 +82,9 @@ def sample_repository():
 @pytest.fixture
 def sample_project(sample_paper, sample_talk, sample_repository):
     """Create a sample project with artifacts."""
-    project = ProjectDefinition(
+    project = create_project(
         id="project_001",
+        event_id="event_001",
         name="Knowledge Extraction POC",
         description="Proof of concept for knowledge extraction",
         research_area="Machine Learning",
@@ -276,7 +290,7 @@ class TestProjectDefinition:
     
     def test_create_empty_project(self):
         """Test creating an empty project."""
-        project = ProjectDefinition(
+        project = create_project(
             id="test_project",
             name="Test Project",
             description="A test project",
@@ -366,7 +380,7 @@ class TestProjectDefinition:
     
     def test_project_maturity_stage(self):
         """Test project maturity stage."""
-        project = ProjectDefinition(
+        project = create_project(
             id="p1",
             name="Project",
             description="Desc",
@@ -377,7 +391,7 @@ class TestProjectDefinition:
     
     def test_project_status_tracking(self):
         """Test project status tracking."""
-        project = ProjectDefinition(
+        project = create_project(
             id="p1",
             name="Project",
             description="Desc",
@@ -391,7 +405,7 @@ class TestProjectDefinition:
     def test_project_execution_config(self):
         """Test project execution configuration."""
         config = ExecutionConfig(max_iterations=5)
-        project = ProjectDefinition(
+        project = create_project(
             id="p1",
             name="Project",
             description="Desc",
@@ -402,7 +416,7 @@ class TestProjectDefinition:
     
     def test_project_keywords_and_objectives(self):
         """Test keywords and objectives."""
-        project = ProjectDefinition(
+        project = create_project(
             id="p1",
             name="Project",
             description="Desc",
@@ -453,7 +467,7 @@ class TestSerialization:
     def test_datetime_serialization(self):
         """Test datetime serialization in project."""
         now = datetime.now()
-        project = ProjectDefinition(
+        project = create_project(
             id="p1",
             name="Project",
             description="Desc",
@@ -476,7 +490,7 @@ class TestProjectIntegration:
     def test_complete_project_workflow(self):
         """Test a complete project creation and population workflow."""
         # Create project
-        project = ProjectDefinition(
+        project = create_project(
             id="workflow_test",
             name="Complete Workflow",
             description="Test complete workflow",
@@ -502,7 +516,7 @@ class TestProjectIntegration:
     
     def test_quality_metrics_update_workflow(self):
         """Test updating quality metrics in a project."""
-        project = ProjectDefinition(
+        project = create_project(
             id="metrics_test",
             name="Metrics Test",
             description="Test metrics",

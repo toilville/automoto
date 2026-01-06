@@ -187,6 +187,17 @@ class ProjectRepository(BaseRepository[ProjectDefinition]):
         except Exception as e:
             raise StorageError("list_all", f"Cannot list projects: {str(e)}")
     
+    def list_by_event(self, event_id: str) -> List[ProjectDefinition]:
+        """List all projects for a specific event (NEW: event-scoped access).
+        
+        Args:
+            event_id: The event to filter by.
+        
+        Returns:
+            List of ProjectDefinition objects for the event.
+        """
+        return [p for p in self.list_all() if p.event_id == event_id]
+    
     def exists(self, project_id: str) -> bool:
         """Check if a project exists.
         
