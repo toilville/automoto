@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.0",
+  "id": "11111111-1111-1111-1111-111111111111",
+  "packageName": "com.example.microsoftstarter",
+  "developer": {
+    "name": "Microsoft Starter Team",
+    "websiteUrl": "https://example.com",
+    "privacyUrl": "https://example.com/privacy",
+    "termsOfUseUrl": "https://example.com/terms"
+  },
+  "name": {
+    "short": "MS Starter",
+    "full": "Microsoft Generic Agent Starter"
+  },
+  "description": {
+    "short": "Generic agent starter for recommendations and explanations.",
+    "full": "A generic Teams-ready starter app pattern for a Foundry-compatible agent."
+  },
+  "icons": {
+    "outline": "assets/outline-icon-192.png",
+    "color": "assets/color-icon-192.png"
+  },
+  "accentColor": "#004578",
+  "bots": [
+    {
+      "botId": "11111111-1111-1111-1111-111111111111",
+      "scopes": ["personal", "team"],
+      "commandLists": [
+        {
+          "scopes": ["personal", "team"],
+          "commands": [
+            { "title": "recommend", "description": "Get recommendations" },
+            { "title": "explain", "description": "Explain relevance" },
+            { "title": "help", "description": "Show usage examples" }
+          ]
+        }
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "permissions": ["identity"],
+  "validDomains": ["example.com", "tokens.botframework.com"],
+  "webApplicationInfo": {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "resource": "api://example.com/11111111-1111-1111-1111-111111111111"
+  }
+}

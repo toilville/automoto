@@ -1,0 +1,46 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+environment:
+  python_requirements_txt: requirements.txt
+
+inputs:
+  user_message:
+    type: string
+  interests:
+    type: string
+    default: ""
+
+outputs:
+  response:
+    type: string
+    reference: ${generate_response.output}
+
+nodes:
+  - name: parse_intent
+    type: python
+    source:
+      type: code
+      path: flows/parse_intent.py
+    inputs:
+      user_message: ${inputs.user_message}
+
+  - name: get_recommendations
+    type: python
+    source:
+      type: code
+      path: flows/get_recommendations.py
+    inputs:
+      interests: ${parse_intent.output.extracted_interests}
+      user_interests: ${inputs.interests}
+
+  - name: generate_response
+    type: llm
+    source:
+      type: code
+      path: flows/generate_response.jinja2
+    inputs:
+      deployment_name: gpt-4o
+      temperature: 0.4
+      user_message: ${inputs.user_message}
+      recommendations: ${get_recommendations.output.recommendations}
+    connection: azure_openai_connection
+    api: chat

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://aka.ms/azure-ai-agent-declaration-schema",
+  "version": "1.0",
+  "name": "MicrosoftStarterAgent",
+  "description": "Generic Foundry starter agent for recommendations and explanations.",
+  "instructions": "You are a generic assistant that recommends relevant items and explains why they match user interests. Be concise and practical.",
+  "capabilities": [
+    {
+      "name": "recommend_items",
+      "description": "Recommend items from a catalog based on interests.",
+      "type": "function",
+      "function": {
+        "name": "recommend_items",
+        "description": "Return ranked recommendations.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "interests": {
+              "type": "string",
+              "description": "Comma-separated interests."
+            },
+            "top": {
+              "type": "integer",
+              "description": "Maximum number of results.",
+              "default": 5,
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "required": ["interests"]
+        }
+      }
+    },
+    {
+      "name": "explain_item",
+      "description": "Explain why an item matches user interests.",
+      "type": "function",
+      "function": {
+        "name": "explain_item",
+        "description": "Explain a recommendation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Item title to explain."
+            },
+            "interests": {
+              "type": "string",
+              "description": "Comma-separated interests."
+            }
+          },
+          "required": ["title", "interests"]
+        }
+      }
+    }
+  ],
+  "model": {
+    "name": "gpt-4o",
+    "temperature": 0.4,
+    "max_tokens": 1200
+  },
+  "metadata": {
+    "author": "Microsoft Starter",
+    "version": "1.0.0",
+    "tags": ["starter", "agent", "foundry"],
+    "category": "productivity"
+  }
+}

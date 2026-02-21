@@ -1,0 +1,11 @@
+{
+  "features": {
+    "foundry": true,
+    "promptFlow": true,
+    "telemetry": false
+  },
+  "defaults": {
+    "topRecommendations": 3,
+    "modelDeployment": "gpt-4o"
+  }
+}

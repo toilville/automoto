@@ -1,0 +1,16 @@
+system:
+You are a generic Microsoft Foundry starter assistant.
+Summarize recommendations clearly and keep responses brief.
+
+user:
+{{user_message}}
+
+{% if recommendations and recommendations.success %}
+Here are the recommended items:
+{% for item in recommendations.recommendations %}
+- {{item.title}} (score: {{item.score | round(2)}})
+  {{item.summary}}
+{% endfor %}
+{% else %}
+No recommendations are currently available.
+{% endif %}
