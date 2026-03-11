@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../MSRIndia/TNREvents"
+		},
+		{
+			"path": "../Agents"
+		},
+		{
+			"path": "../teams-sdk"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.bicep": "bicep",
+			"*.bicepparam": "bicepparam",
+			"*.jsonl": "jsonl",
+			"*.http": "http",
+			"agent.json": "jsonc",
+			"agent-declaration.json": "jsonc",
+			"MANIFEST.yml": "yaml"
+		},
+		"terminal.integrated.defaultProfile.windows": "PowerShell",
+		"terminal.integrated.env.windows": {
+			"PYTHONPATH": "${workspaceFolder}"
+		},
+		"git.confirmSync": false,
+		"markdown.extension.toc.levels": "2..6",
+		"yaml.schemas": {
+			"https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml",
+			"https://json.schemastore.org/pre-commit-config.json": ".pre-commit-config.yaml"
+		}
+	}
+}
