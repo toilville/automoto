@@ -4,10 +4,10 @@
  * Run: npm run schema:create
  *
  * This creates the connection in Microsoft Graph and registers the schema
- * so Microsoft Search and Copilot know how to index and display MSR content.
+ * so Microsoft Search and Copilot know how to index and display Automoto content.
  */
 import { createGraphClient } from "../index.js";
-import { MSR_CONTENT_SCHEMA, getConnectionConfig } from "./msr-schema.js";
+import { AUTOMOTO_CONTENT_SCHEMA, getConnectionConfig } from "./content-schema.js";
 
 async function createConnection() {
   const client = createGraphClient();
@@ -39,7 +39,7 @@ async function createConnection() {
       .api(`/external/connections/${config.id}/schema`)
       .patch({
         baseType: "microsoft.graph.externalItem",
-        properties: MSR_CONTENT_SCHEMA,
+        properties: AUTOMOTO_CONTENT_SCHEMA,
       });
     console.log("✓ Schema registered (provisioning may take a few minutes)");
   } catch (err) {

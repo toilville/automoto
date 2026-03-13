@@ -1,10 +1,10 @@
-# MSR Channel Adapter — Copilot Skill
+# Channel Adapter — Copilot Skill
 
-You are helping a developer build or integrate with MSR Agent channels. This skill gives you deep context on the channel adapter protocol.
+You are helping a developer build or integrate with Agent channels. This skill gives you deep context on the channel adapter protocol.
 
 ## Core Concept: pub / sub / stream
 
-Every channel in the MSR platform implements the `ChannelAdapter` interface from `@automoto/channel-adapter`. It normalizes platform-native formats to/from a canonical protocol:
+Every channel in the Automoto platform implements the `ChannelAdapter` interface from `@automoto/channel-adapter`. It normalizes platform-native formats to/from a canonical protocol:
 
 ```
 Partner Platform ──pub()──→ AgentRequest ──→ Agent Backend

@@ -1,7 +1,7 @@
 /**
- * MSR Research Web Part — Embeds the MSR Research chat in SharePoint.
+ * Research Web Part — Embeds the Research chat in SharePoint.
  *
- * This web part renders an iframe pointing to the MSR Home chat app,
+ * This web part renders an iframe pointing to the Home chat app,
  * passing SharePoint context (site URL, user, page) for contextual responses.
  *
  * For full SPFx development, scaffold with:
@@ -29,22 +29,22 @@ interface IPropertyPaneConfiguration {
   }>;
 }
 
-export interface IMsrResearchWebPartProps {
+export interface IResearchWebPartProps {
   chatEndpoint: string;
   agentId: string;
   height: string;
   showHeader: boolean;
 }
 
-export default class MsrResearchWebPart {
+export default class ResearchWebPart {
   public context!: IWebPartContext;
-  protected properties!: IMsrResearchWebPartProps;
+  protected properties!: IResearchWebPartProps;
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
         {
-          header: { description: "MSR Research Chat Settings" },
+          header: { description: "Research Chat Settings" },
           groups: [
             {
               groupName: "Configuration",
@@ -84,7 +84,7 @@ export default class MsrResearchWebPart {
           showHeader
             ? `
           <div style="background: #742774; color: white; padding: 12px 16px; font-family: 'Segoe UI', sans-serif;">
-            <strong>Microsoft Research Assistant</strong>
+            <strong>Research Assistant</strong>
             <span style="float: right; font-size: 12px; opacity: 0.8;">Powered by Azure AI</span>
           </div>
         `
@@ -93,7 +93,7 @@ export default class MsrResearchWebPart {
         <iframe
           src="${chatEndpoint}?${params.toString()}"
           style="width: 100%; height: ${height}; border: none;"
-          title="MSR Research Chat"
+          title="Research Chat"
           allow="clipboard-write"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
         ></iframe>

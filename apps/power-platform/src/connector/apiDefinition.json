@@ -1,15 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "MSR Research",
-    "description": "Search Microsoft Research publications, find researchers, and discover research areas. Powered by Azure AI Agent Service.",
+    "title": "Automoto",
+    "description": "Search Automoto publications, find people, and discover focus areas. Powered by Azure AI Agent Service.",
     "version": "1.0.0",
     "contact": {
-      "name": "MSR Engineering",
-      "url": "https://www.microsoft.com/research"
+      "name": "Automoto Engineering",
+      "url": "https://automoto.example.com"
     }
   },
-  "host": "msr-power-connector.azurewebsites.net",
+  "host": "automoto-power-connector.example.com",
   "basePath": "/api",
   "schemes": ["https"],
   "consumes": ["application/json"],
@@ -21,7 +21,7 @@
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
       "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
       "scopes": {
-        "api://msr-research/.default": "Access MSR Research API"
+        "api://automoto/.default": "Access Automoto API"
       }
     }
   },
@@ -29,8 +29,8 @@
     "/search": {
       "get": {
         "operationId": "SearchResearch",
-        "summary": "Search Microsoft Research",
-        "description": "Search across publications, researchers, projects, and news from Microsoft Research",
+        "summary": "Search Automoto",
+        "description": "Search across publications, people, projects, and news from Automoto",
         "parameters": [
           {
             "name": "query",
@@ -129,8 +129,8 @@
     "/agent/chat": {
       "post": {
         "operationId": "ChatWithAgent",
-        "summary": "Chat with MSR Research Assistant",
-        "description": "Send a message to the AI-powered research assistant",
+        "summary": "Chat with Automoto Assistant",
+        "description": "Send a message to the AI-powered Automoto assistant",
         "parameters": [
           {
             "name": "body",

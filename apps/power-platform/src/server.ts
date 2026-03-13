@@ -104,7 +104,7 @@ async function proxyPost(path: string, body: unknown): Promise<unknown> {
 // ---------- Routes ----------
 
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", service: "msr-power-platform", dataApiUrl: DATA_API_URL });
+  res.json({ status: "ok", service: "automoto-power-platform", dataApiUrl: DATA_API_URL });
 });
 
 app.get("/api/search", authMiddleware, async (req, res) => {
@@ -162,6 +162,6 @@ app.post("/api/agent/chat", authMiddleware, async (req, res) => {
 // ---------- Start ----------
 
 app.listen(PORT, () => {
-  console.log(`MSR Power Platform connector running on http://localhost:${PORT}`);
+  console.log(`Power Platform connector running on http://localhost:${PORT}`);
   console.log(`Proxying to data service at ${DATA_API_URL}`);
 });

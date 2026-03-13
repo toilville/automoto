@@ -4,18 +4,18 @@
   "version": "0.1.0",
   "id": "${{BOT_ID}}",
   "developer": {
-    "name": "Microsoft Research",
-    "websiteUrl": "https://www.microsoft.com/research",
-    "privacyUrl": "https://privacy.microsoft.com",
-    "termsOfUseUrl": "https://www.microsoft.com/legal/terms-of-use"
+    "name": "Automoto",
+    "websiteUrl": "https://automoto.example.com",
+    "privacyUrl": "https://automoto.example.com/privacy",
+    "termsOfUseUrl": "https://automoto.example.com/terms"
   },
   "name": {
-    "short": "MSR Research Search",
-    "full": "Microsoft Research Search Extension"
+    "short": "Automoto Search",
+    "full": "Automoto Search Extension"
   },
   "description": {
-    "short": "Search MSR publications, researchers, and projects from the compose box",
-    "full": "Search Microsoft Research directly from your Teams or Outlook compose box. Find publications, researchers, projects, and research areas without leaving your conversation."
+    "short": "Search Automoto publications, people, and projects from the compose box",
+    "full": "Search Automoto content directly from your Teams or Outlook compose box. Find publications, people, projects, and focus areas without leaving your conversation."
   },
   "icons": {
     "outline": "outline.png",
@@ -37,8 +37,8 @@
         {
           "id": "searchResearch",
           "type": "query",
-          "title": "Search Research",
-          "description": "Search Microsoft Research publications, researchers, and projects",
+          "title": "Search Automoto",
+          "description": "Search Automoto publications, people, and projects",
           "initialRun": false,
           "parameters": [
             {
@@ -52,8 +52,8 @@
         {
           "id": "askResearch",
           "type": "action",
-          "title": "Ask MSR Research",
-          "description": "Ask a research question and share the answer",
+          "title": "Ask Automoto",
+          "description": "Ask a question about Automoto content and share the answer",
           "fetchTask": false,
           "parameters": [
             {
@@ -78,5 +78,5 @@
       ]
     }
   ],
-  "validDomains": ["www.microsoft.com"]
+  "validDomains": ["automoto.example.com"]
 }

@@ -1,4 +1,4 @@
-name: msr-event-agent-chat
+name: automoto-event-agent-chat
 version: 0.1.0
 description: >
   Thin-client chat agent for Automoto events.

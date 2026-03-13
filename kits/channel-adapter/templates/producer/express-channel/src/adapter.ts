@@ -2,7 +2,7 @@
  * __CHANNEL_DISPLAY_NAME__ Channel Adapter
  *
  * Normalizes __CHANNEL_DISPLAY_NAME__ native payloads to/from the
- * canonical MSR Agent Protocol (pub/sub/stream).
+ * canonical Agent Protocol (pub/sub/stream).
  *
  * TODO: Replace the placeholder native types with your platform's actual types.
  */
@@ -58,7 +58,7 @@ export class __CHANNEL_NAME__Adapter
   readonly supportsStreaming = false;
 
   /**
-   * msr.pub — Normalize an inbound platform-native request into a canonical AgentRequest.
+   * adapter.pub — Normalize an inbound platform-native request into a canonical AgentRequest.
    *
    * This is called when a message arrives FROM your platform.
    * Map your platform's fields to the canonical format.
@@ -88,7 +88,7 @@ export class __CHANNEL_NAME__Adapter
   }
 
   /**
-   * msr.sub — Format a canonical AgentResponse into your platform's native format.
+   * adapter.sub — Format a canonical AgentResponse into your platform's native format.
    *
    * This is called when the agent produces a COMPLETE response.
    * Map the canonical response to whatever your platform expects.
@@ -110,7 +110,7 @@ export class __CHANNEL_NAME__Adapter
   }
 
   /**
-   * msr.stream — Format a canonical StreamEvent into your platform's streaming format.
+   * adapter.stream — Format a canonical StreamEvent into your platform's streaming format.
    *
    * This is called for EACH streaming chunk during real-time responses.
    * Return null to skip an event type your platform doesn't handle.

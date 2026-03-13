@@ -1,16 +1,16 @@
 {
-  "name": "MSR Research",
-  "description": "Search Microsoft Research publications, find researchers, and discover research areas from GitHub Copilot Chat. Use @msr-research to get started.",
-  "url": "https://www.microsoft.com/research",
+  "name": "Automoto",
+  "description": "Search Automoto publications, find people, and discover focus areas from GitHub Copilot Chat. Use @automoto to get started.",
+  "url": "https://automoto.example.com",
   "hook_attributes": {
-    "url": "https://msr-copilot-ext.azurewebsites.net/agent"
+    "url": "https://automoto-copilot-ext.example.com/agent"
   },
   "public": true,
   "default_permissions": {},
   "default_events": [],
   "copilot_agent": {
     "type": "agent",
-    "inference_description": "Helps discover Microsoft Research publications, find researchers, explore research areas, and learn about MSR projects and labs. Supports slash commands: /paper, /researcher, /lab, /cite, /explain, /related, /trends, /compare, /rag, /help",
+    "inference_description": "Helps discover Automoto publications, find people, explore focus areas, and learn about platform projects and labs. Supports slash commands: /paper, /researcher, /lab, /cite, /explain, /related, /trends, /compare, /rag, /help",
     "allowed_operations": [
       "search_research",
       "get_researcher",

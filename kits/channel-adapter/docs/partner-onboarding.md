@@ -2,22 +2,22 @@
 
 > **Powered by [vibe-kit](https://github.com/microsoft/vibe-kit)**
 
-This guide walks you through connecting your platform to the MSR Agent — either as a **producer** (new channel) or a **consumer** (embed existing channel).
+This guide walks you through connecting your platform to the Agent — either as a **producer** (new channel) or a **consumer** (embed existing channel).
 
 ## Prerequisites
 
 - Node.js 20+
 - npm 10+
-- Access to an MSR Agent backend or gateway instance
+- Access to an Agent backend or gateway instance
 
 ## Two Paths
 
 ### 🔧 Path A: Producer — Build a New Channel
 
-You run a platform (Slack, WhatsApp, internal portal, custom app) and want to connect it to the MSR Agent so users can chat with the agent natively from your platform.
+You run a platform (Slack, WhatsApp, internal portal, custom app) and want to connect it to the Agent so users can chat with the agent natively from your platform.
 
 **What you'll build:**
-- A `ChannelAdapter` that normalizes your platform's payloads ↔ the canonical MSR protocol
+- A `ChannelAdapter` that normalizes your platform's payloads ↔ the canonical Agent protocol
 - A server endpoint that receives messages from your platform and forwards them to the agent
 
 **Choose your template:**
@@ -33,11 +33,11 @@ You run a platform (Slack, WhatsApp, internal portal, custom app) and want to co
 ```bash
 # Option 1: Via vibekit CLI
 pip install vibekit
-vibekit install msr-channel
+vibekit install channel-adapter
 # Follow the interactive questionnaire
 
 # Option 2: Manual copy
-cp -r kits/msr-channel/templates/producer/express-channel apps/my-channel
+cp -r kits/channel-adapter/templates/producer/express-channel apps/my-channel
 cd apps/my-channel
 npm install
 npm run dev
@@ -71,7 +71,7 @@ class MyAdapter implements ChannelAdapter<MyInbound, MyOutbound, MyStreamChunk> 
 
 ### 📱 Path B: Consumer — Embed an Existing Channel
 
-You want to add MSR Agent capabilities to your app/site using an existing channel.
+You want to add Agent capabilities to your app/site using an existing channel.
 
 **Choose your template:**
 
@@ -84,10 +84,10 @@ You want to add MSR Agent capabilities to your app/site using an existing channe
 **Quick start (React embed):**
 
 ```bash
-cp -r kits/msr-channel/templates/consumer/react-embed my-app
+cp -r kits/channel-adapter/templates/consumer/react-embed my-app
 cd my-app
 npm install
-# Set VITE_MSR_ENDPOINT in .env
+# Set VITE_AUTOMOTO_ENDPOINT in .env
 npm run dev
 ```
 
@@ -95,20 +95,20 @@ npm run dev
 
 ```bash
 # TypeScript
-npx tsx kits/msr-channel/templates/consumer/api-client/examples/client.ts
+npx tsx kits/channel-adapter/templates/consumer/api-client/examples/client.ts
 
 # Python
-python kits/msr-channel/templates/consumer/api-client/examples/client.py
+python kits/channel-adapter/templates/consumer/api-client/examples/client.py
 
 # curl
-bash kits/msr-channel/templates/consumer/api-client/examples/curl-examples.sh
+bash kits/channel-adapter/templates/consumer/api-client/examples/curl-examples.sh
 ```
 
 ## Architecture Overview
 
 ```
 ┌─────────────────────┐     ┌──────────────────────────────────────────┐
-│  Partner Platform    │     │  msr-event-agent-client                  │
+│  Partner Platform    │     │  automoto                                │
 │                      │     │                                          │
 │  ┌────────────────┐  │     │  ┌──────────────────┐                    │
 │  │ Your App/Site  │──┼─────┼─▶│  Channel App     │                    │
@@ -136,15 +136,15 @@ This kit is compatible with the [vibe-kit](https://github.com/microsoft/vibe-kit
 pip install vibekit
 
 # Point at this repo (local or remote)
-export VIBEKIT_BASE_PATH="D:\code\msr-event-agent-client\kits"
+export VIBEKIT_BASE_PATH="D:\code\automoto\kits"
 # OR for remote:
-# export VIBEKIT_BASE_PATH="https://github.com/your-org/msr-event-agent-client"
+# export VIBEKIT_BASE_PATH="https://github.com/automoto/automoto"
 
 # Install the channel kit
-vibekit install msr-channel
+vibekit install channel-adapter
 
 # Run the onboarding questionnaire
-python .vibe-kit/innovation-kits/msr-channel/initialization/questionnaire.py
+python .vibe-kit/innovation-kits/channel-adapter/initialization/questionnaire.py
 ```
 
 ## Registered Channel Types
@@ -152,7 +152,7 @@ python .vibe-kit/innovation-kits/msr-channel/initialization/questionnaire.py
 | Channel Type | App | Adapter | Streaming |
 |-------------|-----|---------|-----------|
 | `web` | `apps/chat` | WebAdapter | ✅ SSE |
-| `home` | `apps/msr-home` | WebAdapter | ✅ SSE |
+| `home` | `apps/home` | WebAdapter | ✅ SSE |
 | `teams` | `apps/teams` | WebAdapter | ✅ SSE |
 | `agents-sdk` | `apps/agents-sdk` | WebAdapter | ✅ SSE |
 | `m365-agents` | `apps/m365-agents` | BotFrameworkAdapter | ❌ |

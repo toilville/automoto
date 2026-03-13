@@ -1,11 +1,11 @@
 kit_info:
-  name: msr-channel
+  name: channel-adapter
   version: 0.1.0
-  display_name: MSR Channel Onboarding Kit
+  display_name: Channel Onboarding Kit
   description: >
-    Scaffold a new MSR Agent channel (producer) or embed an existing channel
+    Scaffold a new Agent channel (producer) or embed an existing channel
     into your app (consumer). Powered by the @automoto/channel-adapter pub/sub/stream
-    protocol from msr-event-agent-client.
+    protocol from automoto.
   created_date: 2026-03-12
   last_updated: 2026-03-12
 
@@ -40,14 +40,14 @@ tags:
 
 post_install:
   instructions_markdown: |
-    ## 🎯 MSR Channel Kit Installed!
+    ## 🎯 Channel Kit Installed!
 
     ### Quick Start
 
     Run the channel onboarding questionnaire:
 
     ```bash
-    python .vibe-kit/innovation-kits/msr-channel/initialization/questionnaire.py
+    python .vibe-kit/innovation-kits/channel-adapter/initialization/questionnaire.py
     ```
 
     The wizard will ask:
@@ -59,8 +59,8 @@ post_install:
 
     | Path | You want to... | Template |
     |------|---------------|----------|
-    | **Producer** | Connect a new platform (Slack, WhatsApp, internal portal) to the MSR Agent | `express-channel`, `bot-framework-channel`, `webhook-channel` |
-    | **Consumer** | Embed MSR Agent chat in your app/site | `react-embed`, `api-client`, `direct-line-embed` |
+    | **Producer** | Connect a new platform (Slack, WhatsApp, internal portal) to the Agent | `express-channel`, `bot-framework-channel`, `webhook-channel` |
+    | **Consumer** | Embed Agent chat in your app/site | `react-embed`, `api-client`, `direct-line-embed` |
 
     ### Key Concept: pub / sub / stream
 

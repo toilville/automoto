@@ -31,7 +31,7 @@ const FOUNDRY_API_VERSION = process.env.FOUNDRY_API_VERSION ?? "2024-12-01-previ
 /* ── Agent Backend Call ───────────────────────────────────── */
 
 /**
- * Calls the MSR data API search tool (the common denominator backend).
+ * Calls the data API search tool (the common denominator backend).
  * In production, this would call the Foundry Agent for full AI responses;
  * here we use the data API directly as the universal backend.
  */
@@ -226,7 +226,7 @@ export function normalizedRouter(): Router {
       return;
     }
 
-    // msr.pub — Normalize inbound request
+    // adapter.pub — Normalize inbound request
     let canonicalRequest: AgentRequest;
     try {
       canonicalRequest = adapter.pub(req.body);
@@ -244,7 +244,7 @@ export function normalizedRouter(): Router {
 
     try {
       if (wantStream) {
-        // msr.stream — Stream response in channel-native format
+        // adapter.stream — Stream response in channel-native format
         res.setHeader("Content-Type", "text/event-stream");
         res.setHeader("Cache-Control", "no-cache");
         res.setHeader("Connection", "keep-alive");
@@ -260,7 +260,7 @@ export function normalizedRouter(): Router {
 
         res.end();
       } else {
-        // msr.sub — Complete response in channel-native format
+        // adapter.sub — Complete response in channel-native format
         const canonicalResponse = await callAgentBackend(canonicalRequest);
         const nativeResponse = adapter.sub(canonicalResponse);
         res.json(nativeResponse);

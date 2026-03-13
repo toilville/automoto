@@ -1,7 +1,7 @@
 /**
  * __CHANNEL_DISPLAY_NAME__ Channel Adapter (Bot Framework)
  *
- * Normalizes Bot Framework Activity payloads to/from the canonical MSR Agent Protocol.
+ * Normalizes Bot Framework Activity payloads to/from the canonical Agent Protocol.
  * Based on the existing BotFrameworkAdapter pattern.
  *
  * Use this template when your platform speaks the Bot Framework protocol
@@ -47,7 +47,7 @@ export class __CHANNEL_NAME__Adapter
   readonly supportsStreaming = false;
 
   /**
-   * msr.pub — Normalize a Bot Framework Activity into a canonical AgentRequest.
+   * adapter.pub — Normalize a Bot Framework Activity into a canonical AgentRequest.
    */
   pub(raw: BotFrameworkInbound): AgentRequest {
     const requestId = randomUUID();
@@ -79,7 +79,7 @@ export class __CHANNEL_NAME__Adapter
   }
 
   /**
-   * msr.sub — Format a canonical AgentResponse as Bot Framework reply.
+   * adapter.sub — Format a canonical AgentResponse as Bot Framework reply.
    */
   sub(response: AgentResponse): BotFrameworkOutbound {
     const attachments: Array<{ contentType: string; content: unknown }> = [];

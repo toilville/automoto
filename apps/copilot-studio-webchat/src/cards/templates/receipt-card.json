@@ -1,0 +1,60 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Order Summary",
+      "size": "medium",
+      "weight": "bolder"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Order #12345",
+      "isSubtle": true,
+      "spacing": "none"
+    },
+    {
+      "type": "FactSet",
+      "separator": true,
+      "spacing": "medium",
+      "facts": [
+        {
+          "title": "Item 1:",
+          "value": "Widget Pro — $29.99"
+        },
+        {
+          "title": "Item 2:",
+          "value": "Gadget Plus — $49.99"
+        },
+        {
+          "title": "Shipping:",
+          "value": "Free"
+        },
+        {
+          "title": "Tax:",
+          "value": "$6.40"
+        },
+        {
+          "title": "Total:",
+          "value": "$86.38"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Estimated delivery: 3-5 business days",
+      "wrap": true,
+      "spacing": "medium",
+      "isSubtle": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Track Order",
+      "url": "https://example.com/track/12345"
+    }
+  ]
+}

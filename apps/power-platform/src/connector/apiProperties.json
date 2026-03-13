@@ -6,19 +6,19 @@
         "oAuthSettings": {
           "identityProvider": "aad",
           "clientId": "[AZURE_CLIENT_ID]",
-          "scopes": ["api://msr-research/.default"],
+          "scopes": ["api://automoto/.default"],
           "redirectMode": "Global",
           "redirectUrl": "https://global.consent.azure-apim.net/redirect",
           "properties": {
             "IsFirstParty": "False",
-            "AzureActiveDirectoryResourceId": "api://msr-research"
+            "AzureActiveDirectoryResourceId": "api://automoto"
           },
           "customParameters": {
             "tenantId": {
               "value": "[AZURE_TENANT_ID]"
             },
             "resourceUri": {
-              "value": "api://msr-research"
+              "value": "api://automoto"
             }
           }
         }
@@ -26,7 +26,7 @@
     },
     "iconBrandColor": "#742774",
     "capabilities": [],
-    "publisher": "Microsoft Research",
-    "stackOwner": "Microsoft Research"
+    "publisher": "Automoto",
+    "stackOwner": "Automoto"
   }
 }

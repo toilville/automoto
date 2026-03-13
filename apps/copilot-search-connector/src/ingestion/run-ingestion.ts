@@ -1,14 +1,14 @@
 /**
- * Content ingestion service — fetches MSR content from the data API
+ * Content ingestion service — fetches content from the data API
  * and pushes it to the Microsoft Graph connector as external items.
  *
  * Run: npm run ingest
  *
  * Handles publications, researchers, and projects. Each item is mapped
- * to the MSR content schema and pushed as a Graph externalItem.
+ * to the content schema and pushed as a Graph externalItem.
  */
 import { createGraphClient } from "../index.js";
-import { getConnectionConfig } from "../schema/msr-schema.js";
+import { getConnectionConfig } from "../schema/content-schema.js";
 
 const BATCH_SIZE = parseInt(process.env.INGESTION_BATCH_SIZE ?? "50", 10);
 const RATE_LIMIT_MS = parseInt(process.env.INGESTION_RATE_LIMIT_MS ?? "500", 10);

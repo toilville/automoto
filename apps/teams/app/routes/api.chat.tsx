@@ -1,7 +1,7 @@
 /**
  * POST /api/chat — Thin proxy to Foundry Agent.
  *
- * Same pattern as the msr-home app:
+ * Same pattern as the home app:
  *   - Input validation & sanitization
  *   - Rate limiting (in-memory, per-IP)
  *   - SSE stream relay

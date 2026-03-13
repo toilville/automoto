@@ -1,6 +1,6 @@
 # Protocol Reference
 
-> Canonical source: [`kits/msr-channel/docs/protocol-reference.md`](../../kits/msr-channel/docs/protocol-reference.md)
+> Canonical source: [`kits/channel-adapter/docs/protocol-reference.md`](../../kits/channel-adapter/docs/protocol-reference.md)
 
 This page documents the full pub/sub/stream protocol that all channel adapters implement. For the most up-to-date type definitions, see the source file above.
 
@@ -67,4 +67,4 @@ type StreamEvent =
 
 ## Adapter Registration
 
-See the full [Protocol Reference](../../kits/msr-channel/docs/protocol-reference.md) for registration instructions, complete type definitions, and example adapters.
+See the full [Protocol Reference](../../kits/channel-adapter/docs/protocol-reference.md) for registration instructions, complete type definitions, and example adapters.

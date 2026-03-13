@@ -1,14 +1,14 @@
 /**
- * MSR Research — Viva Connections Adaptive Card Extension
+ * Research — Viva Connections Adaptive Card Extension
  *
  * Renders a dashboard card in Viva Connections that shows research highlights
- * and links to the full MSR chat experience.
+ * and links to the full chat experience.
  *
  * For full ACE development, use the SPFx Adaptive Card Extension template:
  *   npx @microsoft/generator-sharepoint --component-type extension --extension-type AdaptiveCardExtension
  */
 
-export interface IMsrResearchAceProps {
+export interface IResearchAceProps {
   dataApiUrl: string;
   maxItems: number;
 }
@@ -25,7 +25,7 @@ export const cardTemplate = {
   body: [
     {
       type: "TextBlock",
-      text: "Microsoft Research",
+      text: "Research",
       weight: "Bolder",
       size: "Medium",
     },
@@ -67,7 +67,7 @@ export const quickViewTemplate = {
     },
     {
       type: "TextBlock",
-      text: "Ask the MSR Research Assistant about any topic:",
+      text: "Ask the Research Assistant about any topic:",
       wrap: true,
     },
     {
@@ -79,21 +79,21 @@ export const quickViewTemplate = {
   actions: [
     {
       type: "Action.OpenUrl",
-      title: "Search in MSR Chat",
+      title: "Search in Chat",
       url: "https://home.example.com?query=${searchQuery}",
     },
   ],
 };
 
-export default class MsrResearchAce {
-  protected properties!: IMsrResearchAceProps;
+export default class ResearchAce {
+  protected properties!: IResearchAceProps;
 
   public get cardSize(): string {
     return "Medium";
   }
 
   public get title(): string {
-    return "MSR Research";
+    return "Research";
   }
 
   public get iconProperty(): string {
@@ -103,7 +103,7 @@ export default class MsrResearchAce {
   public async fetchHighlights(): Promise<IResearchHighlight[]> {
     const url =
       this.properties?.dataApiUrl ??
-      "https://msr-data-api.azurewebsites.net";
+      "https://data-api.example.com";
     try {
       const res = await fetch(`${url}/api/research-areas`);
       const data = (await res.json()) as { areas: IResearchHighlight[] };

@@ -1,5 +1,5 @@
 /**
- * GitHub Copilot Extension — @msr-research
+ * GitHub Copilot Extension — @automoto
  *
  * Handles incoming messages from GitHub Copilot Chat and streams responses
  * using the Copilot Extensions API protocol (SSE).
@@ -69,7 +69,7 @@ app.post("/agent", verifySignature as express.RequestHandler, async (req, res) =
 
 // Health check
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", service: "msr-github-copilot-extension" });
+  res.json({ status: "ok", service: "automoto-github-copilot-extension" });
 });
 
 app.listen(PORT, () => {

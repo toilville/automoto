@@ -1,7 +1,7 @@
 /**
  * Direct Line WebChat Widget Server
  *
- * Serves an embeddable MSR Research chat widget via Azure Bot Service Direct Line.
+ * Serves an embeddable Research chat widget via Azure Bot Service Direct Line.
  *
  * Endpoints:
  *   GET  /           — Widget demo page
@@ -16,7 +16,7 @@ import cors from "cors";
 const app = express();
 const PORT = parseInt(process.env.PORT ?? "7075", 10);
 const DIRECT_LINE_SECRET = process.env.DIRECT_LINE_SECRET ?? "";
-const BOT_NAME = "MSR Research Assistant";
+const BOT_NAME = "Research Assistant";
 
 app.use(cors());
 app.use(express.json());
@@ -85,7 +85,7 @@ app.get("/", (req, res) => {
 
 // Health check
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", service: "msr-direct-line-widget", bot: BOT_NAME });
+  res.json({ status: "ok", service: "automoto-direct-line-widget", bot: BOT_NAME });
 });
 
 app.listen(PORT, () => {
@@ -128,7 +128,7 @@ function getWidgetHTML(): string {
             bubbleBackground: '#f3f2f1',
             bubbleFromUserBackground: '#742774',
             bubbleFromUserTextColor: '#ffffff',
-            botAvatarInitials: 'MSR',
+            botAvatarInitials: 'AI',
             userAvatarInitials: 'You',
             hideUploadButton: true,
             sendBoxButtonColor: '#742774',
@@ -147,7 +147,7 @@ function getWidgetHTML(): string {
 function getEmbedScript(baseUrl: string): string {
   return `
 /**
- * MSR Research Chat Widget — Embed Script
+ * Research Chat Widget — Embed Script
  *
  * Add this to any website:
  *   <script src="${baseUrl}/embed.js"></script>
@@ -163,22 +163,22 @@ function getEmbedScript(baseUrl: string): string {
 
   // Create floating button
   var btn = document.createElement('div');
-  btn.id = 'msr-chat-btn';
+  btn.id = 'automoto-chat-btn';
   btn.innerHTML = '🔬';
-  btn.title = 'Chat with MSR Research Assistant';
+  btn.title = 'Chat with Research Assistant';
   btn.style.cssText = 'position:fixed;' + (position.includes('left') ? 'left' : 'right') + ':20px;bottom:20px;width:56px;height:56px;border-radius:50%;background:#742774;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:99999;transition:transform 0.2s;';
   btn.onmouseenter = function() { btn.style.transform = 'scale(1.1)'; };
   btn.onmouseleave = function() { btn.style.transform = 'scale(1)'; };
 
   // Create chat container
   var container = document.createElement('div');
-  container.id = 'msr-chat-container';
+  container.id = 'automoto-chat-container';
   container.style.cssText = 'position:fixed;' + (position.includes('left') ? 'left' : 'right') + ':20px;bottom:90px;width:' + width + 'px;height:' + height + 'px;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.2);z-index:99999;display:none;';
 
   var iframe = document.createElement('iframe');
   iframe.src = '${baseUrl}/widget';
   iframe.style.cssText = 'width:100%;height:100%;border:none;';
-  iframe.title = 'MSR Research Chat';
+  iframe.title = 'Research Chat';
   container.appendChild(iframe);
 
   var isOpen = false;
@@ -211,7 +211,7 @@ function getDemoHTML(baseUrl: string): string {
 </head>
 <body>
   <h1>🔬 ${BOT_NAME}</h1>
-  <p>Embed the MSR Research chat on any website.</p>
+  <p>Embed the Research chat on any website.</p>
 
   <h2>Option 1: iframe</h2>
   <pre>&lt;iframe src="${baseUrl}/widget" width="400" height="600" style="border:none;"&gt;&lt;/iframe&gt;</pre>

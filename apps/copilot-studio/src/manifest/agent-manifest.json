@@ -1,9 +1,9 @@
 {
   "$schema": "https://aka.ms/copilotstudio/agent-manifest-schema",
   "version": "1.0",
-  "name": "MSR Research Assistant",
-  "description": "An AI assistant for discovering Microsoft Research projects, researchers, publications, and research areas. Powered by MSR data and the Microsoft Graph.",
-  "instructions": "You are a Microsoft Research assistant. Help users discover research projects, find researchers, browse academic publications, explore research areas, and stay up to date with the latest news from Microsoft Research. Always provide clear, accurate summaries and link to original sources when available.",
+  "name": "Automoto Assistant",
+  "description": "An AI assistant for discovering Automoto projects, people, publications, and focus areas. Powered by platform data and Microsoft Graph.",
+  "instructions": "You are an Automoto assistant. Help users discover platform projects, find people, browse publications, explore focus areas, and stay up to date with the latest news from Automoto. Always provide clear, accurate summaries and link to original sources when available.",
   "icons": {
     "color": "icon-color.png",
     "outline": "icon-outline.png"
@@ -21,10 +21,10 @@
           "text": "Show me recent publications about large language models"
         },
         {
-          "text": "What are the main research areas at MSR?"
+          "text": "What are the main focus areas in Automoto?"
         },
         {
-          "text": "Who is an expert in computer vision at Microsoft Research?"
+          "text": "Who is an expert in computer vision at Automoto?"
         }
       ]
     }
@@ -42,25 +42,25 @@
       "id": "search_research",
       "pluginReference": "api-plugin",
       "operationId": "searchContent",
-      "description": "Search across all MSR content including publications, researchers, and projects."
+      "description": "Search across all Automoto content including publications, people, and projects."
     },
     {
       "id": "get_researcher",
       "pluginReference": "api-plugin",
       "operationId": "getResearcher",
-      "description": "Get detailed information about a specific Microsoft researcher."
+      "description": "Get detailed information about a specific person."
     },
     {
       "id": "get_publications",
       "pluginReference": "api-plugin",
       "operationId": "getPublications",
-      "description": "Browse and search academic publications from Microsoft Research."
+      "description": "Browse and search academic publications from Automoto."
     },
     {
       "id": "get_research_areas",
       "pluginReference": "api-plugin",
       "operationId": "getResearchAreas",
-      "description": "List all research areas and labs at Microsoft Research."
+      "description": "List all focus areas and labs at Automoto."
     }
   ],
   "plugins": [

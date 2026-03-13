@@ -1,6 +1,6 @@
-# MSR Agent API Client Examples
+# Agent API Client Examples
 
-Call the MSR Agent directly via REST API — no UI, no SDK. Use these examples to integrate from any language or platform.
+Call the Agent directly via REST API — no UI, no SDK. Use these examples to integrate from any language or platform.
 
 ## Endpoint
 
@@ -30,7 +30,7 @@ Where `{channel}` is one of the registered channel types (e.g., `web`, `teams`, 
       "history": []
     },
     "scope": {
-      "event": "MSR Research Summit 2026"
+      "event": "Research Summit 2026"
     }
   },
   "stream": false

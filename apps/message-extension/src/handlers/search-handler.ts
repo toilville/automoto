@@ -1,8 +1,8 @@
 /**
- * MSR Research Message Extension — Search Handler
+ * Automoto Message Extension — Search Handler
  *
  * Handles composeExtension/query activities from Teams/Outlook compose box.
- * Users type a search query, and we return MSR results as cards they can
+ * Users type a search query, and we return Automoto results as cards they can
  * insert into their message.
  */
 import { CardFactory, type TurnContext } from "@microsoft/agents-hosting";
@@ -39,12 +39,12 @@ export class SearchExtension extends TeamsActivityHandler {
     }
 
     try {
-      const results = await searchMSR(searchQuery);
+      const results = await searchAutomoto(searchQuery);
 
       const attachments = results.map((result) => {
         // Hero card for preview in search results
         const preview = CardFactory.heroCard(
-          result.title ?? "MSR Research",
+          result.title ?? "Automoto",
           result.snippet ?? "",
           undefined,
           undefined,
@@ -57,7 +57,7 @@ export class SearchExtension extends TeamsActivityHandler {
           body: [
             {
               type: "TextBlock",
-              text: result.title ?? "Microsoft Research",
+              text: result.title ?? "Automoto",
               weight: "Bolder",
               size: "Medium",
             },
@@ -81,7 +81,7 @@ export class SearchExtension extends TeamsActivityHandler {
             ? [
                 {
                   type: "Action.OpenUrl",
-                  title: "View on Microsoft Research",
+                  title: "View in Automoto",
                   url: result.url,
                 },
               ]
@@ -111,7 +111,7 @@ export class SearchExtension extends TeamsActivityHandler {
   }
 
   /**
-   * Handle action commands (e.g., "Ask MSR Research" from message context menu).
+   * Handle action commands (e.g., "Ask Automoto" from message context menu).
    */
   async handleTeamsMessagingExtensionSubmitAction(
     _context: TurnContext,
@@ -129,7 +129,7 @@ export class SearchExtension extends TeamsActivityHandler {
       };
     }
 
-    const results = await searchMSR(question);
+    const results = await searchAutomoto(question);
     const topResult = results[0];
 
     const card = CardFactory.adaptiveCard({
@@ -138,7 +138,7 @@ export class SearchExtension extends TeamsActivityHandler {
       body: [
         {
           type: "TextBlock",
-          text: `MSR Research: ${question}`,
+          text: `Automoto: ${question}`,
           weight: "Bolder",
           size: "Medium",
         },
@@ -153,8 +153,8 @@ export class SearchExtension extends TeamsActivityHandler {
       actions: [
         {
           type: "Action.OpenUrl",
-          title: "Explore on MSR",
-          url: topResult?.url ?? "https://www.microsoft.com/research",
+          title: "Explore in Automoto",
+          url: topResult?.url ?? "https://automoto.example.com", 
         },
       ],
     });
@@ -169,7 +169,7 @@ export class SearchExtension extends TeamsActivityHandler {
   }
 
   /**
-   * Handle link unfurling for microsoft.com/research URLs.
+   * Handle link unfurling for Automoto URLs.
    */
   async handleTeamsAppBasedLinkQuery(
     _context: TurnContext,
@@ -183,7 +183,7 @@ export class SearchExtension extends TeamsActivityHandler {
       body: [
         {
           type: "TextBlock",
-          text: "Microsoft Research",
+          text: "Automoto",
           weight: "Bolder",
           size: "Medium",
         },
@@ -196,13 +196,13 @@ export class SearchExtension extends TeamsActivityHandler {
       actions: [
         {
           type: "Action.OpenUrl",
-          title: "View on Microsoft Research",
+          title: "View in Automoto",
           url,
         },
       ],
     });
 
-    const preview = CardFactory.heroCard("Microsoft Research", url);
+    const preview = CardFactory.heroCard("Automoto", url);
 
     return {
       composeExtension: {
@@ -222,7 +222,7 @@ interface SearchResult {
   type?: string;
 }
 
-async function searchMSR(query: string): Promise<SearchResult[]> {
+async function searchAutomoto(query: string): Promise<SearchResult[]> {
   try {
     const res = await fetch(`${DATA_API_URL}/tools/quick_search`, {
       method: "POST",

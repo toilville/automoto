@@ -1,7 +1,7 @@
 /**
- * MSR Agent Chat — React Embed Example
+ * Agent Chat — React Embed Example
  *
- * Demonstrates embedding the MSR Agent chat UI into a React application
+ * Demonstrates embedding the Agent chat UI into a React application
  * using the vendored @automoto/chat-ui and @automoto/data-client packages.
  *
  * This is the consumer pattern — you don't implement a new channel,
@@ -12,7 +12,7 @@ import { ChatContainer } from "@automoto/chat-ui";
 
 // TODO: Configure these for your deployment
 const CONFIG = {
-  /** Your MSR Agent gateway or channel endpoint URL */
+  /** Your Agent gateway or channel endpoint URL */
   endpoint: import.meta.env.VITE_MSR_ENDPOINT ?? "http://localhost:4000",
 
   /** Channel type to connect through */
@@ -40,7 +40,7 @@ export default function App() {
           flexDirection: "column",
         }}
       >
-        <h2>MSR Agent Chat</h2>
+        <h2>Agent Chat</h2>
         <div style={{ flex: 1 }}>
           <ChatContainer
             endpoint={CONFIG.endpoint}

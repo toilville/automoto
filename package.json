@@ -25,6 +25,8 @@
     "dev:direct-line": "npm run dev --workspace=apps/direct-line",
     "dev:devtools": "npm run dev --workspace=apps/devtools",
     "dev:devtools:mock": "npm run dev:mock --workspace=apps/devtools",
+    "dev:webchat": "npm run dev --workspace=apps/copilot-studio-webchat",
+    "test:agents": "npm run test:agents --workspace=apps/copilot-studio-webchat",
     "dev:gateway": "npm run dev --workspace=apps/gateway",
     "lint": "npm run lint --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
@@ -83,5 +85,10 @@
     "vite-plugin-cjs-interop": "^2.3.0",
     "vitest": "^3.2.4",
     "yaml": "^2.7.0"
+  },
+  "overrides": {
+    "undici": "^7.24.1",
+    "swiper": "^12.1.2",
+    "esbuild": "^0.27.4"
   }
 }

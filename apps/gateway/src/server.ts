@@ -120,7 +120,7 @@ const server = app.listen(PORT, () => {
   console.log(`\n   GET /health         — Aggregated health check`);
   console.log(`   GET /api/services   — Service registry`);
   console.log(`   GET /api/v1/adapters — List channel adapters`);
-  console.log(`   POST /api/v1/:channel — Normalized endpoint (msr.pub → msr.sub/stream)\n`);
+  console.log(`   POST /api/v1/:channel — Normalized endpoint (adapter.pub → adapter.sub/stream)\n`);
 });
 
 // Graceful shutdown

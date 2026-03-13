@@ -2,7 +2,7 @@
  * __CHANNEL_DISPLAY_NAME__ Channel Server
  *
  * Express server that receives requests from your platform,
- * normalizes them via the ChannelAdapter, forwards to the MSR Agent backend,
+ * normalizes them via the ChannelAdapter, forwards to the Agent backend,
  * and returns the response in your platform's native format.
  */
 import express from "express";
@@ -15,7 +15,7 @@ app.use(express.json());
 const adapter = new __CHANNEL_NAME__Adapter();
 const PORT = parseInt(process.env.PORT ?? "3100", 10);
 
-// TODO: Set this to your MSR Agent backend or gateway URL
+// TODO: Set this to your Agent backend or gateway URL
 const AGENT_BACKEND_URL =
   process.env.AGENT_BACKEND_URL ?? "http://localhost:4000/api/v1/__CHANNEL_ID__";
 

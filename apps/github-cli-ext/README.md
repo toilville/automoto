@@ -1,11 +1,11 @@
-# gh msr — GitHub CLI Extension for Microsoft Research
+# gh automoto — GitHub CLI Extension for Automoto
 
-Search Microsoft Research publications, find researchers, and explore research areas directly from your terminal.
+Search Automoto publications, find people, and explore focus areas directly from your terminal.
 
 ## Install
 
 ```bash
-gh extension install microsoft/gh-msr
+gh extension install automoto/gh-automoto
 ```
 
 Or for local development:
@@ -18,11 +18,11 @@ gh extension install .
 ## Usage
 
 ```bash
-gh msr search "transformer architecture"
-gh msr researcher "John Smith"
-gh msr publications --limit 10
-gh msr areas
-gh msr chat "What are the latest advances in quantum computing?"
+gh automoto search "transformer architecture"
+gh automoto researcher "John Smith"
+gh automoto publications --limit 10
+gh automoto areas
+gh automoto chat "What are the latest advances in quantum computing?"
 ```
 
 ## Options

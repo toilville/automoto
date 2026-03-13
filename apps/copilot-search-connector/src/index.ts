@@ -1,7 +1,7 @@
 /**
  * Copilot Search Connector — Main entry point.
  *
- * A Microsoft Graph connector that indexes MSR content (publications,
+ * A Microsoft Graph connector that indexes content (publications,
  * researchers, projects, news) for Microsoft Search and Microsoft 365 Copilot.
  *
  * Usage:
@@ -37,12 +37,12 @@ export function createGraphClient(): Client {
 const isMain = process.argv[1]?.endsWith("index.ts") || process.argv[1]?.endsWith("index.js");
 if (isMain) {
   console.log(`
-MSR Copilot Search Connector
+Copilot Search Connector
 =============================
 Commands:
   npm run schema:create    Create Graph connection and schema
   npm run schema:delete    Delete Graph connection
-  npm run ingest           Index MSR content into the connection
+  npm run ingest           Index content into the connection
 
 Environment:
   CONNECTION_ID:   ${process.env.CONNECTION_ID ?? "(not set)"}

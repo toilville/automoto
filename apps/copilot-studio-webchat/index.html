@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automoto Copilot Studio Webchat</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --accent-color: #0078d4;
+        --accent-contrast: #ffffff;
+        --surface-color: #ffffff;
+        --surface-muted: #f5f7fb;
+        --border-color: rgba(15, 23, 42, 0.12);
+        --shadow-color: rgba(15, 23, 42, 0.22);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Inter, "Segoe UI", system-ui, sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(0, 120, 212, 0.12), transparent 28%),
+          linear-gradient(180deg, #f8fbff 0%, #edf3fb 100%);
+        color: var(--text-primary);
+      }
+
+      body {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        padding: 24px;
+      }
+
+      .chat-launcher {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent-color), #5b9df9);
+        color: var(--accent-contrast);
+        box-shadow: 0 18px 40px -18px var(--shadow-color);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+
+      .chat-launcher:hover {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 20px 44px -18px var(--shadow-color);
+      }
+
+      .chat-launcher:focus-visible,
+      .chat-action:focus-visible {
+        outline: 3px solid rgba(0, 120, 212, 0.28);
+        outline-offset: 3px;
+      }
+
+      .chat-panel {
+        position: fixed;
+        right: 24px;
+        bottom: 100px;
+        width: min(450px, calc(100vw - 32px));
+        height: min(520px, calc(100vh - 140px));
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: var(--surface-color);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 32px 72px -32px var(--shadow-color);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(14px) scale(0.98);
+        transform-origin: bottom right;
+        transition: opacity 180ms ease, transform 180ms ease;
+        z-index: 19;
+      }
+
+      .chat-panel.is-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+      }
+
+      .chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 18px;
+        background: linear-gradient(160deg, var(--accent-color), #0a5ec2);
+        color: var(--accent-contrast);
+      }
+
+      .chat-title-group {
+        min-width: 0;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .chat-status-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: #4ade80;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
+        flex: 0 0 auto;
+      }
+
+      .chat-title {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .chat-subtitle {
+        margin: 2px 0 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.82);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .chat-header-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .chat-action {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.14);
+        color: inherit;
+        cursor: pointer;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .chat-action:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+      }
+
+      .chat-banner {
+        display: none;
+        padding: 12px 16px;
+        font-size: 0.92rem;
+        line-height: 1.45;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .chat-banner.is-visible {
+        display: block;
+      }
+
+      .chat-banner[data-tone="info"] {
+        color: #0c4a6e;
+        background: #e0f2fe;
+      }
+
+      .chat-banner[data-tone="warning"] {
+        color: #854d0e;
+        background: #fef3c7;
+      }
+
+      .chat-body {
+        position: relative;
+        flex: 1 1 auto;
+        min-height: 0;
+        background: var(--surface-muted);
+      }
+
+      #webchat {
+        height: 100%;
+        width: 100%;
+      }
+
+      .chat-loading {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+        color: var(--text-secondary);
+        background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.92));
+      }
+
+      .chat-loading-card {
+        max-width: 280px;
+        padding: 24px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 22px 48px -28px rgba(15, 23, 42, 0.4);
+      }
+
+      .chat-loading-card strong {
+        display: block;
+        font-size: 1rem;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+
+      .chat-loading-card p {
+        margin: 0;
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 0;
+        }
+
+        .chat-launcher {
+          right: 16px;
+          bottom: 16px;
+        }
+
+        .chat-panel {
+          right: 0;
+          bottom: 0;
+          width: 100vw;
+          height: 100dvh;
+          max-height: none;
+          border-radius: 0;
+          transform-origin: bottom center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="chat-bubble" class="chat-launcher" type="button" aria-controls="chat-panel" aria-expanded="false" aria-label="Open assistant">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M7 9.75h10M7 13h6M6.8 19.5l-2.6 1.9.86-3.35A7.5 7.5 0 1119.5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <section id="chat-panel" class="chat-panel" aria-hidden="true">
+      <header class="chat-header">
+        <div class="chat-title-group">
+          <span class="chat-status-indicator" aria-hidden="true"></span>
+          <div>
+            <h1 id="chat-title" class="chat-title">Automoto Assistant</h1>
+            <p id="chat-subtitle" class="chat-subtitle">Preparing your assistant…</p>
+          </div>
+        </div>
+        <div class="chat-header-actions">
+          <button id="restart-chat" class="chat-action" type="button" title="Restart conversation" aria-label="Restart conversation">↺</button>
+          <button id="close-chat" class="chat-action" type="button" title="Close chat" aria-label="Close chat">✕</button>
+        </div>
+      </header>
+
+      <div id="chat-banner" class="chat-banner" role="status" aria-live="polite"></div>
+
+      <div class="chat-body">
+        <div id="webchat" role="main" aria-label="Copilot Studio conversation surface">
+          <div id="chat-loading" class="chat-loading">
+            <div class="chat-loading-card">
+              <strong>Launching webchat</strong>
+              <p>Open the widget to connect to your Copilot Studio agent or try the local demo mode.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # __CHANNEL_DISPLAY_NAME__ Channel
 
-A new MSR Agent channel powered by the `@automoto/channel-adapter` pub/sub/stream protocol.
+A new Agent channel powered by the `@automoto/channel-adapter` pub/sub/stream protocol.
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ This channel implements the `ChannelAdapter` interface:
 - [ ] Update `sub()` to format responses for your platform (cards, references, suggested actions)
 - [ ] If streaming: set `supportsStreaming = true` and implement `stream()`
 - [ ] Update the server endpoint (`/api/messages`) to match your platform's webhook pattern
-- [ ] Set `AGENT_BACKEND_URL` to point at your MSR Agent backend or gateway
+- [ ] Set `AGENT_BACKEND_URL` to point at your Agent backend or gateway
 - [ ] Add authentication/verification for your platform's webhooks
 
 ## Environment Variables
@@ -50,7 +50,7 @@ This channel implements the `ChannelAdapter` interface:
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `PORT` | `3100` | Server port |
-| `AGENT_BACKEND_URL` | `http://localhost:4000/api/v1/__CHANNEL_ID__` | MSR Agent backend URL |
+| `AGENT_BACKEND_URL` | `http://localhost:4000/api/v1/__CHANNEL_ID__` | Agent backend URL |
 
 ## Architecture
 
