@@ -1,0 +1,111 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://adaptivecards.io/content/Mostly%20Cloudy-Square.png",
+              "size": "small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Seattle, WA",
+              "size": "medium",
+              "weight": "bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Mostly Cloudy",
+              "isSubtle": true,
+              "spacing": "none"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "62°",
+              "size": "extraLarge",
+              "weight": "lighter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "separator": true,
+      "spacing": "medium",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Mon",
+              "horizontalAlignment": "center"
+            },
+            {
+              "type": "TextBlock",
+              "text": "63°/48°",
+              "horizontalAlignment": "center",
+              "size": "small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Tue",
+              "horizontalAlignment": "center"
+            },
+            {
+              "type": "TextBlock",
+              "text": "65°/50°",
+              "horizontalAlignment": "center",
+              "size": "small"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 1,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Wed",
+              "horizontalAlignment": "center"
+            },
+            {
+              "type": "TextBlock",
+              "text": "58°/45°",
+              "horizontalAlignment": "center",
+              "size": "small"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Basic Agent Validation",
+  "description": "Validates core agent capabilities — greeting, search, researcher lookup",
+  "testCases": [
+    {
+      "id": "tc-greeting",
+      "input": "Hello",
+      "expectedResponse": "welcome",
+      "type": "response_match"
+    },
+    {
+      "id": "tc-search",
+      "input": "Find research on machine learning",
+      "type": "attachment_match"
+    },
+    {
+      "id": "tc-researcher",
+      "input": "Who works on natural language processing?",
+      "expectedTopic": "FindResearcher",
+      "type": "topic_match"
+    },
+    {
+      "id": "tc-generative",
+      "input": "Explain the transformer architecture",
+      "type": "generative",
+      "rubric": "Response should mention attention mechanisms, self-attention, and encoder-decoder architecture"
+    }
+  ]
+}

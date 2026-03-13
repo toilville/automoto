@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-03-13T22:50:22.353Z",
+  "mode": "mock",
+  "directLineDomain": "mock://local",
+  "testSet": {
+    "name": "Basic Agent Validation",
+    "description": "Validates core agent capabilities — greeting, search, researcher lookup",
+    "path": "D:\\code\\automoto\\apps\\copilot-studio-webchat\\test-sets\\sample.json"
+  },
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "averageLatencyMs": 59
+  },
+  "results": [
+    {
+      "id": "tc-greeting",
+      "type": "response_match",
+      "passed": true,
+      "latencyMs": 53,
+      "input": "Hello",
+      "actualResponse": "Welcome! This is the local mock Direct Line agent for Copilot Studio webchat testing.",
+      "details": "Matched expected text \"welcome\".",
+      "attachments": 0
+    },
+    {
+      "id": "tc-search",
+      "type": "attachment_match",
+      "passed": true,
+      "latencyMs": 51,
+      "input": "Find research on machine learning",
+      "actualResponse": "I found a few research results related to machine learning.",
+      "details": "Found 1 adaptive card attachment(s).",
+      "attachments": 1
+    },
+    {
+      "id": "tc-researcher",
+      "type": "topic_match",
+      "passed": true,
+      "latencyMs": 67,
+      "input": "Who works on natural language processing?",
+      "actualResponse": "The FindResearcher topic can help you locate people who work on natural language processing.",
+      "details": "Topic heuristic matched 2/2 token(s): find, researcher.",
+      "attachments": 0
+    },
+    {
+      "id": "tc-generative",
+      "type": "generative",
+      "passed": true,
+      "latencyMs": 65,
+      "input": "Explain the transformer architecture",
+      "actualResponse": "Transformer models rely on attention mechanisms, especially self-attention, and often use an encoder-decoder architecture for sequence tasks.",
+      "details": "Manual review required. Rubric: Response should mention attention mechanisms, self-attention, and encoder-decoder architecture Response: Transformer models rely on attention mechanisms, especially self-attention, and often use an encoder-decoder architecture for sequence tasks.",
+      "attachments": 0,
+      "rubric": "Response should mention attention mechanisms, self-attention, and encoder-decoder architecture"
+    }
+  ]
+}

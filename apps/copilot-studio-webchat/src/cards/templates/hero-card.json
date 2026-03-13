@@ -1,0 +1,41 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Image",
+      "url": "https://adaptivecards.io/content/cats/1.png",
+      "size": "stretch",
+      "altText": "Featured content"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Hero Card Title",
+      "size": "large",
+      "weight": "bolder",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "This is a hero card template commonly used for featured content, announcements, or highlighted results.",
+      "wrap": true,
+      "spacing": "small"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Learn More",
+      "url": "https://adaptivecards.io"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Select",
+      "data": {
+        "action": "select",
+        "id": "hero-1"
+      }
+    }
+  ]
+}

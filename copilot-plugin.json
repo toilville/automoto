@@ -12,11 +12,11 @@
   },
   "name": {
     "short": "EventKit",
-    "full": "Event Kit - Copilot Plugin for Conference Sessions"
+    "full": "Event Kit - Teams Compose Extension for Conference Sessions"
   },
   "description": {
-    "short": "Get AI-powered session recommendations for conferences",
-    "full": "EventKit Copilot plugin provides intelligent session discovery using AI scoring. Ask for recommendations based on your interests and get personalized suggestions with scoring details."
+    "short": "Teams compose extension for AI-powered session recommendations",
+    "full": "EventKit provides intelligent session discovery using AI scoring for Teams and Microsoft 365 Copilot compose-extension scenarios. This manifest is a Teams compose extension / M365 Copilot plugin package, not a Copilot Studio agent manifest."
   },
   "icons": {
     "outline": "assets/outline-icon-192.png",

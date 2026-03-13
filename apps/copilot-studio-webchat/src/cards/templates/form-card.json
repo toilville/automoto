@@ -1,0 +1,74 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Submit a Request",
+      "size": "medium",
+      "weight": "bolder"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Please fill out the form below:",
+      "wrap": true,
+      "isSubtle": true
+    },
+    {
+      "type": "Input.Text",
+      "id": "name",
+      "label": "Full Name",
+      "placeholder": "Enter your name",
+      "isRequired": true
+    },
+    {
+      "type": "Input.Text",
+      "id": "email",
+      "label": "Email",
+      "placeholder": "you@example.com",
+      "style": "email"
+    },
+    {
+      "type": "Input.Date",
+      "id": "date",
+      "label": "Preferred Date"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "category",
+      "label": "Category",
+      "choices": [
+        {
+          "title": "General Inquiry",
+          "value": "general"
+        },
+        {
+          "title": "Technical Support",
+          "value": "technical"
+        },
+        {
+          "title": "Feedback",
+          "value": "feedback"
+        }
+      ],
+      "placeholder": "Select a category"
+    },
+    {
+      "type": "Input.Text",
+      "id": "description",
+      "label": "Description",
+      "placeholder": "Describe your request...",
+      "isMultiline": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Submit",
+      "data": {
+        "action": "submit_request"
+      }
+    }
+  ]
+}

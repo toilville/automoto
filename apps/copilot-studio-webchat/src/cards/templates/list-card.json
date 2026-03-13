@@ -1,0 +1,97 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Search Results",
+      "size": "medium",
+      "weight": "bolder"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "https://adaptivecards.io/content/cats/1.png",
+                  "size": "small",
+                  "style": "person"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Result Title 1",
+                  "weight": "bolder",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Brief description of the first result item.",
+                  "wrap": true,
+                  "size": "small",
+                  "isSubtle": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "separator": true
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "https://adaptivecards.io/content/cats/2.png",
+                  "size": "small",
+                  "style": "person"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Result Title 2",
+                  "weight": "bolder",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Brief description of the second result item.",
+                  "wrap": true,
+                  "size": "small",
+                  "isSubtle": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "separator": true
+    }
+  ]
+}

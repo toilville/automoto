@@ -14,7 +14,7 @@ Automoto is a comprehensive AI agent showcasing enterprise-ready patterns:
 
 ### Core Features
 - ✅ **Declarative manifest**: Sessions, weights, and feature flags in JSON
-- ✅ **Multi-channel deployment**: CLI, HTTP API, Teams, Copilot Studio
+- ✅ **Multi-surface deployment**: CLI, HTTP API, Teams, Copilot Studio, and M365 Copilot
 - ✅ **Bot Framework integration**: Full Teams/Outlook bot with adaptive cards
 - ✅ **Microsoft Graph integration**: Live calendar events with MSAL auth
 - ✅ **Adaptive Cards**: Interactive UI for rich experiences
@@ -30,7 +30,8 @@ Automoto is a comprehensive AI agent showcasing enterprise-ready patterns:
 | **CLI** | Local testing, scripts | `agent.py` | [Quick Start](#quick-start) |
 | **HTTP API** | REST endpoints | `agent.py serve` | [API Docs](docs/api-guide.md) |
 | **Teams Bot** | Microsoft Teams | `bot_server.py` | [Teams Setup](docs/agents-sdk-setup.md) · [MS Learn: Bot Framework](https://learn.microsoft.com/azure/bot-service/) |
-| **Copilot Plugin** | Copilot Studio | `copilot-plugin.json` | [Copilot Guide](docs/agents-sdk-setup.md#copilot-integration) · [MS Learn: Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/) |
+| **Copilot Studio Agent** | Copilot Studio channels | `apps/copilot-studio/src/manifest/agent-manifest.json` | [Copilot products cheat sheet](docs/copilot-products.md) · `apps/copilot-studio/` |
+| **M365 Copilot / Teams Plugin** | Teams compose extension, M365 Copilot | `copilot-plugin.json` | [Copilot products cheat sheet](docs/copilot-products.md) · [Teams Setup](docs/agents-sdk-setup.md) |
 | **Docker** | Containerized deployment | `deploy/Dockerfile` | [Deployment Guide](docs/deployment-guide.md) · [MS Learn: Container Apps](https://learn.microsoft.com/azure/container-apps/) |
 
 ---
@@ -147,6 +148,7 @@ python agent_framework_adapter.py
 
 - 🚀 **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes
 - 🎯 **[docs/DECISION_GUIDE.md](docs/DECISION_GUIDE.md)** - Choose the right integration pattern & platform ⭐
+- 🧭 **[docs/copilot-products.md](docs/copilot-products.md)** - Copilot Studio vs M365 Copilot vs GitHub Copilot cheat sheet
 - 💻 **[DEVELOPMENT.md](DEVELOPMENT.md)** - Development setup & workflow
 - 🧪 **[LOCAL_TESTING.md](LOCAL_TESTING.md)** - Multi-channel testing guide
 
@@ -157,7 +159,7 @@ python agent_framework_adapter.py
 
 ### Integration & Deployment
 
-- 🤖 **[docs/agents-sdk-setup.md](docs/agents-sdk-setup.md)** - Teams/Copilot integration · [MS Learn](https://learn.microsoft.com/azure/bot-service/bot-builder-basics)
+- 🤖 **[docs/agents-sdk-setup.md](docs/agents-sdk-setup.md)** - Teams/M365 Copilot integration · [MS Learn](https://learn.microsoft.com/azure/bot-service/bot-builder-basics)
 - 🏭 **[docs/foundry-deployment.md](docs/foundry-deployment.md)** - Azure AI Foundry deployment · [MS Learn](https://learn.microsoft.com/azure/ai-studio/)
 - 🚀 **[docs/deployment-guide.md](docs/deployment-guide.md)** - Production deployment · [MS Learn](https://learn.microsoft.com/azure/app-service/)
 
@@ -305,21 +307,24 @@ curl "http://localhost:8010/recommend?interests=agents&top=3"
 
 ---
 
-### Environment 6: Copilot Studio
-**Purpose**: Copilot integration testing
+### Environment 6: Copilot Studio + Custom Webchat
+**Purpose**: Copilot Studio agent testing, token validation, and UI customization
 
 **Setup**:
-1. Go to [Copilot Studio](https://copilotstudio.microsoft.com)
-2. Create new copilot
-3. Import `copilot-plugin.json`
-4. Configure actions with bot endpoint
+1. Go to [Copilot Studio](https://copilotstudio.microsoft.com) or use `pac copilot create --manifest apps/copilot-studio/src/manifest/agent-manifest.json`
+2. Import/publish the Copilot Studio artifacts from `apps/copilot-studio/src/manifest/` (`agent-manifest.json`, `topics.json`, `api-plugin.json`)
+3. Validate topics and actions in the Copilot Studio test pane
+4. For a custom surface, run `npm run dev --workspace=apps/copilot-studio-webchat` and set the token endpoint from **Channels → Mobile App**
+
+> `copilot-plugin.json` is a Teams compose extension / M365 Copilot plugin manifest. Do **not** import it into Copilot Studio.
 
 **Test scenarios**:
 - "Find sessions about agents and AI"
 - "Explain why this session matches my interests"
 - "Export my personalized agenda"
+- Validate the `apps/copilot-studio-webchat/` experience with the mobile token endpoint
 
-**Best for**: Copilot UX testing, AI orchestration validation
+**Best for**: Copilot Studio UX testing, token endpoint validation, adaptive card iteration, custom webchat prototyping
 
 ---
 
@@ -434,10 +439,11 @@ response = await agent.run("recommend sessions about AI agents")
 - Rapid prototyping with business stakeholders
 
 **Automoto in Copilot Studio**:
-- Use `copilot-plugin.json` manifest
-- Deploy via [docs/agents-sdk-setup.md](docs/agents-sdk-setup.md#copilot-integration)
-- Leverage built-in Teams integration
-- No infrastructure management required
+- Use `apps/copilot-studio/src/manifest/agent-manifest.json` together with `topics.json` and `api-plugin.json`
+- Deploy via Copilot Studio or Power Platform CLI (`pac copilot create`, `pac copilot publish`)
+- Use `apps/copilot-studio-webchat/` for testing, adaptive card iteration, and custom UI
+- Get the client token endpoint from **Channels → Mobile App**
+- See [docs/copilot-products.md](docs/copilot-products.md) before choosing between Copilot Studio, M365 Copilot, and GitHub Copilot
 
 **Learn more**:
 - [Microsoft Copilot Studio documentation](https://learn.microsoft.com/microsoft-copilot-studio/)
@@ -491,7 +497,7 @@ response = await agent.run("recommend sessions about AI agents")
 - Flexibility as team composition changes
 
 **Automoto supports both**:
-- Bot Framework for Copilot Studio integration
+- Copilot Studio manifest assets plus `apps/copilot-studio-webchat/` for maker-managed experiences
 - Agent Framework for Foundry orchestration
 - Shared core logic (`core.py`) works across platforms
 
@@ -849,7 +855,7 @@ Includes:
 
 ## Extending with Agent SDK
 
-To integrate with Microsoft 365 Agents SDK (Teams/Copilot Studio hosting):
+To integrate with Microsoft 365 Agents SDK (Teams, M365 Copilot, or Copilot Studio hosting):
 
 1. **See the full Agent SDK starter** in [`innovation-kit-repository/event-agent/starter-code/agents_sdk_integration/`](../innovation-kit-repository/event-agent/starter-code/agents_sdk_integration/)
 2. **Follow MVP_GUIDE.md** for Graph authentication, SharePoint publish, and SDK hosting setup
@@ -862,7 +868,7 @@ To integrate with Microsoft 365 Agents SDK (Teams/Copilot Studio hosting):
 | **Auth**         | None (mock data)             | MSAL (Graph + SharePoint)                                    |
 | **Data Source**  | Static JSON or external file | Microsoft Graph Calendar                                     |
 | **Publishing**   | Markdown export              | SharePoint page creation                                     |
-| **Hosting**      | CLI + HTTP server            | Microsoft 365 Agents SDK (Teams/Copilot Studio)              |
+| **Hosting**      | CLI + HTTP server            | Microsoft 365 Agents SDK (Teams/M365 Copilot/Copilot Studio) |
 | **Config**       | JSON manifest                | Pydantic settings + `.env`                                   |
 | **Dependencies** | None                         | `pydantic`, `msal`, `requests`, `botbuilder-core`            |
 
@@ -899,7 +905,7 @@ event-agent-example/
 │   ├── bot_handler.py                # Teams activity handler (455 lines)
 │   ├── bot_server.py                 # aiohttp HTTP server (223 lines)
 │   ├── teams-app.json                # Teams app manifest
-│   └── copilot-plugin.json           # Copilot Studio plugin manifest
+│   └── copilot-plugin.json           # Teams compose extension / M365 Copilot plugin manifest
 │
 ├── 🌐 Microsoft Graph Integration
 │   ├── graph_service.py              # Calendar API client
@@ -929,7 +935,8 @@ event-agent-example/
 │   │   ├── UNIFIED_ADAPTER_ARCHITECTURE.md  # Unified adapters (NEW)
 │   │   ├── EXTENSIBILITY_GUIDE.md    # Power Platform integration
 │   │   ├── TESTING_GUIDE.md          # Comprehensive testing
-│   │   ├── agents-sdk-setup.md       # Teams/Copilot integration
+│   │   ├── copilot-products.md       # Copilot Studio vs M365 vs GitHub cheat sheet
+│   │   ├── agents-sdk-setup.md       # Teams/M365 Copilot integration
 │   │   ├── foundry-deployment.md     # Azure AI Foundry deployment
 │   │   ├── deployment-guide.md       # Production deployment
 │   │   ├── api-guide.md              # HTTP API reference
@@ -1028,7 +1035,7 @@ eventkit-runner  # uses RUN_MODE
 
 ### Deployment Playbooks
 
-- `m365-agent` (Teams/Copilot Studio host):
+- `m365-agent` (Teams/M365 Copilot/Copilot Studio host):
 
   - Package the SDK host as a container and deploy to Azure App Service or Azure Container Apps.
   - Configure Bot Framework channel and required Graph credentials via app settings.
@@ -1132,7 +1139,7 @@ Adjust behavior in `agent.json > features`:
 **Architecture & Integration**:
 - **[docs/UNIFIED_ADAPTER_ARCHITECTURE.md](docs/UNIFIED_ADAPTER_ARCHITECTURE.md)** ⭐ - Unified adapter pattern (Azure AI Foundry, Power Platform, Bot Framework)
 - **[docs/EXTENSIBILITY_GUIDE.md](docs/EXTENSIBILITY_GUIDE.md)** - Power Platform, Azure Functions, declarative agents
-- **[docs/agents-sdk-setup.md](docs/agents-sdk-setup.md)** - Teams/Copilot integration
+- **[docs/agents-sdk-setup.md](docs/agents-sdk-setup.md)** - Teams/M365 Copilot integration
 - **[docs/foundry-deployment.md](docs/foundry-deployment.md)** - Azure AI Foundry deployment
 - **[docs/deployment-guide.md](docs/deployment-guide.md)** - Production deployment
 

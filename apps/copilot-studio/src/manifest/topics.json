@@ -1,25 +1,120 @@
 {
+  "$schema": "https://aka.ms/copilot-studio-topics-schema",
   "topics": [
     {
+      "name": "Greeting",
+      "description": "Welcome the user and offer guidance on available capabilities",
+      "triggerPhrases": [
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "get started",
+        "what can you do"
+      ],
+      "conversationNodes": [
+        {
+          "id": "greeting-msg",
+          "type": "message",
+          "text": "Welcome! I'm your Automoto assistant. I can help you with:\n- 🔍 **Search** — Find research, papers, and projects\n- 👤 **People** — Look up researchers and experts\n- 📚 **Publications** — Browse recent papers\n- 🧪 **Focus Areas** — Explore research domains\n\nWhat would you like to do?",
+          "suggestedActions": [
+            "Search for research",
+            "Find a researcher",
+            "Browse publications",
+            "Explore focus areas"
+          ]
+        }
+      ]
+    },
+    {
       "name": "ResearchDiscovery",
-      "description": "Help users discover Automoto projects, papers, and focus areas",
+      "description": "Help users discover projects, papers, and focus areas",
       "triggerPhrases": [
         "find research",
         "search papers",
         "what research",
         "discover projects",
-        "show me research on"
+        "show me research on",
+        "search for"
+      ],
+      "entities": [
+        {
+          "name": "searchQuery",
+          "type": "string",
+          "prompt": "What topic are you interested in?"
+        }
+      ],
+      "conversationNodes": [
+        {
+          "id": "ask-query",
+          "type": "question",
+          "text": "What topic or keyword would you like to search for?",
+          "variable": "searchQuery",
+          "condition": "empty(searchQuery)"
+        },
+        {
+          "id": "do-search",
+          "type": "action",
+          "action": "search_research",
+          "inputs": { "query": "{searchQuery}" }
+        },
+        {
+          "id": "show-results",
+          "type": "message",
+          "text": "Here's what I found for **{searchQuery}**:",
+          "attachmentLayout": "carousel"
+        },
+        {
+          "id": "followup",
+          "type": "message",
+          "text": "Would you like to refine your search or explore a related topic?",
+          "suggestedActions": [
+            "Refine search",
+            "Browse publications",
+            "Start over"
+          ]
+        }
       ],
       "actions": ["search_research", "get_publications", "get_research_areas"]
     },
     {
       "name": "FindResearcher",
-      "description": "Find and learn about people in Automoto",
+      "description": "Find and learn about researchers and domain experts",
       "triggerPhrases": [
         "find researcher",
         "who works on",
         "researcher profile",
-        "expert in"
+        "expert in",
+        "look up person",
+        "find someone who studies"
+      ],
+      "entities": [
+        {
+          "name": "researcherName",
+          "type": "string",
+          "prompt": "Who are you looking for? You can provide a name or a research area."
+        }
+      ],
+      "conversationNodes": [
+        {
+          "id": "ask-name",
+          "type": "question",
+          "text": "Who are you looking for? You can search by name or by research area.",
+          "variable": "researcherName",
+          "condition": "empty(researcherName)"
+        },
+        {
+          "id": "lookup",
+          "type": "action",
+          "action": "get_researcher",
+          "inputs": { "query": "{researcherName}" }
+        },
+        {
+          "id": "show-profile",
+          "type": "message",
+          "text": "Here's the researcher profile:",
+          "attachmentLayout": "list"
+        }
       ],
       "actions": ["get_researcher", "search_research"]
     },
@@ -30,20 +125,157 @@
         "recent papers",
         "publications about",
         "show papers",
-        "latest research"
+        "latest research",
+        "new publications",
+        "journal articles"
+      ],
+      "entities": [
+        {
+          "name": "publicationFilter",
+          "type": "choice",
+          "choices": ["recent", "by topic", "by author"],
+          "prompt": "How would you like to browse?"
+        }
+      ],
+      "conversationNodes": [
+        {
+          "id": "ask-filter",
+          "type": "question",
+          "text": "How would you like to browse publications?",
+          "variable": "publicationFilter",
+          "suggestedActions": [
+            "Most recent",
+            "By topic",
+            "By author"
+          ]
+        },
+        {
+          "id": "fetch-pubs",
+          "type": "action",
+          "action": "get_publications",
+          "inputs": { "filter": "{publicationFilter}" }
+        },
+        {
+          "id": "show-pubs",
+          "type": "message",
+          "text": "Here are the publications:",
+          "attachmentLayout": "carousel"
+        }
       ],
       "actions": ["get_publications", "search_research"]
     },
     {
       "name": "ResearchAreas",
-      "description": "Explore Automoto focus areas and labs",
+      "description": "Explore research focus areas, labs, and domains",
       "triggerPhrases": [
         "research areas",
         "what labs",
         "focus areas",
-        "Automoto labs"
+        "research domains",
+        "what topics do you cover",
+        "areas of study"
+      ],
+      "conversationNodes": [
+        {
+          "id": "fetch-areas",
+          "type": "action",
+          "action": "get_research_areas"
+        },
+        {
+          "id": "show-areas",
+          "type": "message",
+          "text": "Here are the current research focus areas:",
+          "attachmentLayout": "list"
+        },
+        {
+          "id": "area-followup",
+          "type": "message",
+          "text": "Select an area to see related researchers and publications.",
+          "suggestedActions": [
+            "Find researchers in this area",
+            "See publications",
+            "Search something else"
+          ]
+        }
       ],
       "actions": ["get_research_areas"]
+    },
+    {
+      "name": "Fallback",
+      "description": "Handle unrecognized user input gracefully",
+      "triggerPhrases": [],
+      "isFallback": true,
+      "conversationNodes": [
+        {
+          "id": "fallback-msg",
+          "type": "message",
+          "text": "I'm not sure I understand. Here's what I can help with:",
+          "suggestedActions": [
+            "Search for research",
+            "Find a researcher",
+            "Browse publications",
+            "Explore focus areas"
+          ]
+        },
+        {
+          "id": "fallback-escalate",
+          "type": "condition",
+          "condition": "consecutiveFallbacks >= 3",
+          "thenNode": "escalate-msg"
+        },
+        {
+          "id": "escalate-msg",
+          "type": "escalation",
+          "text": "It seems I'm having trouble understanding your request. Let me connect you with a human agent who can help.",
+          "escalationTarget": "default"
+        }
+      ]
+    },
+    {
+      "name": "Escalation",
+      "description": "Transfer to a human agent when the bot cannot help",
+      "triggerPhrases": [
+        "talk to a person",
+        "human agent",
+        "speak to someone",
+        "transfer me",
+        "I need help from a person"
+      ],
+      "conversationNodes": [
+        {
+          "id": "confirm-escalate",
+          "type": "message",
+          "text": "I'll connect you with a human agent. Please hold on a moment."
+        },
+        {
+          "id": "do-escalate",
+          "type": "escalation",
+          "text": "Transferring to human agent...",
+          "escalationTarget": "default"
+        }
+      ]
+    },
+    {
+      "name": "EndConversation",
+      "description": "Gracefully end the conversation",
+      "triggerPhrases": [
+        "goodbye",
+        "bye",
+        "thanks that's all",
+        "I'm done",
+        "end conversation"
+      ],
+      "conversationNodes": [
+        {
+          "id": "end-msg",
+          "type": "message",
+          "text": "Thanks for chatting! Feel free to come back anytime you need help. 👋"
+        },
+        {
+          "id": "end-session",
+          "type": "endConversation"
+        }
+      ]
     }
   ]
 }

@@ -17,16 +17,21 @@ START: What type of application?
 │   ├─ For custom web chat → Use Bot Adapter + WebChat
 │   └─ For multiple channels → Use Bot Adapter (supports all)
 │
+├─ 🧩 Microsoft Copilot experience
+│   ├─ Copilot Studio agent → Use `apps/copilot-studio/` manifests
+│   ├─ Copilot Studio custom UI/testing → Use `apps/copilot-studio-webchat/`
+│   ├─ M365 Copilot declarative agent → Use M365 app packages/connectors
+│   └─ GitHub Copilot extension → Use GitHub Copilot extension apps
+│
 ├─ 🔌 Business process automation
 │   ├─ Power Automate workflows → Use Power Adapter (Custom Connector)
 │   ├─ Power Apps integration → Use Power Adapter (Custom Connector)
 │   ├─ Logic Apps → Use Power Adapter (Custom Connector)
 │   └─ Azure Functions → Use HTTP API or Foundry Adapter
 │
-├─ 🏭 AI agent/copilot with LLM orchestration
+├─ 🏭 AI agent with LLM orchestration
 │   ├─ Azure AI Foundry → Use Foundry Adapter (Agent Framework)
 │   ├─ Prompt Flow → Use Foundry Adapter (Prompt Flow integration)
-│   ├─ Microsoft Copilot Studio → Use Power Adapter
 │   └─ Custom orchestration → Use HTTP API directly
 │
 └─ 🌐 REST API integration
@@ -45,7 +50,8 @@ START: What type of application?
 | If you need... | Use this | Why |
 |----------------|----------|-----|
 | **Conversational UI** in Teams/Outlook | Bot Adapter | Native Microsoft Bot Framework integration with Adaptive Cards |
-| **Low-code automation** in Power Platform | Power Adapter | Generates OpenAPI spec for Custom Connectors |
+| **Copilot Studio agent** with maker tooling | Copilot Studio app | Uses `apps/copilot-studio/src/manifest/agent-manifest.json` plus `topics.json` and `api-plugin.json`; pair with `apps/copilot-studio-webchat/` for testing/customization |
+| **Low-code automation** in Power Platform | Power Adapter | Generates OpenAPI spec for Custom Connectors used by Power Automate, Power Apps, and Logic Apps |
 | **AI orchestration** with Azure AI | Foundry Adapter | Integrates with Agent Framework and Prompt Flow |
 | **Direct API access** from any language | HTTP API | Language-agnostic REST endpoints |
 | **Python integration** in existing code | Base Adapter | Import as Python module, customize as needed |
@@ -106,6 +112,24 @@ START: What type of application?
 - Power Apps dashboard with session data
 - Logic Apps integration for event processing
 
+#### 🧩 Copilot Studio (`apps/copilot-studio/` + `apps/copilot-studio-webchat/`)
+
+**Use when:**
+- ✅ Building a Copilot Studio agent with maker tooling
+- ✅ Managing `agent-manifest.json`, `topics.json`, and `api-plugin.json`
+- ✅ Deploying with Copilot Studio or Power Platform CLI (`pac copilot create`, `pac copilot publish`)
+- ✅ Need a custom webchat or test harness for channels/mobile token flows
+
+**Don't use when:**
+- ❌ Building Power Automate, Power Apps, or Logic Apps custom connectors (use Power Adapter)
+- ❌ Need direct Bot Framework channel hosting (use Bot Adapter)
+- ❌ Building pro-code AI orchestration in Azure AI Foundry (use Foundry Adapter)
+
+**Example use cases:**
+- Maker-built agent for internal event discovery
+- Managed Copilot Studio experience with custom topics/actions
+- Testing and customizing the chat surface via `apps/copilot-studio-webchat/`
+
 #### 🌐 HTTP API (`agent.py serve`)
 
 **Use when:**
@@ -136,13 +160,18 @@ START: Where will this run?
 ├─ Microsoft 365 environment only
 │   ├─ Teams required → Deploy as Teams Bot (Bot Adapter)
 │   ├─ Outlook required → Deploy as Outlook Bot (Bot Adapter)
-│   ├─ SharePoint integration → Use Power Adapter
-│   └─ Multiple M365 apps → Bot Adapter (supports all channels)
+│   ├─ M365 Copilot extension → Use Teams app/declarative agent packaging
+│   └─ Multiple M365 apps → Bot Adapter or M365 Copilot packaging, depending on surface
+│
+├─ Copilot Studio channels
+│   ├─ Web/Teams/mobile/custom channel → Deploy `apps/copilot-studio/` manifest assets
+│   ├─ Custom UI/testing → Use `apps/copilot-studio-webchat/`
+│   └─ Power Platform admin surface → Manage in Copilot Studio, not via Power Adapter
 │
 ├─ Power Platform ecosystem
 │   ├─ Power Automate → Deploy as Custom Connector (Power Adapter)
 │   ├─ Power Apps → Deploy as Custom Connector (Power Adapter)
-│   ├─ Copilot Studio → Deploy as Copilot action (Power Adapter)
+│   ├─ Logic Apps / connector reuse → Use Power Adapter
 │   └─ Dataverse → Power Adapter with Dataverse connector
 │
 ├─ Azure AI development
@@ -163,7 +192,8 @@ START: Where will this run?
 | Platform | Best For | Adapter | Deployment Complexity | Scalability |
 |----------|----------|---------|----------------------|-------------|
 | **Azure AI Foundry** | AI orchestration, multi-agent systems | Foundry | Medium | High (auto-scale) |
-| **Power Platform** | Low-code automation, business workflows | Power | Low | Medium (platform-managed) |
+| **Copilot Studio** | Maker-built agents across managed Copilot channels | Copilot Studio app | Low | Medium (platform-managed) |
+| **Power Platform** | Custom connectors, automation, business workflows | Power | Low | Medium (platform-managed) |
 | **Teams/Outlook** | Conversational experiences, M365 users | Bot | Medium | High (Bot Service) |
 | **Azure App Service** | General web applications, REST APIs | HTTP API | Low | High (App Service) |
 | **Docker/K8s** | Multi-cloud, on-premises, portability | HTTP API | High | Very High (manual) |
@@ -217,7 +247,24 @@ START: Where will this run?
    - Test with real data
 ```
 
-#### Path B: Azure AI Foundry Integration
+#### Path B: Copilot Studio Agent
+```
+1. Use the Copilot Studio manifest assets
+   - apps/copilot-studio/src/manifest/agent-manifest.json
+   - apps/copilot-studio/src/manifest/topics.json
+   - apps/copilot-studio/src/manifest/api-plugin.json
+
+2. Deploy with Copilot Studio or Power Platform CLI
+   pac copilot create --manifest apps/copilot-studio/src/manifest/agent-manifest.json
+   pac copilot publish
+
+3. Test in Copilot Studio and custom webchat
+   - Validate in the Copilot Studio test pane
+   - Run apps/copilot-studio-webchat/
+   - Use the token endpoint from Channels → Mobile App
+```
+
+#### Path C: Azure AI Foundry Integration
 ```
 1. Create Foundry Adapter instance
    from adapters.foundry_adapter import FoundryAdapter
@@ -234,7 +281,7 @@ START: Where will this run?
    - Evaluate with AI metrics
 ```
 
-#### Path C: Teams Bot Integration
+#### Path D: Teams Bot Integration
 ```
 1. Test with Bot Emulator locally
    python bot_server.py
@@ -282,7 +329,8 @@ START: Where will this run?
 
 | Platform | Setup Effort | Ongoing Maintenance | Best For |
 |----------|-------------|---------------------|----------|
-| Power Platform | Low | Low | Business users, automation |
+| Copilot Studio | Low | Low | Makers building managed Copilot experiences |
+| Power Platform | Low | Low | Business users building connectors and automation |
 | Azure AI Foundry | Medium | Low | AI developers, agent systems |
 | Azure App Service | Low | Medium | General applications |
 | Azure Bot Service | Medium | Medium | Conversational experiences |
@@ -485,10 +533,16 @@ Steps:
 - [ ] Building AI orchestration
 - [ ] Want AI evaluation tools
 
+### Choose Copilot Studio if:
+- [ ] Building a maker-managed Copilot Studio agent
+- [ ] Need `agent-manifest.json`, `topics.json`, and `api-plugin.json`
+- [ ] Want Copilot Studio channels or a custom webchat surface
+- [ ] Plan to deploy with `pac copilot create` / `pac copilot publish`
+
 ### Choose Power Adapter if:
-- [ ] Building in Power Platform
-- [ ] Need Custom Connector
-- [ ] Low-code/no-code requirement
+- [ ] Building Power Automate, Power Apps, or Logic Apps connectors
+- [ ] Need OpenAPI for a Custom Connector
+- [ ] Low-code/no-code automation
 - [ ] Business process automation
 
 ### Choose HTTP API if:
@@ -505,6 +559,7 @@ After making your decision:
 
 1. **Read the integration guide**:
    - Bot Adapter: [docs/agents-sdk-setup.md](agents-sdk-setup.md)
+   - Copilot Studio: [docs/copilot-products.md](copilot-products.md) + `apps/copilot-studio/`
    - Foundry Adapter: [docs/foundry-deployment.md](foundry-deployment.md)
    - Power Adapter: [docs/EXTENSIBILITY_GUIDE.md](EXTENSIBILITY_GUIDE.md)
    - HTTP API: [docs/api-guide.md](api-guide.md)
