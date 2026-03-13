@@ -2,18 +2,18 @@
 
 > **Powered by [vibe-kit](https://github.com/microsoft/vibe-kit)**
 
-Connect your platform to the MSR Agent — as a **producer** (new channel) or **consumer** (embed existing channel).
+Connect your platform to the Agent — as a **producer** (new channel) or **consumer** (embed existing channel).
 
 ## Prerequisites
 
 - Node.js 20+, npm 10+
-- Access to an MSR Agent backend or gateway instance
+- Access to an Agent backend or gateway instance
 
 ## Two Paths
 
 ### 🔧 Path A: Producer — Build a New Channel
 
-You run a platform (Slack, WhatsApp, internal portal) and want to connect it to the MSR Agent.
+You run a platform (Slack, WhatsApp, internal portal) and want to connect it to the Agent.
 
 **Choose a template:**
 
@@ -28,10 +28,10 @@ You run a platform (Slack, WhatsApp, internal portal) and want to connect it to 
 ```bash
 # Via vibekit CLI
 pip install vibekit
-vibekit install msr-channel
+vibekit install channel-adapter
 
 # Or copy a template directly
-cp -r kits/msr-channel/templates/producer/express-channel apps/my-channel
+cp -r kits/channel-adapter/templates/producer/express-channel apps/my-channel
 cd apps/my-channel && npm install && npm run dev
 ```
 
@@ -47,7 +47,7 @@ cd apps/my-channel && npm install && npm run dev
 
 ### 📱 Path B: Consumer — Embed an Existing Channel
 
-You want to add MSR Agent capabilities to your app/site.
+You want to add Agent capabilities to your app/site.
 
 | Template | Best for | Framework |
 |----------|----------|-----------|
@@ -56,15 +56,15 @@ You want to add MSR Agent capabilities to your app/site.
 | `direct-line-embed` | Drop-in widget | Vanilla JS |
 
 ```bash
-cp -r kits/msr-channel/templates/consumer/react-embed my-app/packages/msr-chat
+cp -r kits/channel-adapter/templates/consumer/react-embed my-app/packages/automoto-chat
 ```
 
 ## Templates
 
-All templates live in `kits/msr-channel/templates/`:
+All templates live in `kits/channel-adapter/templates/`:
 
 ```
-kits/msr-channel/
+kits/channel-adapter/
 ├── MANIFEST.yml              # vibe-kit manifest
 ├── SKILL.md                  # Copilot skill for guided authoring
 ├── templates/

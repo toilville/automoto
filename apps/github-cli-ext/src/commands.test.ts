@@ -98,13 +98,13 @@ describe("search", () => {
 describe("getResearcher", () => {
   it("displays researcher info", async () => {
     globalThis.fetch = mockFetchResponse({
-      results: [{ title: "John Smith", snippet: "AI researcher at MSR Redmond", url: "https://msr.com/jsmith" }],
+      results: [{ title: "John Smith", snippet: "AI researcher at Automoto Redmond", url: "https://automoto.example.com/jsmith" }],
     });
 
     await commands.getResearcher("John Smith", { json: false });
     const out = output();
     expect(out).toContain("John Smith");
-    expect(out).toContain("AI researcher at MSR Redmond");
+    expect(out).toContain("AI researcher at Automoto Redmond");
   });
 
   it("handles not found", async () => {
@@ -195,29 +195,29 @@ describe("getLabs", () => {
   it("shows labs from results", async () => {
     globalThis.fetch = mockFetchResponse({
       results: [
-        { title: "MSR Redmond", snippet: "Main campus research lab" },
-        { title: "MSR Cambridge", snippet: "UK research lab" },
+        { title: "Automoto Redmond", snippet: "Main campus research lab" },
+        { title: "Automoto Cambridge", snippet: "UK research lab" },
       ],
     });
 
     await commands.getLabs({ json: false });
     const out = output();
-    expect(out).toContain("MSR Redmond");
-    expect(out).toContain("MSR Cambridge");
+    expect(out).toContain("Automoto Redmond");
+    expect(out).toContain("Automoto Cambridge");
     expect(out).toContain("Labs Worldwide");
   });
 
   it("shows labs from structured lab data", async () => {
     globalThis.fetch = mockFetchResponse({
       labs: [
-        { id: "redmond", name: "MSR Redmond", location: "Redmond, WA", researcherCount: 200, focusAreas: ["AI", "Systems"] },
+        { id: "redmond", name: "Automoto Redmond", location: "Redmond, WA", researcherCount: 200, focusAreas: ["AI", "Systems"] },
       ],
       results: [],
     });
 
     await commands.getLabs({ json: false });
     const out = output();
-    expect(out).toContain("MSR Redmond");
+    expect(out).toContain("Automoto Redmond");
     expect(out).toContain("Redmond, WA");
     expect(out).toContain("200 researchers");
   });
@@ -228,13 +228,13 @@ describe("getLabs", () => {
 describe("getLabDetail", () => {
   it("shows detailed lab info", async () => {
     globalThis.fetch = mockFetchResponse({
-      lab: { id: "asia", name: "MSR Asia", location: "Beijing, China", description: "Largest MSR lab outside US", focusAreas: ["Vision", "NLP"], researcherCount: 300 },
+      lab: { id: "asia", name: "Automoto Asia", location: "Beijing, China", description: "Largest Automoto lab outside the US", focusAreas: ["Vision", "NLP"], researcherCount: 300 },
       results: [{ title: "Project X", type: "project", snippet: "A cool project" }],
     });
 
     await commands.getLabDetail("asia", { json: false });
     const out = output();
-    expect(out).toContain("MSR Asia");
+    expect(out).toContain("Automoto Asia");
     expect(out).toContain("Beijing, China");
     expect(out).toContain("Project X");
     expect(out).toContain("300");
@@ -257,7 +257,7 @@ describe("getLabDetail", () => {
 describe("getProject", () => {
   it("shows project details", async () => {
     globalThis.fetch = mockFetchResponse({
-      project: { title: "DeepSpeed", description: "Deep learning optimization", status: "Active", lab: "MSR Redmond", team: ["Alice", "Bob"] },
+      project: { title: "DeepSpeed", description: "Deep learning optimization", status: "Active", lab: "Automoto Redmond", team: ["Alice", "Bob"] },
       results: [],
     });
 
@@ -270,7 +270,7 @@ describe("getProject", () => {
 
   it("shows search results when no structured project data", async () => {
     globalThis.fetch = mockFetchResponse({
-      results: [{ title: "Project Turing", snippet: "NLP project", url: "https://msr.com/turing" }],
+      results: [{ title: "Project Turing", snippet: "NLP project", url: "https://automoto.example.com/turing" }],
     });
 
     await commands.getProject("Turing", { json: false });
@@ -481,8 +481,8 @@ describe("channels", () => {
   it("shows adapters from gateway", async () => {
     globalThis.fetch = mockFetchResponse({
       adapters: [
-        { channel: "teams", patterns: ["msr.pub", "msr.sub"] },
-        { channel: "web", patterns: ["msr.pub", "msr.stream"] },
+        { channel: "teams", patterns: ["automoto.pub", "automoto.sub"] },
+        { channel: "web", patterns: ["automoto.pub", "automoto.stream"] },
       ],
     });
 
@@ -532,14 +532,14 @@ describe("news", () => {
   it("shows news items", async () => {
     globalThis.fetch = mockFetchResponse({
       results: [
-        { title: "MSR Launches New AI Lab", snippet: "Exciting news", url: "https://msr.com/news/1" },
+        { title: "Automoto Launches New AI Lab", snippet: "Exciting news", url: "https://automoto.example.com/news/1" },
       ],
     });
 
     await commands.news({ json: false, limit: 10 });
     const out = output();
     expect(out).toContain("News & Highlights");
-    expect(out).toContain("MSR Launches New AI Lab");
+    expect(out).toContain("Automoto Launches New AI Lab");
   });
 
   it("handles empty news", async () => {

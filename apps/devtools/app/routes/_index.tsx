@@ -9,7 +9,7 @@ import type { AdapterInfo } from "~/store/devtools-store.js";
 /** All known channel adapters — loaded client-side from the canonical registry. */
 const DEFAULT_ADAPTERS: AdapterInfo[] = [
   { type: "web", name: "Web Chat", supportsStreaming: true },
-  { type: "home", name: "MSR Homepage", supportsStreaming: true },
+  { type: "home", name: "Homepage", supportsStreaming: true },
   { type: "teams", name: "Teams", supportsStreaming: true },
   { type: "agents-sdk", name: "Agents SDK", supportsStreaming: true },
   { type: "m365-agents", name: "M365 Agents", supportsStreaming: true },
@@ -64,7 +64,7 @@ export default function Index() {
       timestamp: Date.now(),
       level: "info",
       source: "init",
-      message: "MSR Channel DevTools initialized",
+      message: "Channel DevTools initialized",
     });
 
     setReady(true);

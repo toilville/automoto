@@ -10,10 +10,10 @@
   "preconfiguredEntries": [
     {
       "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
-      "group": { "default": "MSR Tools" },
-      "title": { "default": "MSR Research Chat" },
+      "group": { "default": "Research Tools" },
+      "title": { "default": "Research Chat" },
       "description": {
-        "default": "Embedded Microsoft Research AI assistant for discovering research, finding researchers, and browsing publications."
+        "default": "Embedded AI assistant for discovering research, finding researchers, and browsing publications."
       },
       "properties": {
         "chatEndpoint": "https://home.example.com",

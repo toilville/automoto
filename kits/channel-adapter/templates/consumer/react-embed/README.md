@@ -1,6 +1,6 @@
-# MSR Agent Chat — React Embed
+# Agent Chat — React Embed
 
-Embed the MSR Agent chat UI into your React application. Uses the vendored `@automoto/chat-ui` and `@automoto/data-client` packages.
+Embed the Agent chat UI into your React application. Uses the vendored `@automoto/chat-ui` and `@automoto/data-client` packages.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ npm run dev
 This template uses the **consumer** path — you don't build a new channel, you embed an existing one:
 
 1. **`@automoto/chat-ui`** provides `ChatContainer`, message rendering, typing indicators
-2. **`@automoto/data-client`** handles API communication with the MSR Agent backend
+2. **`@automoto/data-client`** handles API communication with the Agent backend
 3. **Fluent UI v9** provides the design system (theming, components)
 
 ## Configuration
@@ -22,8 +22,8 @@ This template uses the **consumer** path — you don't build a new channel, you 
 Set environment variables in `.env`:
 
 ```env
-VITE_MSR_ENDPOINT=https://your-msr-agent.azurewebsites.net
-VITE_MSR_SCOPE=your-event-name
+VITE_AUTOMOTO_ENDPOINT=https://your-automoto-agent.azurewebsites.net
+VITE_AUTOMOTO_SCOPE=your-event-name
 ```
 
 Or configure directly in `src/App.tsx`.
@@ -33,7 +33,7 @@ Or configure directly in `src/App.tsx`.
 To use this in your own repo (outside the monorepo), copy the packages:
 
 ```bash
-# From msr-event-agent-client
+# From automoto
 cp -r packages/chat-ui your-repo/packages/chat-ui
 cp -r packages/data-client your-repo/packages/data-client
 ```

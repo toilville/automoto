@@ -1,5 +1,5 @@
 /**
- * Root layout for MSR Channel DevTools.
+ * Root layout for Channel DevTools.
  * Wraps the app in FluentProvider with dark theme (dev tools convention).
  */
 import {
@@ -23,10 +23,10 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "MSR Channel DevTools" },
+  { title: "Channel DevTools" },
   {
     name: "description",
-    content: "Developer tools for testing and debugging MSR Agent channels",
+    content: "Developer tools for testing and debugging Agent channels",
   },
 ];
 

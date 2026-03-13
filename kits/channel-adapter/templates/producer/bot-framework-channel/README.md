@@ -1,6 +1,6 @@
 # __CHANNEL_DISPLAY_NAME__ Channel (Bot Framework)
 
-A Bot Framework-compatible MSR Agent channel. Use this template when your platform speaks the Bot Framework protocol (Teams, M365 Agents, Copilot Studio, etc.).
+A Bot Framework-compatible Agent channel. Use this template when your platform speaks the Bot Framework protocol (Teams, M365 Agents, Copilot Studio, etc.).
 
 ## Quick Start
 
@@ -12,7 +12,7 @@ npm run dev
 ## Key Differences from Express Template
 
 - Uses Bot Framework Activity model as native types
-- Maps Activity types (`message`, `composeExtension/*`) to MSR request types
+- Maps Activity types (`message`, `composeExtension/*`) to Agent request types
 - Formats responses as Adaptive Cards
 - Non-streaming (Bot Framework handles response buffering)
 

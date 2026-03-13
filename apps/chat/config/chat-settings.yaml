@@ -1,4 +1,4 @@
-# MSR Event Agent Chat — UI Configuration
+# Automoto Chat — UI Configuration
 # This file contains UI text and feature flags only.
 # All AI behavior (prompts, RAG, intent routing) is managed by the Foundry Agent.
 

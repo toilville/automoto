@@ -1,29 +1,29 @@
-# MSR Agent — Direct Line Embed
+# Agent — Direct Line Embed
 
-Embed the MSR Agent as a web chat widget using the Direct Line channel.
+Embed the Agent as a web chat widget using the Direct Line channel.
 
 ## Quick Start
 
 Add this snippet to your HTML page:
 
 ```html
-<!-- MSR Agent Chat Widget -->
-<div id="msr-agent-chat"></div>
+<!-- Agent Chat Widget -->
+<div id="agent-chat"></div>
 <script>
   (function () {
     const config = {
       // TODO: Replace with your Direct Line endpoint
       directLineUrl:
-        window.MSR_DIRECT_LINE_URL || "http://localhost:4000/api/v1/direct-line",
+        window.AUTOMOTO_DIRECT_LINE_URL || "http://localhost:4000/api/v1/direct-line",
 
       // Container element ID
-      containerId: "msr-agent-chat",
+      containerId: "agent-chat",
 
       // Optional: initial greeting message
-      greeting: "Hi! I can help you find MSR events and research information.",
+      greeting: "Hi! I can help you find Automoto events and research information.",
 
       // Optional: widget title
-      title: "MSR Agent",
+      title: "Agent",
 
       // Optional: collapsed by default (click to expand)
       startCollapsed: true,
@@ -55,9 +55,9 @@ Add this snippet to your HTML page:
 | Option | Default | Description |
 |--------|---------|-------------|
 | `directLineUrl` | — | Your Direct Line channel endpoint |
-| `containerId` | `msr-agent-chat` | DOM element to mount the widget in |
+| `containerId` | `agent-chat` | DOM element to mount the widget in |
 | `greeting` | — | Initial bot message |
-| `title` | `MSR Agent` | Widget header title |
+| `title` | `Agent` | Widget header title |
 | `startCollapsed` | `true` | Start as a floating button |
 | `position` | `bottom-right` | Widget position |
 | `theme.primary` | `#0078d4` | Primary accent color |

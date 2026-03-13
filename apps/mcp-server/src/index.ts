@@ -16,7 +16,7 @@
  * Claude Desktop config (~/.claude/claude_desktop_config.json):
  *   {
  *     "mcpServers": {
- *       "msr": {
+ *       "automoto": {
  *         "command": "node",
  *         "args": ["path/to/mcp-server/dist/index.js"],
  *         "env": { "DATA_API_URL": "http://localhost:7071" }

@@ -86,7 +86,7 @@ describe("validateClaims", () => {
   const config: AuthConfig = {
     enabled: true,
     tenantId: "test-tenant-id",
-    audience: "api://msr-mcp",
+    audience: "api://automoto-mcp",
     allowedOrigins: [],
   };
 
@@ -95,7 +95,7 @@ describe("validateClaims", () => {
       {
         exp: Date.now() / 1000 + 3600,
         iss: `https://sts.windows.net/${config.tenantId}/`,
-        aud: "api://msr-mcp",
+        aud: "api://automoto-mcp",
       },
       config,
     );
@@ -107,7 +107,7 @@ describe("validateClaims", () => {
       {
         exp: Date.now() / 1000 + 3600,
         iss: `https://login.microsoftonline.com/${config.tenantId}/v2.0`,
-        aud: "api://msr-mcp",
+        aud: "api://automoto-mcp",
       },
       config,
     );
@@ -119,7 +119,7 @@ describe("validateClaims", () => {
       {
         exp: Date.now() / 1000 - 3600,
         iss: `https://sts.windows.net/${config.tenantId}/`,
-        aud: "api://msr-mcp",
+        aud: "api://automoto-mcp",
       },
       config,
     );
@@ -132,7 +132,7 @@ describe("validateClaims", () => {
       {
         exp: Date.now() / 1000 + 3600,
         iss: "https://evil.example.com/",
-        aud: "api://msr-mcp",
+        aud: "api://automoto-mcp",
       },
       config,
     );
@@ -155,7 +155,7 @@ describe("validateClaims", () => {
 
   it("skips issuer check when tenantId is not configured", () => {
     const result = validateClaims(
-      { exp: Date.now() / 1000 + 3600, iss: "any-issuer", aud: "api://msr-mcp" },
+      { exp: Date.now() / 1000 + 3600, iss: "any-issuer", aud: "api://automoto-mcp" },
       { ...config, tenantId: undefined },
     );
     expect(result.valid).toBe(true);
@@ -177,7 +177,7 @@ describe("validateClaims", () => {
     const result = validateClaims(
       {
         iss: `https://sts.windows.net/${config.tenantId}/`,
-        aud: "api://msr-mcp",
+        aud: "api://automoto-mcp",
       },
       config,
     );
@@ -209,7 +209,7 @@ describe("authenticateRequest", () => {
   const config: AuthConfig = {
     enabled: true,
     tenantId: "test-tenant",
-    audience: "api://msr",
+    audience: "api://automoto",
     allowedOrigins: [],
   };
 
@@ -244,7 +244,7 @@ describe("authenticateRequest", () => {
     const token = createTestJwt({
       exp: Date.now() / 1000 - 3600,
       iss: `https://sts.windows.net/${config.tenantId}/`,
-      aud: "api://msr",
+      aud: "api://automoto",
     });
     const req = mockReq({ headers: { authorization: `Bearer ${token}` } });
     const res = mockRes();
@@ -256,7 +256,7 @@ describe("authenticateRequest", () => {
     const token = createTestJwt({
       exp: Date.now() / 1000 + 3600,
       iss: `https://sts.windows.net/${config.tenantId}/`,
-      aud: "api://msr",
+      aud: "api://automoto",
     });
     const req = mockReq({ headers: { authorization: `Bearer ${token}` } });
     const res = mockRes();

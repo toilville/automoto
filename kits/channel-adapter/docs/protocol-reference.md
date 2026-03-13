@@ -28,7 +28,7 @@ interface ChannelAdapter<TInbound, TOutbound, TStreamChunk> {
 
 ## Message Patterns
 
-### msr.pub — Inbound (Platform → Agent)
+### agent.pub — Inbound (Platform → Agent)
 
 Your platform sends a message. The adapter normalizes it into a canonical `AgentRequest`.
 

@@ -1,5 +1,5 @@
 /**
- * MSR Message Extension entry point — Express server hosting an M365 Agents SDK
+ * Message Extension entry point — Express server hosting an M365 Agents SDK
  * messaging extension. Receives composeExtension/* activities from Teams and Outlook.
  */
 import express from "express";

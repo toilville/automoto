@@ -2,10 +2,10 @@
  * Copilot Knowledge Connector — API server.
  *
  * Serves the OpenAPI endpoints that Microsoft 365 Copilot calls
- * to retrieve MSR knowledge for grounding AI responses.
+ * to retrieve knowledge for grounding AI responses.
  *
  * Endpoints:
- *   GET /api/search          — Search across all MSR content
+ *   GET /api/search          — Search across all content
  *   GET /api/researchers/:name — Get researcher details
  *   GET /api/publications    — Browse publications
  *   GET /api/research-areas  — List research areas

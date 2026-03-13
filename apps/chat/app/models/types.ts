@@ -1,5 +1,5 @@
 /**
- * Core types for the MSR Event Agent Chat thin client.
+ * Core types for the Automoto Chat thin client.
  * These types define the contract between UI ↔ API proxy ↔ Foundry Agent.
  */
 

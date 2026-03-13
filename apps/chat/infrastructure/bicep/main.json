@@ -7,7 +7,7 @@
       "version": "0.39.26.7824",
       "templateHash": "12326486224684328106"
     },
-    "name": "MSR Event Agent Chat - Foundry Infrastructure",
+    "name": "Automoto Chat - Foundry Infrastructure",
     "description": "AI Foundry agent project with managed identity, connected to existing AI Services and Search",
     "version": "1.0.0"
   },
@@ -38,13 +38,13 @@
     },
     "agentProjectName": {
       "type": "string",
-      "defaultValue": "msr-event-agent-chat"
+      "defaultValue": "automoto-chat"
     },
     "tags": {
       "type": "object",
       "defaultValue": {
         "environment": "[parameters('environment')]",
-        "project": "msr-event-agent-chat",
+        "project": "automoto-chat",
         "managedBy": "Infrastructure-as-Code",
         "compliance": "ManagedIdentityOnly"
       }

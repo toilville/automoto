@@ -1,7 +1,7 @@
 /**
- * MSR Agent API Client — TypeScript Example
+ * Agent API Client — TypeScript Example
  *
- * Demonstrates calling the MSR Agent backend directly via REST API.
+ * Demonstrates calling the Agent backend directly via REST API.
  * No UI framework needed — works in Node.js, Deno, Bun, or browser.
  */
 
@@ -132,7 +132,7 @@ async function main() {
   console.log("Cards:", result.cards.length);
 
   console.log("\n=== Streaming ===");
-  await chatStream("Tell me about AI research at MSR");
+  await chatStream("Tell me about AI research");
 }
 
 main().catch(console.error);

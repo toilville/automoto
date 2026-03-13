@@ -1,6 +1,6 @@
 # __CHANNEL_DISPLAY_NAME__ Webhook Channel
 
-The simplest MSR Agent channel — a plain webhook receiver. No streaming, no Bot Framework. Just HTTP POST in, JSON response out.
+The simplest Agent channel — a plain webhook receiver. No streaming, no Bot Framework. Just HTTP POST in, JSON response out.
 
 ## Quick Start
 

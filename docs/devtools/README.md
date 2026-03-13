@@ -1,6 +1,6 @@
 # Channel DevTools
 
-A modern channel developer tool for testing, debugging, and inspecting all 14 MSR agent channels — the replacement for the archived Bot Framework Emulator.
+A modern channel developer tool for testing, debugging, and inspecting all 14 agent channels — the replacement for the archived Bot Framework Emulator.
 
 Inspired by **Flutter DevTools**: multi-channel chat + real-time event inspection + protocol transform viewer.
 
