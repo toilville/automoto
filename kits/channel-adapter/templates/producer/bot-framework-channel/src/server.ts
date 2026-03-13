@@ -3,7 +3,7 @@
  *
  * Express server that acts as a Bot Framework messaging endpoint.
  * Receives Activity payloads, normalizes them via the adapter,
- * forwards to the MSR Agent backend, and replies.
+ * forwards to the Agent backend, and replies.
  */
 import express from "express";
 import { __CHANNEL_NAME__Adapter } from "./adapter.js";

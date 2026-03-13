@@ -1,7 +1,7 @@
 """
-MSR Agent API Client — Python Example
+Agent API Client — Python Example
 
-Demonstrates calling the MSR Agent backend directly via REST API.
+Demonstrates calling the Agent backend directly via REST API.
 """
 import json
 import os
@@ -91,4 +91,4 @@ if __name__ == "__main__":
     print("Cards:", len(result.get("cards", [])))
 
     print("\n=== Streaming ===")
-    chat_stream("Tell me about AI research at MSR")
+    chat_stream("Tell me about AI research")

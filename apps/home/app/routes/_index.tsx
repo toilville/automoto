@@ -1,5 +1,5 @@
 /**
- * Index route — Full-page chat experience for MSR Homepage.
+ * Index route — Full-page chat experience for Homepage.
  * Loads UI text from chat-settings.yaml at request time (SSR).
  * Uses @automoto/chat-ui with a ChatAdapter pointing to the local /api/chat proxy.
  */

@@ -298,7 +298,7 @@ export async function chat(
 export async function getLabs(opts: OutputOptions): Promise<void> {
   const data = (await callApi("/tools/quick_search", {
     method: "POST",
-    body: { query: "microsoft research labs locations", type: "all", limit: 20 },
+    body: { query: "research labs locations", type: "all", limit: 20 },
   })) as { results?: SearchResult[]; labs?: LabInfo[] };
 
   if (opts.json) {
@@ -335,7 +335,7 @@ export async function getLabDetail(
 ): Promise<void> {
   const data = (await callApi("/tools/quick_search", {
     method: "POST",
-    body: { query: `microsoft research ${labId} lab researchers projects`, type: "all", limit: 10 },
+    body: { query: `research ${labId} lab researchers projects`, type: "all", limit: 10 },
   })) as { results?: SearchResult[]; lab?: LabInfo };
 
   if (opts.json) {

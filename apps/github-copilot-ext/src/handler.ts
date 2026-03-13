@@ -451,7 +451,7 @@ async function handleRelatedCommand(
       .slice(-3)
       .map((m) => m.content)
       .join(" ");
-    searchQuery = recentMessages || "recent microsoft research publications";
+    searchQuery = recentMessages || "recent research publications";
   }
 
   const results = await searchAutomoto(searchQuery, "publications", 8);

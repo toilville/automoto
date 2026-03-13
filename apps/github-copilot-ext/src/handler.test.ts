@@ -128,7 +128,7 @@ describe("general query", () => {
   it("returns search results for plain text", async () => {
     globalThis.fetch = mockFetchResponse({
       results: [
-        { title: "ML Paper", snippet: "About machine learning", url: "https://msr.com/ml" },
+        { title: "ML Paper", snippet: "About machine learning", url: "https://example.com/ml" },
       ],
     });
 
@@ -223,7 +223,7 @@ describe("/paper", () => {
 describe("/researcher", () => {
   it("shows researcher profile with publications", async () => {
     globalThis.fetch = mockFetchMultiple([
-      { data: { results: [{ title: "Jane Doe", snippet: "Principal Researcher, MSR", url: "https://msr.com/jane" }] } },
+      { data: { results: [{ title: "Jane Doe", snippet: "Principal Researcher", url: "https://example.com/jane" }] } },
       { data: { results: [{ title: "Paper A", year: 2023 }, { title: "Paper B", year: 2022 }] } },
     ]);
 
@@ -254,8 +254,8 @@ describe("/lab", () => {
   it("shows lab overview", async () => {
     globalThis.fetch = mockFetchResponse({
       results: [
-        { title: "MSR Redmond", snippet: "Main research campus" },
-        { title: "AI for Science", snippet: "Research initiative", url: "https://msr.com/ai" },
+        { title: "Research Lab", snippet: "Main research campus" },
+        { title: "AI for Science", snippet: "Research initiative", url: "https://example.com/ai" },
       ],
     });
 
@@ -265,7 +265,7 @@ describe("/lab", () => {
 
     const content = getMessageContent(res);
     expect(content).toContain("Redmond");
-    expect(content).toContain("MSR Redmond");
+    expect(content).toContain("Research Lab");
     expect(content).toContain("Main research campus");
   });
 
@@ -283,7 +283,7 @@ describe("/lab", () => {
 describe("/cite", () => {
   it("generates all citation formats", async () => {
     globalThis.fetch = mockFetchResponse({
-      results: [{ title: "Test Paper", authors: "Smith, J., Doe, A.", year: 2023, url: "https://msr.com/paper" }],
+      results: [{ title: "Test Paper", authors: "Smith, J., Doe, A.", year: 2023, url: "https://example.com/paper" }],
     });
 
     const req = createMockReq("/cite Test Paper");

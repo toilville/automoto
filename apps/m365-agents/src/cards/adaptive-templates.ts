@@ -1,5 +1,5 @@
 /**
- * Adaptive Card templates for MSR content types.
+ * Adaptive Card templates for content types.
  *
  * These templates produce Adaptive Card JSON (schema v1.5) that the M365
  * platform renders natively in Teams, Outlook, and Copilot conversations.

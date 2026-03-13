@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# MSR Agent API Client — curl examples
+# Agent API Client — curl examples
 #
 # Usage:
 #   GATEWAY_URL=http://localhost:4000 ./curl-examples.sh

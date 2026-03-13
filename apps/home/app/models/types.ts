@@ -1,5 +1,5 @@
 /**
- * Core types for the MSR Homepage Chat thin client.
+ * Core types for the Homepage Chat thin client.
  * These types define the contract between UI ↔ API proxy ↔ Foundry Agent.
  */
 

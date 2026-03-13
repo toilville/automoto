@@ -1,10 +1,10 @@
 """
-MSR Channel Onboarding Questionnaire
+Channel Onboarding Questionnaire
 
 Interactive wizard that helps partners choose the right channel template.
-Compatible with vibekit CLI: `vibekit install msr-channel`
+Compatible with vibekit CLI: `vibekit install channel-adapter`
 
-Powered by vibe-kit.
+Powered by Automoto.
 """
 from dataclasses import dataclass
 
@@ -23,8 +23,8 @@ QUESTIONS = [
         prompt="What is your role?",
         options=["producer", "consumer"],
         descriptions=[
-            "I want to connect a NEW platform (Slack, WhatsApp, portal) to the MSR Agent",
-            "I want to EMBED MSR Agent capabilities into my existing app/site",
+            "I want to connect a NEW platform (Slack, WhatsApp, portal) to the Agent",
+            "I want to EMBED Agent capabilities into my existing app/site",
         ],
     ),
     # Producer questions
@@ -91,8 +91,8 @@ def get_question(qid: str) -> Question:
 def run_questionnaire() -> dict:
     """Run the interactive questionnaire and return selections."""
     print("=" * 60)
-    print("  MSR Channel Onboarding Kit")
-    print("  Powered by vibe-kit 🎯")
+    print("  Channel Onboarding Kit")
+    print("  Powered by Automoto 🎯")
     print("=" * 60)
 
     answers: dict[str, str] = {}

@@ -62,8 +62,8 @@ describe("search", () => {
   it("displays results with titles and URLs", async () => {
     globalThis.fetch = mockFetchResponse({
       results: [
-        { title: "Attention Is All You Need", type: "publication", snippet: "Transformer model", url: "https://msr.com/1", authors: "Vaswani et al." },
-        { title: "BERT", type: "publication", snippet: "Bidirectional encoders", url: "https://msr.com/2" },
+        { title: "Attention Is All You Need", type: "publication", snippet: "Transformer model", url: "https://example.com/1", authors: "Vaswani et al." },
+        { title: "BERT", type: "publication", snippet: "Bidirectional encoders", url: "https://example.com/2" },
       ],
     });
 
@@ -170,7 +170,7 @@ describe("getResearchAreas", () => {
 describe("chat", () => {
   it("formats conversational response with results", async () => {
     globalThis.fetch = mockFetchResponse({
-      results: [{ title: "Relevant Paper", snippet: "About the topic", url: "https://msr.com/paper" }],
+      results: [{ title: "Relevant Paper", snippet: "About the topic", url: "https://example.com/paper" }],
     });
 
     await commands.chat("tell me about AI", { json: false });
