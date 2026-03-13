@@ -27,11 +27,11 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "@msr/chat-ui": ["../../packages/chat-ui/src/index.ts"],
-      "@msr/data-client": ["../../packages/data-client/src/index.ts"],
-      "@msr/analytics": ["../../packages/analytics/src/index.ts"],
-      "@msr/analytics/react": ["../../packages/analytics/src/react/index.tsx"],
-      "@msr/channel-adapter": ["../../packages/channel-adapter/src/index.ts"]
+      "@automoto/chat-ui": ["../../packages/chat-ui/src/index.ts"],
+      "@automoto/data-client": ["../../packages/data-client/src/index.ts"],
+      "@automoto/analytics": ["../../packages/analytics/src/index.ts"],
+      "@automoto/analytics/react": ["../../packages/analytics/src/react/index.tsx"],
+      "@automoto/channel-adapter": ["../../packages/channel-adapter/src/index.ts"]
     }
   }
 }

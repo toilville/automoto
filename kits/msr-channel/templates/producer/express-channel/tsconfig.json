@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "paths": {
-      "@msr/channel-adapter": ["../../packages/channel-adapter/src/index.ts"]
+      "@automoto/channel-adapter": ["../../packages/channel-adapter/src/index.ts"]
     }
   },
   "include": ["src"]

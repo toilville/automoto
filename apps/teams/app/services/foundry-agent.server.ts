@@ -10,8 +10,8 @@
  *   5. Repeat until the run completes
  */
 import { DefaultAzureCredential } from "@azure/identity";
-import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@msr/data-client";
-import type { ChatRequest, StreamEvent, CarouselCard, TokenUsage } from "@msr/chat-ui";
+import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@automoto/data-client";
+import type { ChatRequest, StreamEvent, CarouselCard, TokenUsage } from "@automoto/chat-ui";
 
 /* ── Configuration ────────────────────────────────────────── */
 

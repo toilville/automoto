@@ -1,5 +1,5 @@
 {
-  "name": "@msr/__CHANNEL_NAME__",
+  "name": "@automoto/__CHANNEL_NAME__",
   "version": "0.1.0",
   "private": true,
   "type": "module",

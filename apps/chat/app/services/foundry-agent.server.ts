@@ -10,7 +10,7 @@
  *   5. Repeat until the run completes
  */
 import { DefaultAzureCredential } from "@azure/identity";
-import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@msr/data-client";
+import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@automoto/data-client";
 import type { ChatRequest, StreamEvent, CarouselCard, TokenUsage } from "~/models/types";
 
 /* ── Configuration ────────────────────────────────────────── */
@@ -173,7 +173,7 @@ async function submitToolOutputsStreaming(
   return response;
 }
 
-/* ── Tool Execution (via @msr/data-client) ────────────────── */
+/* ── Tool Execution (via @automoto/data-client) ───────────── */
 
 /* ── SSE Stream Parser ────────────────────────────────────── */
 

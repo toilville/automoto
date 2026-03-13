@@ -1,5 +1,5 @@
 {
-  "name": "@msr/github-copilot-ext",
+  "name": "@automoto/github-copilot-ext",
   "version": "0.1.0",
   "private": true,
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@msr/power-platform",
+  "name": "@automoto/power-platform",
   "version": "0.1.0",
   "private": true,
   "type": "module",

@@ -9,7 +9,7 @@ import type {
   MSRStreamEvent,
   MSRAgentRequest,
   MSRAgentResponse,
-} from "@msr/channel-adapter";
+} from "@automoto/channel-adapter";
 
 /* ── Types ────────────────────────────────────────────────── */
 

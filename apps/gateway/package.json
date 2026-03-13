@@ -1,5 +1,5 @@
 {
-  "name": "@msr/gateway",
+  "name": "@automoto/gateway",
   "version": "0.1.0",
   "private": true,
   "type": "module",

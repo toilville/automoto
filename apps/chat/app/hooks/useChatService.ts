@@ -11,7 +11,7 @@ import type {
   CarouselCard,
   TokenUsage,
 } from "~/models/types";
-import { useAnalyticsOptional } from "@msr/analytics/react";
+import { useAnalyticsOptional } from "@automoto/analytics/react";
 
 export interface UseChatServiceOptions {
   pageContext?: PageContext;

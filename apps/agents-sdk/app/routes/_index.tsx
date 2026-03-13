@@ -9,7 +9,7 @@ import {
   ChannelProvider,
   AGENTS_SDK_CHANNEL,
   type ChatAdapter,
-} from "@msr/chat-ui";
+} from "@automoto/chat-ui";
 
 export default function AgentChat() {
   const adapter: ChatAdapter = useMemo(

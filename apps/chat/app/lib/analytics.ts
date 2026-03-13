@@ -17,7 +17,7 @@ import {
   ConsoleProvider,
   NoopProvider,
   type AnalyticsProvider as IAnalyticsProvider,
-} from "@msr/analytics";
+} from "@automoto/analytics";
 
 function getEnv(name: string): string | undefined {
   try {

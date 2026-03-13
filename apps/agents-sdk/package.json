@@ -1,5 +1,5 @@
 {
-  "name": "@msr/agents-sdk-app",
+  "name": "@automoto/agents-sdk-app",
   "version": "0.1.0",
   "private": true,
   "type": "module",

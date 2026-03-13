@@ -1,5 +1,5 @@
 {
-  "name": "@msr/copilot-search-connector",
+  "name": "@automoto/copilot-search-connector",
   "version": "0.1.0",
   "private": true,
   "type": "module",

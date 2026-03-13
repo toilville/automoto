@@ -2,7 +2,7 @@
  * Index route — Teams tab content.
  *
  * Renders the chat experience inside a Teams personal tab.
- * Wraps the shared @msr/chat-ui components with:
+ * Wraps the shared @automoto/chat-ui components with:
  *   - ChannelProvider (TEAMS_CHANNEL config for host-native adaptive cards)
  *   - ChatAdapterProvider (adapter with /api/chat endpoint + Teams context)
  *   - TeamsProvider (from root.tsx, provides theme/user info)
@@ -15,7 +15,7 @@ import {
   TEAMS_CHANNEL,
   type ChatAdapter,
   type ChannelConfig,
-} from "@msr/chat-ui";
+} from "@automoto/chat-ui";
 import { useTeamsContext } from "~/lib/teams-context";
 
 export default function TeamsTab() {

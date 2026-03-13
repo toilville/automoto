@@ -31,7 +31,7 @@ export interface AgentChatRequest {
 
 /**
  * Streams a response from the Azure AI Agent Service.
- * Returns a ReadableStream of SSE-formatted events compatible with @msr/chat-ui.
+ * Returns a ReadableStream of SSE-formatted events compatible with @automoto/chat-ui.
  */
 export async function streamAgentResponse(request: AgentChatRequest): Promise<ReadableStream> {
   const client = getClient();

@@ -13,7 +13,7 @@ import {
 } from "@fluentui/react-components";
 import type { LinksFunction, MetaFunction } from "react-router";
 import { ChatSettingsProvider, useChatSettings } from "~/contexts/ChatSettingsContext";
-import { AnalyticsProvider } from "@msr/analytics/react";
+import { AnalyticsProvider } from "@automoto/analytics/react";
 import { getAnalytics, initializeAnalytics } from "~/lib/analytics";
 
 import rootStyles from "~/styles/root.css?url";

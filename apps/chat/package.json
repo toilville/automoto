@@ -1,5 +1,5 @@
 {
-  "name": "@msr/chat-app",
+  "name": "@automoto/chat-app",
   "version": "0.1.0",
   "private": true,
   "type": "module",

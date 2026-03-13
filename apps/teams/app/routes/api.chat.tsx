@@ -8,7 +8,7 @@
  */
 import type { ActionFunctionArgs } from "react-router";
 import { streamAgentResponse } from "~/services/foundry-agent.server";
-import type { ChatRequest } from "@msr/chat-ui";
+import type { ChatRequest } from "@automoto/chat-ui";
 
 /* ── Rate Limiting (in-memory, per-IP) ────────────────────── */
 

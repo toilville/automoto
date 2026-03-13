@@ -1,7 +1,7 @@
 /**
  * Index route — Full-page chat experience for MSR Homepage.
  * Loads UI text from chat-settings.yaml at request time (SSR).
- * Uses @msr/chat-ui with a ChatAdapter pointing to the local /api/chat proxy.
+ * Uses @automoto/chat-ui with a ChatAdapter pointing to the local /api/chat proxy.
  */
 import { useEffect, useMemo } from "react";
 import {
@@ -9,12 +9,12 @@ import {
   ChannelProvider,
   MSR_HOME_CHANNEL,
   type ChatAdapter,
-} from "@msr/chat-ui";
+} from "@automoto/chat-ui";
 import { ChatContainer } from "~/components/ChatContainer";
 import { loadChatUiText } from "~/services/chat-settings.server";
 import { useHydrated } from "~/hooks/useHydrated";
 import { useLoaderData } from "react-router";
-import { useAnalyticsOptional } from "@msr/analytics/react";
+import { useAnalyticsOptional } from "@automoto/analytics/react";
 
 export async function loader() {
   const uiText = await loadChatUiText();
