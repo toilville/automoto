@@ -40,8 +40,8 @@ cd apps/my-channel && npm install && npm run dev
 **After scaffolding:**
 1. Replace `__CHANNEL_NAME__` placeholders
 2. Define your native types (`MyInbound`, `MyOutbound`)
-3. Implement `pub()` — map your platform's request to `MSRAgentRequest`
-4. Implement `sub()` — map `MSRAgentResponse` to your platform's response
+3. Implement `pub()` — map your platform's request to `AgentRequest`
+4. Implement `sub()` — map `AgentResponse` to your platform's response
 5. If streaming: implement `stream()` and set `supportsStreaming = true`
 6. Register in `packages/channel-adapter/src/protocol.ts` and `factory.ts`
 
@@ -83,4 +83,4 @@ kits/msr-channel/
 
 ## Subpages
 
-- [Protocol Reference](protocol-reference.md) — Full canonical type definitions (`MSRAgentRequest`, `MSRAgentResponse`, `MSRStreamEvent`, `MSRCard`, etc.)
+- [Protocol Reference](protocol-reference.md) — Full canonical type definitions (`AgentRequest`, `AgentResponse`, `StreamEvent`, `Card`, etc.)

@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "dev": "npm run dev --workspace=apps/chat",
-    "dev:home": "npm run dev --workspace=apps/msr-home",
+    "dev:home": "npm run dev --workspace=apps/home",
     "dev:teams": "npm run dev --workspace=apps/teams",
     "dev:agents": "npm run dev --workspace=apps/agents-sdk",
     "dev:m365": "npm run dev --workspace=apps/m365-agents",

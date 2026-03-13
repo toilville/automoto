@@ -1,1 +1,0 @@
-"""Knowledge extraction core module"""

@@ -1,11 +1,11 @@
-id: eventkit
-name: Event Kit Innovation Pack
+id: automoto
+name: Automoto
 version: 0.1.0
 description: >-
-  Renamed from simplified-event-agent. Minimal session recommendation & explanation agent
-  with telemetry, itinerary export, and external data override.
+  Multi-channel AI agent platform with recommendation, explanation,
+  telemetry, and export capabilities.
 license: MIT
-repository: https://github.com/peterswimm/vibe-kit
+repository: https://github.com/automoto/automoto
 entrypoint: agent.py
 features:
   telemetry:

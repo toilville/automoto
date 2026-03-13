@@ -1,5 +1,5 @@
 /**
- * EventsPanel — Real-time MSRStreamEvent timeline with color-coded badges,
+ * EventsPanel — Real-time StreamEvent timeline with color-coded badges,
  * expandable JSON payloads, and filtering.
  */
 import { useState, useRef, useEffect } from "react";

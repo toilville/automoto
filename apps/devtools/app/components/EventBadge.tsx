@@ -1,5 +1,5 @@
 /**
- * EventBadge — Color-coded badge for MSRStreamEvent types.
+ * EventBadge — Color-coded badge for StreamEvent types.
  */
 import { Badge, tokens } from "@fluentui/react-components";
 

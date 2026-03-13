@@ -32,9 +32,9 @@
   "knowledgeSources": [
     {
       "type": "GraphConnector",
-      "connectionId": "msrResearchContent",
-      "name": "MSR Research Content",
-      "description": "Microsoft Research publications, projects, researchers, and research areas indexed via Microsoft Graph connector."
+      "connectionId": "researchContent",
+      "name": "Research Content",
+      "description": "Research publications, projects, researchers, and research areas indexed via Microsoft Graph connector."
     }
   ],
   "actions": [

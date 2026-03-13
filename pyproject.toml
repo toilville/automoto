@@ -1,9 +1,9 @@
 [project]
-name = "eventkit"
+name = "automoto"
 version = "0.1.0"
-description = "Event Kit agent: recommendation, explanation, telemetry, export"
-authors = [ { name = "Vibe Kit" } ]
-readme = "EVENT_KIT.md"
+description = "Automoto: Multi-channel AI agent platform with recommendation, explanation, telemetry, and export"
+authors = [ { name = "Automoto Contributors" } ]
+readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
 dependencies = [
@@ -25,8 +25,8 @@ dev = [
 py-modules = ["agent", "core", "settings", "telemetry", "runner"]
 
 [project.scripts]
-eventkit = "agent:main"
-eventkit-runner = "runner:main"
+automoto = "agent:main"
+automoto-runner = "runner:main"
 
 [build-system]
 requires = ["setuptools>=68.0"]

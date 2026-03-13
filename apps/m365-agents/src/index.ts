@@ -7,7 +7,7 @@ import {
   CloudAdapter,
   type AuthConfiguration,
 } from "@microsoft/agents-hosting";
-import { MSRAgentBot } from "./handlers/msr-agent-bot.js";
+import { AgentBot } from "./handlers/agent-bot.js";
 
 const port = process.env.PORT ?? 3978;
 
@@ -25,7 +25,7 @@ adapter.onTurnError = async (context, error) => {
   await context.sendActivity("Sorry, something went wrong. Please try again.");
 };
 
-const bot = new MSRAgentBot();
+const bot = new AgentBot();
 
 const app = express();
 app.use(express.json());

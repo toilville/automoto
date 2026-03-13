@@ -1,11 +1,11 @@
 # Architecture
 
-System architecture overview for the MSR Event Agent Client monorepo.
+System architecture overview for the Automoto monorepo.
 
 ## Monorepo Structure
 
 ```
-msr-event-agent-client/
+automoto/
 ├── packages/           # 4 shared libraries
 │   ├── analytics/      # @automoto/analytics — telemetry abstraction
 │   ├── channel-adapter/# @automoto/channel-adapter — pub/sub/stream protocol
@@ -13,7 +13,7 @@ msr-event-agent-client/
 │   └── data-client/    # @automoto/data-client — API client
 ├── apps/               # 17 applications
 │   ├── chat/           # Main chat app (default dev server)
-│   ├── msr-home/       # MSR homepage
+│   ├── home/           # Home app
 │   ├── teams/          # Teams integration
 │   ├── devtools/       # Channel DevTools (debugger & inspector)
 │   └── ...             # See docs/apps/ for full list
@@ -45,15 +45,15 @@ Workspaces are managed via npm (`"workspaces": ["packages/*", "apps/*"]`).
 The core abstraction is `@automoto/channel-adapter`. Every channel app implements three methods:
 
 ```
-Partner Platform ──pub()──→ MSRAgentRequest ──→ Agent Backend
+Partner Platform ──pub()──→ AgentRequest ──→ Agent Backend
                                                       │
-Partner Platform ←─sub()──── MSRAgentResponse ←───────┘
-                 ←─stream()─ MSRStreamEvent   ←───────┘
+Partner Platform ←─sub()──── AgentResponse ←───────┘
+                 ←─stream()─ StreamEvent   ←───────┘
 ```
 
-- **`pub(native)`** → Normalize platform request to canonical `MSRAgentRequest`
-- **`sub(response)`** → Format canonical `MSRAgentResponse` to platform-native
-- **`stream(event)`** → Format `MSRStreamEvent` to platform-native streaming chunk
+- **`pub(native)`** → Normalize platform request to canonical `AgentRequest`
+- **`sub(response)`** → Format canonical `AgentResponse` to platform-native
+- **`stream(event)`** → Format `StreamEvent` to platform-native streaming chunk
 
 See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-reference.md) for the full type definitions.
 
@@ -62,7 +62,7 @@ See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-r
 ```
 ┌──────────────────────────────────────────────────────────┐
 │                   Client Applications                     │
-│  (chat, msr-home, teams, agents-sdk, ...)                │
+│  (chat, home, teams, agents-sdk, ...)                    │
 │                                                           │
 │  Import from:                                             │
 │    @automoto/chat-ui        — UI components              │
@@ -73,7 +73,7 @@ See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-r
                    │ HTTP requests via @automoto/data-client
                    ▼
 ┌──────────────────────────────────────────────────────────┐
-│              msr-event-agent-api                          │
+│                 automoto-api                              │
 │  (Azure Functions — Cosmos DB, AI Search)                │
 │  /v1/events, /v1/publications, /v2/search, ...           │
 └──────────────────────────────────────────────────────────┘
@@ -99,7 +99,7 @@ See [Infrastructure](../infrastructure/) for the full nginx routing table, deplo
 
 ## Deployment Environments
 
-The MSR Event Agent platform spans three environments across the API and client repos:
+The Automoto platform spans three environments across the API and client repos:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -107,8 +107,8 @@ The MSR Event Agent platform spans three environments across the API and client 
 │                                                                        │
 │   Dev                     UAT (staging)            Prod                │
 │   ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐ │
-│   │ API: msr-data-   │    │ API: msr-data-   │    │ API: msr-data-   │ │
-│   │ service-api-dev  │    │ service-api-     │    │ service-api      │ │
+│   │ API: automoto-   │    │ API: automoto-   │    │ API: automoto-   │ │
+│   │ api-dev          │    │ api-staging      │    │ api              │ │
 │   │                  │    │ staging          │    │                  │ │
 │   │ Client: local    │    │ Client: local    │    │ Client:          │ │
 │   │ dev servers      │    │ dev servers      │    │ msr-agents.      │ │
@@ -123,9 +123,9 @@ The MSR Event Agent platform spans three environments across the API and client 
 
 | Environment | How client apps run | API Endpoint |
 |-------------|-------------------|--------------|
-| **Dev** (local) | `npm run dev` — Vite dev server on `localhost:5173` | `https://msr-data-service-api-dev.azurewebsites.net` |
-| **UAT** (staging) | `npm run dev` — Vite dev server with staging API | `https://msr-data-service-api-staging.azurewebsites.net` |
-| **Prod** | nginx reverse proxy on `msr-agents.microsoft.com` | `https://msr-data-service-api.azurewebsites.net` |
+| **Dev** (local) | `npm run dev` — Vite dev server on `localhost:5173` | `https://automoto-api-dev.example.com` |
+| **UAT** (staging) | `npm run dev` — Vite dev server with staging API | `https://automoto-api-staging.example.com` |
+| **Prod** | nginx reverse proxy on `automoto.example.com` | `https://automoto-api.example.com` |
 
 > The client repo does not use Azure App Service slots. Production uses **nginx + Docker Compose** for multi-app routing (see [Infrastructure](../infrastructure/)). Development uses Vite dev servers locally.
 
@@ -135,12 +135,12 @@ Each API slot has its own independent resource stack:
 
 | Service | Dev | UAT | Prod | Shared? |
 |---------|-----|-----|------|---------|
-| Function App | `msr-data-service-api-dev` | `msr-data-service-api-staging` | `msr-data-service-api` | Per-slot |
-| Cosmos DB | `tnrevents-cosmos-dev` | `tnrevents-cosmos-staging` | `tnrevents-cosmos-prod` | Per-slot |
-| Azure OpenAI | `tnrevents-ai-dev` | `tnrevents-ai-staging` | `tnrevents-ai-prod` | Per-slot |
-| Storage | `tnreventsstoragedev` | `tnreventsstoragestaging` | `tnreventstorageprod` | Per-slot |
-| AI Foundry | `tnrevents-aifoundry-dev` | `tnrevents-aifoundry-staging` | `tnrevents-aifoundry-prod` | Per-slot |
-| AI Search | `msr-data-search` | `msr-data-search` | `msr-data-search` | **Shared** |
-| App Insights | `msr-data-service-api` | `msr-data-service-api` | `msr-data-service-api` | **Shared** |
+| Function App | `automoto-api-dev` | `automoto-api-staging` | `automoto-api` | Per-slot |
+| Cosmos DB | `automoto-cosmos-dev` | `automoto-cosmos-staging` | `automoto-cosmos-prod` | Per-slot |
+| Azure OpenAI | `automoto-ai-dev` | `automoto-ai-staging` | `automoto-ai-prod` | Per-slot |
+| Storage | `automotostoragedev` | `automotostoragestaging` | `automotostorageprod` | Per-slot |
+| AI Foundry | `automoto-foundry-dev` | `automoto-foundry-staging` | `automoto-foundry-prod` | Per-slot |
+| AI Search | `automoto-search` | `automoto-search` | `automoto-search` | **Shared** |
+| App Insights | `automoto-api` | `automoto-api` | `automoto-api` | **Shared** |
 
 See the API repo's `docs/architecture/` for the full service matrix, security posture, and deploy commands.

@@ -1,7 +1,7 @@
-# MSR Event Agent Client — AI Assistant Context
+# Automoto — AI Assistant Context
 
 npm workspaces monorepo: React 19, TypeScript 5.5, Fluent UI v9, Vite 7.2.
-17 apps + 4 shared packages for the MSR Event Hub platform.
+17 apps + 4 shared packages for the Automoto platform.
 
 ## Build & Test
 
@@ -28,7 +28,7 @@ npm run typecheck          # Type-check without emitting
 See [docs/architecture/](docs/architecture/) for full system design.
 
 **Core abstraction:** `@automoto/channel-adapter` with `pub()` / `sub()` / `stream()` methods.
-Key types in `packages/channel-adapter/src/protocol.ts`: `ChannelType`, `MSRAgentRequest`, `MSRAgentResponse`, `MSRStreamEvent`, `ChannelAdapter<TInbound, TOutbound, TStreamChunk>`.
+Key types in `packages/channel-adapter/src/protocol.ts`: `ChannelType`, `AgentRequest`, `AgentResponse`, `StreamEvent`, `ChannelAdapter<TInbound, TOutbound, TStreamChunk>`.
 7 concrete adapters: Web, BotFramework, GitHubCopilot, MCP, PowerPlatform, DirectLine, CLI.
 
 ### Packages
@@ -43,7 +43,7 @@ Key types in `packages/channel-adapter/src/protocol.ts`: `ChannelType`, `MSRAgen
 ### Apps (17)
 
 See [docs/apps/](docs/apps/) for full details. Key apps:
-- **chat** (default), **msr-home**, **teams**, **agents-sdk** — SSR apps
+- **chat** (default), **home**, **teams**, **agents-sdk** — SSR apps
 - **devtools** — Channel DevTools (multi-channel debugger, mock mode)
 - **gateway**, **mcp-server**, **m365-agents** — API servers
 - **github-copilot-ext**, **github-cli-ext**, **power-platform** — extensions

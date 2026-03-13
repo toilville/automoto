@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "alias": "MsrResearchWebPart",
+  "componentType": "WebPart",
+  "version": "0.1.0",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "MSR Tools" },
+      "title": { "default": "MSR Research Chat" },
+      "description": {
+        "default": "Embedded Microsoft Research AI assistant for discovering research, finding researchers, and browsing publications."
+      },
+      "properties": {
+        "chatEndpoint": "https://home.example.com",
+        "agentId": "",
+        "height": "600px",
+        "showHeader": true
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 /**
  * ProtocolPanel — Side-by-side view of the request/response transform pipeline.
- * Shows: Raw Request → Canonical MSRAgentRequest → Canonical MSRAgentResponse → Events
+ * Shows: Raw Request → Canonical AgentRequest → Canonical AgentResponse → Events
  */
 import {
   makeStyles,

@@ -3,3 +3,22 @@ build
 dist
 .env
 .react-router/
+
+# MSR-specific content (excluded from FOSS release)
+.msr-private/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+htmlcov/
+coverage.xml
+.coverage
+*.egg-info/
+
+# Telemetry
+telemetry.jsonl
+
+# IDE
+.vscode/

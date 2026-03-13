@@ -18,7 +18,7 @@ const PORT = parseInt(process.env.PORT ?? "8080", 10);
 
 const services: ServiceDefinition[] = [
   { name: "chat", prefix: "/chat", upstream: process.env.CHAT_UPSTREAM ?? "http://localhost:5173", description: "Web chat app" },
-  { name: "msr-home", prefix: "/msr-home", upstream: process.env.MSR_HOME_UPSTREAM ?? "http://localhost:5174", description: "MSR homepage chat" },
+  { name: "home", prefix: "/home", upstream: process.env.HOME_UPSTREAM ?? "http://localhost:5174", description: "Homepage chat" },
   { name: "teams", prefix: "/teams", upstream: process.env.TEAMS_UPSTREAM ?? "http://localhost:5175", description: "Teams app" },
   { name: "agents-sdk", prefix: "/agents-sdk", upstream: process.env.AGENTS_SDK_UPSTREAM ?? "http://localhost:5176", description: "Azure AI Agents SDK" },
   { name: "m365", prefix: "/m365", upstream: process.env.M365_UPSTREAM ?? "http://localhost:3978", description: "M365 Bot Framework" },

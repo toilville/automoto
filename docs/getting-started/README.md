@@ -1,6 +1,6 @@
 # Getting Started
 
-Developer setup guide for the MSR Event Agent Client monorepo.
+Developer setup guide for the Automoto monorepo.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Developer setup guide for the MSR Event Agent Client monorepo.
 
 ```bash
 git clone <repo-url>
-cd msr-event-agent-client
+cd automoto
 
 npm install          # Install all workspace dependencies
 npm run build        # Build all packages and apps
@@ -35,7 +35,7 @@ Each app has its own dev script. See [Apps](../apps/) for the full list.
 | Command | App | Port |
 |---------|-----|------|
 | `npm run dev` | chat (default) | 5173 |
-| `npm run dev:home` | msr-home | 5174 |
+| `npm run dev:home` | home | 5174 |
 | `npm run dev:teams` | teams | 5175 |
 | `npm run dev:agents` | agents-sdk | 5176 |
 | `npm run dev:gateway` | gateway | 8080 |

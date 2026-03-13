@@ -1,6 +1,6 @@
-# MSR Universal Client Platform — nginx Infrastructure
+# Automoto Platform — nginx Infrastructure
 
-Production reverse-proxy configuration for the MSR universal client platform,
+Production reverse-proxy configuration for the Automoto platform,
 routing external traffic to 11 runtime services across multiple channels.
 
 ## Architecture Overview
@@ -14,7 +14,7 @@ routing external traffic to 11 runtime services across multiple channels.
          │               │                                   │
     SSR Apps (React Router)      API Servers (Express)       │
     ┌──────────┐  ┌──────────┐  ┌──────────────┐  ┌───────────────┐
-    │   chat   │  │ msr-home │  │ m365-agents  │  │  mcp-server   │
+    │   chat   │  │   home   │  │ m365-agents  │  │  mcp-server   │
     │  :5173   │  │  :5174   │  │    :3978     │  │    :3100      │
     ├──────────┤  ├──────────┤  ├──────────────┤  ├───────────────┤
     │  teams   │  │agents-sdk│  │ msg-extension│  │  direct-line  │
@@ -63,7 +63,7 @@ location / {
 |------------------------------|-----------------------|-------|--------------|-----|
 | `/` (root)                   | chat_app              | 5173  | —            | ✓   |
 | `/api/chat`                  | chat_app              | 5173  | 60 req/min   | ✓   |
-| `/msr-home/`                 | msr_home_app          | 5174  | —            | ✓   |
+| `/home/`                     | home_app              | 5174  | —            | ✓   |
 | `/teams/`                    | teams_app             | 5175  | —            | ✓   |
 | `/agents-sdk/`               | agents_sdk_app        | 5176  | —            | ✓   |
 | `/m365/api/messages`         | m365_agents           | 3978  | 120 req/min  | —   |
@@ -114,7 +114,7 @@ location / {
        <<: *healthcheck-defaults
        test: ["CMD", "wget", "--spider", "-q", "http://localhost:<PORT>/health"]
      networks:
-       - msr-network
+       - automoto-network
      restart: unless-stopped
    ```
 
@@ -159,7 +159,7 @@ For self-signed certificates (testing only):
 ```bash
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ssl/key.pem -out ssl/cert.pem \
-  -subj "/CN=msr-agents.microsoft.com"
+  -subj "/CN=localhost"
 ```
 
 ### 2. Create the `.env` File

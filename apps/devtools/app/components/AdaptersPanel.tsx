@@ -92,7 +92,7 @@ const useStyles = makeStyles({
 
 /** Adapter class groupings (from factory.ts) */
 const ADAPTER_GROUPS: Record<string, string[]> = {
-  WebAdapter: ["web", "msr-home", "agents-sdk", "teams"],
+  WebAdapter: ["web", "home", "agents-sdk", "teams"],
   BotFrameworkAdapter: ["m365-agents", "message-extension", "copilot-studio"],
   GitHubCopilotAdapter: ["github-copilot"],
   MCPAdapter: ["mcp-server"],

@@ -1,8 +1,8 @@
-ov# Event Kit Agent
+ov# Automoto
 
 **AI-powered event recommendation agent** with multi-channel deployment support. Demonstrates production-ready agent patterns for Teams, Copilot, HTTP APIs, and CLI.
 
-[![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success)](https://github.com/peterswimm/event-agent-december)
+[![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success)](https://github.com/automoto/automoto)
 [![Tests: 147 Passing](https://img.shields.io/badge/Tests-147%20Passing-success)](./tests)
 [![Documentation: Complete](https://img.shields.io/badge/Docs-Complete-blue)](./docs)
 
@@ -10,7 +10,7 @@ ov# Event Kit Agent
 
 ## 🌟 Overview
 
-Event Kit is a comprehensive AI agent showcasing enterprise-ready patterns:
+Automoto is a comprehensive AI agent showcasing enterprise-ready patterns:
 
 ### Core Features
 - ✅ **Declarative manifest**: Sessions, weights, and feature flags in JSON
@@ -37,7 +37,7 @@ Event Kit is a comprehensive AI agent showcasing enterprise-ready patterns:
 
 ## How This Fits in Vibe Kit
 
-Vibe Kit is a repository of innovation kits designed to accelerate AI agent prototyping. Event Kit serves as:
+Vibe Kit is a repository of innovation kits designed to accelerate AI agent prototyping. Automoto serves as:
 
 1. **Foundational example**: Minimal agent architecture (manifest + logic)
 2. **Starter for real integrations**: Easily extend to Microsoft Graph, SharePoint, or Agent SDK hosting
@@ -104,8 +104,8 @@ python bot_server.py
 
 ```bash
 # Build and run
-docker build -t eventkit:latest -f deploy/Dockerfile .
-docker run -p 8010:8010 eventkit:latest
+docker build -t automoto:latest -f deploy/Dockerfile .
+docker run -p 8010:8010 automoto:latest
 
 # Or use Docker Compose
 cd deploy
@@ -117,7 +117,7 @@ docker compose up
 ```bash
 # Deploy infrastructure with Foundry
 az deployment group create \
-  --resource-group eventkit-rg \
+  --resource-group automoto-rg \
   --template-file infra/main.bicep \
   --parameters deployFoundry=true
 

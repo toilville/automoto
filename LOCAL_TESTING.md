@@ -1,4 +1,4 @@
-# Local Testing Guide for EventKit Bot
+# Local Testing Guide for Automoto Bot
 
 **Updated**: December 18, 2025  
 **Bot Framework Emulator**: v4.14.1+ (Modern Version)
@@ -27,8 +27,8 @@ python bot_server.py
 
 **Expected output:**
 ```
-INFO:__main__:EventKit Bot Server starting on port 3978
-INFO:__main__:Starting EventKit Bot Server on 0.0.0.0:3978
+INFO:__main__:Automoto Bot Server starting on port 3978
+INFO:__main__:Starting Automoto Bot Server on 0.0.0.0:3978
 INFO:__main__:Messages endpoint: http://0.0.0.0:3978/api/messages
 INFO:__main__:Health check: http://0.0.0.0:3978/health
 ```
@@ -42,7 +42,7 @@ curl http://localhost:3978/health
 
 **Expected response:**
 ```json
-{"status":"ok","service":"EventKit Bot","port":3978}
+{"status":"ok","service":"Automoto Bot","port":3978}
 ```
 
 ---
@@ -126,7 +126,7 @@ You: help
 
 **Expected response:**
 ```
-**Event Kit Agent - Commands**
+**Automoto Agent - Commands**
 
 1. **recommend** - Get session recommendations
    `@bot recommend agents, ai safety --top 5`
@@ -198,11 +198,11 @@ Bot Framework SDK is required. Install with: pip install botbuilder-core botbuil
 pip install botbuilder-core>=4.20.0 botbuilder-integration-aiohttp>=4.20.0 aiohttp>=3.8.0
 ```
 
-### Issue 2: "EventKit components not available"
+### Issue 2: "Automoto components not available"
 
 **Error:**
 ```
-WARNING:__main__:EventKit components not available: No module named 'agents_sdk_adapter'
+WARNING:__main__:Automoto components not available: No module named 'agents_sdk_adapter'
 ```
 
 **Solution:**

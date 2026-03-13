@@ -1,6 +1,6 @@
 # Infrastructure
 
-Production deployment configuration for the MSR Event Agent Client platform.
+Production deployment configuration for the Automoto platform.
 
 > Canonical source: [`infra/nginx/README.md`](../../infra/nginx/README.md)
 
@@ -46,7 +46,7 @@ Production deployment configuration for the MSR Event Agent Client platform.
 | Path | Service | Port |
 |------|---------|------|
 | `/` | chat | 5173 |
-| `/msr-home/` | msr-home | 5174 |
+| `/home/` | home | 5174 |
 | `/teams/` | teams | 5175 |
 | `/agents-sdk/` | agents-sdk | 5176 |
 | `/m365/api/messages` | m365-agents | 3978 |

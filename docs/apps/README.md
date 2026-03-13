@@ -7,7 +7,7 @@ All 17 applications in the monorepo.
 | App | Path | Category | Port | Dev Command |
 |-----|------|----------|------|-------------|
 | chat | `apps/chat` | SSR | 5173 | `npm run dev` |
-| msr-home | `apps/msr-home` | SSR | 5174 | `npm run dev:home` |
+| home | `apps/home` | SSR | 5174 | `npm run dev:home` |
 | teams | `apps/teams` | SSR | 5175 | `npm run dev:teams` |
 | agents-sdk | `apps/agents-sdk` | SSR | 5176 | `npm run dev:agents` |
 | devtools | `apps/devtools` | DevTools | 5173 | `npm run dev:devtools` |
@@ -33,7 +33,7 @@ React Router 7 applications with server-side rendering, file-based routing, and 
 | App | Description |
 |-----|-------------|
 | **chat** | The primary chat interface. Default dev server for the monorepo. |
-| **msr-home** | MSR homepage and research discovery experience. |
+| **home** | Home and discovery experience. |
 | **teams** | Teams-specific integration of the chat experience. |
 | **agents-sdk** | Agents SDK application. |
 
@@ -66,7 +66,7 @@ Express-based services for bot messaging, agent communication, and platform rout
 | **message-extension** | Teams message extension. Handles `/message-ext/api/messages`. |
 | **gateway** | API gateway and service registry. `/health` and `/api/services`. |
 | **direct-line** | Direct Line channel for web chat widget embedding. |
-| **mcp-server** | Model Context Protocol server. Exposes MSR tools to AI clients via stdio/SSE. [README →](../../apps/mcp-server/README.md) |
+| **mcp-server** | Model Context Protocol server. Exposes Automoto tools to AI clients via stdio/SSE. [README →](../../apps/mcp-server/README.md) |
 
 ---
 
@@ -80,7 +80,7 @@ Integrations with external platforms.
 | **copilot-knowledge-connector** | Microsoft 365 Copilot knowledge connector. |
 | **copilot-studio** | Copilot Studio integration. |
 | **github-copilot-ext** | GitHub Copilot extension. Handles `/github-copilot/agent`. |
-| **github-cli-ext** | GitHub CLI extension (`gh msr`). [README →](../../apps/github-cli-ext/README.md) |
+| **github-cli-ext** | GitHub CLI extension (`gh automoto`). [README →](../../apps/github-cli-ext/README.md) |
 | **power-platform** | Power Platform integration. |
 
 ---
@@ -89,7 +89,7 @@ Integrations with external platforms.
 
 | App | Description |
 |-----|-------------|
-| **sharepoint** | SPFx web part scaffold. Embeds MSR chat into SharePoint pages. [README →](../../apps/sharepoint/README.md) |
+| **sharepoint** | SPFx web part scaffold. Embeds Automoto chat into SharePoint pages. [README →](../../apps/sharepoint/README.md) |
 
 ---
 

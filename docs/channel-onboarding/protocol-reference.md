@@ -14,53 +14,53 @@ interface ChannelAdapter<TInbound, TOutbound, TStreamChunk> {
   readonly name: string;
   readonly supportsStreaming: boolean;
 
-  pub(raw: TInbound): MSRAgentRequest;
-  sub(response: MSRAgentResponse): TOutbound;
-  stream(event: MSRStreamEvent): TStreamChunk | null;
+  pub(raw: TInbound): AgentRequest;
+  sub(response: AgentResponse): TOutbound;
+  stream(event: StreamEvent): TStreamChunk | null;
 }
 ```
 
 ## Canonical Types
 
-### MSRAgentRequest (inbound)
+### AgentRequest (inbound)
 
 ```typescript
-interface MSRAgentRequest {
+interface AgentRequest {
   type: "chat" | "search" | "tool_call" | "action";
   requestId: string;
-  message: MSRMessage;
-  context: MSRContext;
+  message: Message;
+  context: AgentContext;
   stream: boolean;
   action?: { type: string; payload?: unknown };
 }
 ```
 
-### MSRAgentResponse (outbound)
+### AgentResponse (outbound)
 
 ```typescript
-interface MSRAgentResponse {
+interface AgentResponse {
   requestId: string;
-  message: MSRMessage;
-  cards: MSRCard[];
-  references: MSRReference[];
-  toolCalls: MSRToolResult[];
+  message: Message;
+  cards: Card[];
+  references: Reference[];
+  toolCalls: ToolResult[];
   usage?: { promptTokens: number; completionTokens: number; totalTokens: number };
-  suggestedActions?: MSRAction[];
+  suggestedActions?: Action[];
   finishReason: "stop" | "length" | "content_filter" | "tool_calls" | "error";
 }
 ```
 
-### MSRStreamEvent (streaming)
+### StreamEvent (streaming)
 
 ```typescript
-type MSRStreamEvent =
+type StreamEvent =
   | { type: "text_delta"; delta: string }
-  | { type: "card"; card: MSRCard }
-  | { type: "reference"; reference: MSRReference }
+  | { type: "card"; card: Card }
+  | { type: "reference"; reference: Reference }
   | { type: "tool_start"; toolCall: { id: string; name: string; arguments: string } }
-  | { type: "tool_end"; toolResult: MSRToolResult }
+  | { type: "tool_end"; toolResult: ToolResult }
   | { type: "usage"; usage: { promptTokens: number; completionTokens: number; totalTokens: number } }
-  | { type: "suggested_actions"; actions: MSRAction[] }
+  | { type: "suggested_actions"; actions: Action[] }
   | { type: "done"; usage?: { ... } }
   | { type: "error"; error: { code: string; message: string } };
 ```

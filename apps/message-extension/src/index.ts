@@ -7,7 +7,7 @@ import {
   CloudAdapter,
   type AuthConfiguration,
 } from "@microsoft/agents-hosting";
-import { MSRSearchExtension } from "./handlers/search-handler.js";
+import { SearchExtension } from "./handlers/search-handler.js";
 
 const port = process.env.PORT ?? 7074;
 
@@ -24,7 +24,7 @@ adapter.onTurnError = async (context, error) => {
   await context.sendActivity("Sorry, something went wrong. Please try again.");
 };
 
-const handler = new MSRSearchExtension();
+const handler = new SearchExtension();
 
 const app = express();
 app.use(express.json());
@@ -44,5 +44,5 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`[MSR Message Extension] Server running on port ${port}`);
+  console.log(`[Message Extension] Server running on port ${port}`);
 });

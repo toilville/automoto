@@ -1,0 +1,72 @@
+kit_info:
+  name: msr-channel
+  version: 0.1.0
+  display_name: MSR Channel Onboarding Kit
+  description: >
+    Scaffold a new MSR Agent channel (producer) or embed an existing channel
+    into your app (consumer). Powered by the @automoto/channel-adapter pub/sub/stream
+    protocol from msr-event-agent-client.
+  created_date: 2026-03-12
+  last_updated: 2026-03-12
+
+entry: SKILL.md
+
+initialization:
+  - initialization/questionnaire.py
+
+templates:
+  - templates/producer/express-channel/
+  - templates/producer/bot-framework-channel/
+  - templates/producer/webhook-channel/
+  - templates/consumer/react-embed/
+  - templates/consumer/api-client/
+  - templates/consumer/direct-line-embed/
+
+docs:
+  - docs/partner-onboarding.md
+  - docs/protocol-reference.md
+
+tags:
+  - channel
+  - adapter
+  - onboarding
+  - partner
+  - pub-sub
+  - streaming
+  - bot-framework
+  - webhook
+  - react
+  - direct-line
+
+post_install:
+  instructions_markdown: |
+    ## 🎯 MSR Channel Kit Installed!
+
+    ### Quick Start
+
+    Run the channel onboarding questionnaire:
+
+    ```bash
+    python .vibe-kit/innovation-kits/msr-channel/initialization/questionnaire.py
+    ```
+
+    The wizard will ask:
+    - **Producer or consumer?** — Are you building a new channel or embedding an existing one?
+    - **Platform details** — Streaming support, auth model, framework choice
+    - Generate a ready-to-go project scaffold
+
+    ### Two Paths
+
+    | Path | You want to... | Template |
+    |------|---------------|----------|
+    | **Producer** | Connect a new platform (Slack, WhatsApp, internal portal) to the MSR Agent | `express-channel`, `bot-framework-channel`, `webhook-channel` |
+    | **Consumer** | Embed MSR Agent chat in your app/site | `react-embed`, `api-client`, `direct-line-embed` |
+
+    ### Key Concept: pub / sub / stream
+
+    Every channel adapter implements three methods:
+    - `pub(native)` → canonical `AgentRequest` (normalize inbound)
+    - `sub(response)` → native format (format outbound)
+    - `stream(event)` → native chunk (format streaming events)
+
+    📖 See `docs/protocol-reference.md` for the full contract.

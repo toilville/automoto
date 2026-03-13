@@ -6,9 +6,9 @@
  */
 import type {
   ChannelType,
-  MSRStreamEvent,
-  MSRAgentRequest,
-  MSRAgentResponse,
+  StreamEvent,
+  AgentRequest,
+  AgentResponse,
 } from "@automoto/channel-adapter";
 
 /* ── Types ────────────────────────────────────────────────── */
@@ -18,9 +18,9 @@ export interface RequestLogEntry {
   timestamp: number;
   channel: ChannelType;
   /** Raw request body sent to gateway */
-  request: MSRAgentRequest | Record<string, unknown>;
+  request: AgentRequest | Record<string, unknown>;
   /** Canonical response from gateway */
-  response?: MSRAgentResponse | Record<string, unknown>;
+  response?: AgentResponse | Record<string, unknown>;
   /** HTTP status code */
   status?: number;
   /** Response headers */
@@ -36,8 +36,8 @@ export interface DevToolsEvent {
   timestamp: number;
   /** Time since the request started (ms) */
   elapsed: number;
-  /** The raw MSRStreamEvent (or local StreamEvent) */
-  event: MSRStreamEvent | Record<string, unknown>;
+  /** The raw StreamEvent (or local StreamEvent) */
+  event: StreamEvent | Record<string, unknown>;
   /** Which channel produced this event */
   channel: ChannelType;
   /** Request this event belongs to */

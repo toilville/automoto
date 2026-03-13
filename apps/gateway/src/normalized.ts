@@ -6,9 +6,9 @@
  * native format.
  *
  * Flow:
- *   1. Inbound:  Channel-native request → adapter.pub() → MSRAgentRequest
- *   2. Process:  MSRAgentRequest → Agent Backend (Foundry / data API)
- *   3. Outbound: MSRAgentResponse → adapter.sub() / adapter.stream() → Channel-native response
+ *   1. Inbound:  Channel-native request → adapter.pub() → AgentRequest
+ *   2. Process:  AgentRequest → Agent Backend (Foundry / data API)
+ *   3. Outbound: AgentResponse → adapter.sub() / adapter.stream() → Channel-native response
  *
  * This replaces per-channel proxy routes with a single typed pipeline.
  */
@@ -18,9 +18,9 @@ import {
   getAdapter,
   listAdapters,
   type ChannelType,
-  type MSRAgentRequest,
-  type MSRAgentResponse,
-  type MSRStreamEvent,
+  type AgentRequest,
+  type AgentResponse,
+  type StreamEvent,
 } from "@automoto/channel-adapter";
 
 const DATA_API_URL = process.env.DATA_API_URL ?? "http://localhost:7071";
@@ -36,8 +36,8 @@ const FOUNDRY_API_VERSION = process.env.FOUNDRY_API_VERSION ?? "2024-12-01-previ
  * here we use the data API directly as the universal backend.
  */
 async function callAgentBackend(
-  request: MSRAgentRequest,
-): Promise<MSRAgentResponse> {
+  request: AgentRequest,
+): Promise<AgentResponse> {
   const query = request.message.content;
 
   // Call data API for search results
@@ -103,12 +103,12 @@ async function callAgentBackend(
 }
 
 /**
- * Calls the agent backend and streams MSRStreamEvents back.
+ * Calls the agent backend and streams StreamEvents back.
  * Uses the data API for context, then synthesizes stream events.
  */
 async function* streamAgentBackend(
-  request: MSRAgentRequest,
-): AsyncGenerator<MSRStreamEvent> {
+  request: AgentRequest,
+): AsyncGenerator<StreamEvent> {
   yield { type: "tool_start", requestId: request.requestId, toolName: "quick_search" };
 
   // Fetch from data API
@@ -227,7 +227,7 @@ export function normalizedRouter(): Router {
     }
 
     // msr.pub — Normalize inbound request
-    let canonicalRequest: MSRAgentRequest;
+    let canonicalRequest: AgentRequest;
     try {
       canonicalRequest = adapter.pub(req.body);
     } catch (err) {

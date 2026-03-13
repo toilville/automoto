@@ -19,7 +19,7 @@ const BATCH_SIZE = 4;
 
 const CHANNELS = [
   "web",
-  "msr-home",
+  "home",
   "teams",
   "agents-sdk",
   "m365-agents",

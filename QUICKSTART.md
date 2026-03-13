@@ -1,4 +1,4 @@
-# Event Kit Quick Start Guide
+# Automoto Quick Start Guide
 
 > **AI-powered event recommendation agent** with CLI, HTTP API, Teams Bot, and Copilot Studio integration
 
@@ -6,7 +6,7 @@
 
 ```bash
 # Clone the repo
-cd event-agent-example
+cd automoto
 
 # Install dependencies
 pip install -r requirements.txt
@@ -98,9 +98,9 @@ curl "http://localhost:8010/export?interests=agents"
 
 **In Teams**:
 ```
-@EventKit recommend agents, ai safety --top 5
-@EventKit explain "Session Title" --interests agents
-@EventKit help
+@Automoto recommend agents, ai safety --top 5
+@Automoto explain "Session Title" --interests agents
+@Automoto help
 ```
 
 📖 **Full guide**: [docs/agents-sdk-setup.md](docs/agents-sdk-setup.md)
@@ -111,10 +111,10 @@ curl "http://localhost:8010/export?interests=agents"
 
 ```bash
 # Build image
-docker build -t eventkit:latest -f deploy/Dockerfile .
+docker build -t automoto:latest -f deploy/Dockerfile .
 
 # Run container
-docker run -d -p 8010:8010 --name eventkit eventkit:latest
+docker run -d -p 8010:8010 --name automoto automoto:latest
 
 # Test
 curl http://localhost:8010/health

@@ -7,7 +7,7 @@
 | Package | Path | Description |
 |---------|------|-------------|
 | `@automoto/chat-ui` | `packages/chat-ui` | Reusable chat UI components (React 19 + Fluent UI v9) |
-| `@automoto/data-client` | `packages/data-client` | API client for the MSR data service |
+| `@automoto/data-client` | `packages/data-client` | API client for the Automoto data service |
 | `@automoto/analytics` | `packages/analytics` | Analytics abstraction with pluggable providers |
 | `@automoto/channel-adapter` | `packages/channel-adapter` | Channel adapter protocol — pub/sub/stream |
 
@@ -32,7 +32,7 @@ import { ChatContainer, ChatAdapterProvider } from "@automoto/chat-ui";
 
 ## @automoto/data-client
 
-Shared API client for the MSR data service (`msr-event-agent-api`).
+Shared API client for the Automoto data service (`automoto-api`).
 
 **Key exports:**
 - API client for event data, search, and tool definitions
@@ -72,7 +72,7 @@ Channel adapter protocol for multi-channel communication.
 **Key exports:**
 - `ChannelAdapter<TInbound, TOutbound, TStreamChunk>` — interface all adapters implement
 - `ChannelType` — union of 14 channel identifiers
-- `MSRAgentRequest`, `MSRAgentResponse`, `MSRStreamEvent` — canonical types
+- `AgentRequest`, `AgentResponse`, `StreamEvent` — canonical types
 - 7 concrete adapters: Web, BotFramework, GitHubCopilot, MCP, PowerPlatform, DirectLine, CLI
 
 See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-reference.md) for the full type definitions.

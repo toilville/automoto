@@ -17,7 +17,7 @@ import {
 
 const DATA_API_URL = process.env.DATA_API_URL ?? "http://localhost:7071";
 
-export class MSRSearchExtension extends TeamsActivityHandler {
+export class SearchExtension extends TeamsActivityHandler {
   /**
    * Handle search queries from the compose box.
    * Called when user types in the ME search bar.
@@ -99,7 +99,7 @@ export class MSRSearchExtension extends TeamsActivityHandler {
         },
       };
     } catch (err) {
-      console.error("[MSRSearchExtension] Search error:", err);
+      console.error("[SearchExtension] Search error:", err);
       return {
         composeExtension: {
           type: "result",

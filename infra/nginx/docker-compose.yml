@@ -1,6 +1,6 @@
 version: "3.9"
 
-# MSR Universal Client Platform — Full Stack
+# Automoto Platform — Full Stack
 # Usage: docker-compose up -d
 # Requires: .env file with configuration (see README.md)
 
@@ -18,7 +18,7 @@ services:
   # ─── Reverse Proxy ────────────────────────────────────
   nginx:
     image: nginx:alpine
-    container_name: msr-nginx
+    container_name: automoto-nginx
     ports:
       - "${NGINX_HTTPS_PORT:-443}:443"
       - "${NGINX_HTTP_PORT:-80}:80"
@@ -31,7 +31,7 @@ services:
         condition: service_healthy
       chat:
         condition: service_healthy
-      msr-home:
+      home:
         condition: service_healthy
       teams:
         condition: service_healthy
@@ -52,7 +52,7 @@ services:
       mcp-server:
         condition: service_healthy
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   # ─── API Gateway ──────────────────────────────────────
@@ -60,7 +60,7 @@ services:
     build:
       context: ../../
       dockerfile: apps/gateway/Dockerfile
-    container_name: msr-gateway
+    container_name: automoto-gateway
     environment:
       <<: *common-env
       PORT: 8080
@@ -70,7 +70,7 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   # ─── React Router SSR Apps ────────────────────────────
@@ -78,7 +78,7 @@ services:
     build:
       context: ../../
       dockerfile: apps/chat/Dockerfile
-    container_name: msr-chat
+    container_name: automoto-chat
     environment:
       <<: *common-env
       PORT: 5173
@@ -91,14 +91,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:5173/"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
-  msr-home:
+  home:
     build:
       context: ../../
-      dockerfile: apps/msr-home/Dockerfile
-    container_name: msr-home
+      dockerfile: apps/home/Dockerfile
+    container_name: automoto-home
     environment:
       <<: *common-env
       PORT: 5174
@@ -108,14 +108,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:5174/"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   teams:
     build:
       context: ../../
       dockerfile: apps/teams/Dockerfile
-    container_name: msr-teams
+    container_name: automoto-teams
     environment:
       <<: *common-env
       PORT: 5175
@@ -125,14 +125,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:5175/"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   agents-sdk:
     build:
       context: ../../
       dockerfile: apps/agents-sdk/Dockerfile
-    container_name: msr-agents-sdk
+    container_name: automoto-agents-sdk
     environment:
       <<: *common-env
       PORT: 5176
@@ -142,7 +142,7 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:5176/"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   # ─── Express/Node.js API Servers ──────────────────────
@@ -150,7 +150,7 @@ services:
     build:
       context: ../../
       dockerfile: apps/m365-agents/Dockerfile
-    container_name: msr-m365-agents
+    container_name: automoto-m365-agents
     environment:
       <<: *common-env
       PORT: 3978
@@ -163,14 +163,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3978/api/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   message-extension:
     build:
       context: ../../
       dockerfile: apps/message-extension/Dockerfile
-    container_name: msr-message-extension
+    container_name: automoto-message-extension
     environment:
       <<: *common-env
       PORT: 7074
@@ -182,14 +182,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7074/api/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   copilot-knowledge-connector:
     build:
       context: ../../
       dockerfile: apps/copilot-knowledge-connector/Dockerfile
-    container_name: msr-copilot-knowledge
+    container_name: automoto-copilot-knowledge
     environment:
       <<: *common-env
       PORT: 8081
@@ -199,14 +199,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8081/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   power-platform:
     build:
       context: ../../
       dockerfile: apps/power-platform/Dockerfile
-    container_name: msr-power-platform
+    container_name: automoto-power-platform
     environment:
       <<: *common-env
       PORT: 7072
@@ -216,14 +216,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7072/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   github-copilot-ext:
     build:
       context: ../../
       dockerfile: apps/github-copilot-ext/Dockerfile
-    container_name: msr-github-copilot
+    container_name: automoto-github-copilot
     environment:
       <<: *common-env
       PORT: 7073
@@ -235,14 +235,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7073/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   direct-line:
     build:
       context: ../../
       dockerfile: apps/direct-line/Dockerfile
-    container_name: msr-direct-line
+    container_name: automoto-direct-line
     environment:
       <<: *common-env
       PORT: 7075
@@ -253,14 +253,14 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:7075/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
   mcp-server:
     build:
       context: ../../
       dockerfile: apps/mcp-server/Dockerfile
-    container_name: msr-mcp-server
+    container_name: automoto-mcp-server
     environment:
       <<: *common-env
       PORT: 3100
@@ -270,9 +270,9 @@ services:
       <<: *healthcheck-defaults
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/health"]
     networks:
-      - msr-network
+      - automoto-network
     restart: unless-stopped
 
 networks:
-  msr-network:
+  automoto-network:
     driver: bridge

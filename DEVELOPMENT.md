@@ -1,4 +1,4 @@
-# EventKit Agent - Development Setup
+# Automoto - Development Setup
 
 ## Quick Start
 
@@ -164,7 +164,7 @@ pytest -vv --tb=long
 ### Docker Issues
 ```bash
 # Rebuild without cache
-docker build --no-cache -t eventkit-agent:latest -f deploy/Dockerfile .
+docker build --no-cache -t automoto:latest -f deploy/Dockerfile .
 
 # Remove all containers and images
 make docker-stop

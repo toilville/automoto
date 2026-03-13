@@ -287,7 +287,7 @@ export async function chat(
   }
   console.log(
     dim(
-      "  For richer conversations, use the full MSR Research chat at https://msr-home.azurewebsites.net",
+      "  For richer conversations, use the full research chat at https://home.example.com",
     ),
   );
   console.log();
@@ -765,7 +765,7 @@ export async function channels(opts: OutputOptions): Promise<void> {
   } catch {
     // Gateway offline — show static list
     const channelList = [
-      "web", "msr-home", "teams", "agents-sdk", "m365-agents",
+      "web", "home", "teams", "agents-sdk", "m365-agents",
       "copilot-search", "copilot-knowledge", "mcp-server",
       "copilot-studio", "power-platform", "sharepoint",
       "github-copilot", "github-cli", "message-extension", "direct-line",

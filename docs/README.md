@@ -1,6 +1,6 @@
 # Documentation
 
-Welcome to the MSR Event Agent Client wiki. This monorepo contains shared front-end packages and applications for the MSR Event Hub platform.
+Welcome to the Automoto docs. This monorepo contains shared front-end packages and applications for the Automoto platform.
 
 ## Pages
 
