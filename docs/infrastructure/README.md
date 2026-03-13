@@ -15,7 +15,7 @@ Production deployment configuration for the Automoto platform.
          │               │                                   │
     SSR Apps (React Router)      API Servers (Express)       │
     ┌──────────┐  ┌──────────┐  ┌──────────────┐  ┌───────────────┐
-    │   chat   │  │ msr-home │  │ m365-agents  │  │  mcp-server   │
+    │   chat   │  │  home    │  │ m365-agents  │  │  mcp-server   │
     │  :5173   │  │  :5174   │  │    :3978     │  │    :3100      │
     ├──────────┤  ├──────────┤  ├──────────────┤  ├───────────────┤
     │  teams   │  │agents-sdk│  │ msg-extension│  │  direct-line  │

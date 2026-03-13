@@ -34,7 +34,7 @@ export default function Index() {
     () => ({
       endpoint: "/api/chat",
       getContext: () => ({
-        scope: "msr_homepage" as const,
+        scope: "homepage" as const,
       }),
     }),
     [],

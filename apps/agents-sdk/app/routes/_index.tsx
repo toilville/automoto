@@ -15,7 +15,7 @@ export default function AgentChat() {
   const adapter: ChatAdapter = useMemo(
     () => ({
       endpoint: "/api/chat",
-      getContext: () => ({ scope: "msr_homepage" as const }),
+      getContext: () => ({ scope: "homepage" as const }),
     }),
     [],
   );

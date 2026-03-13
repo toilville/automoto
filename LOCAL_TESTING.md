@@ -110,7 +110,7 @@ chmod +x BotFramework-Emulator-4.14.1-linux-x86_64.AppImage
 To save your bot configuration:
 
 1. Click **File → Save Bot Configuration As...**
-2. Save as `eventkit-local.bot` in your project directory
+2. Save as `automoto-local.bot` in your project directory
 3. Next time, just **File → Open Bot Configuration**
 
 ---

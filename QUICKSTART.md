@@ -121,10 +121,10 @@ curl http://localhost:8010/health
 curl "http://localhost:8010/recommend?interests=agents&top=3"
 
 # View logs
-docker logs eventkit
+docker logs automoto
 
 # Stop
-docker stop eventkit
+docker stop automoto
 ```
 
 **With Docker Compose**:
@@ -154,13 +154,13 @@ az login
 
 # Deploy Foundry resources
 az deployment group create \
-  --resource-group eventkit-foundry-rg \
+  --resource-group automoto-foundry-rg \
   --template-file infra/main.bicep \
-  --parameters deployFoundry=true openAIResourceName=eventkit-openai
+  --parameters deployFoundry=true openAIResourceName=automoto-openai
 
 # Get deployment outputs
 az deployment group show \
-  --resource-group eventkit-foundry-rg \
+  --resource-group automoto-foundry-rg \
   --name main \
   --query properties.outputs
 ```
@@ -177,8 +177,8 @@ pip install promptflow promptflow-azure
 export FOUNDRY_ENABLED=true
 export FOUNDRY_PROJECT_ENDPOINT="https://eastus.api.azureml.ms"
 export FOUNDRY_SUBSCRIPTION_ID="your-subscription-id"
-export FOUNDRY_RESOURCE_GROUP="eventkit-foundry-rg"
-export FOUNDRY_PROJECT_NAME="eventkit-prod-project"
+export FOUNDRY_RESOURCE_GROUP="automoto-foundry-rg"
+export FOUNDRY_PROJECT_NAME="automoto-prod-project"
 export FOUNDRY_MODEL_DEPLOYMENT="gpt-4o"
 ```
 
@@ -203,8 +203,8 @@ pf flow test --flow flow.dag.yaml --inputs user_message="recommend AI sessions"
 # Deploy to Foundry
 pf flow create \
   --flow flow.dag.yaml \
-  --workspace-name eventkit-prod-project \
-  --resource-group eventkit-foundry-rg
+  --workspace-name automoto-prod-project \
+  --resource-group automoto-foundry-rg
 ```
 
 **What you get**:

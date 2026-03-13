@@ -33,7 +33,7 @@ export default function TeamsTab() {
     () => ({
       endpoint: "/api/chat",
       getContext: () => ({
-        scope: "msr_homepage" as const,
+        scope: "homepage" as const,
         userId: teamsCtx.userObjectId,
       }),
       getHeaders: () => {

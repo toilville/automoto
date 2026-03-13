@@ -18,7 +18,7 @@ automoto/
 │   ├── devtools/       # Channel DevTools (debugger & inspector)
 │   └── ...             # See docs/apps/ for full list
 ├── kits/               # Innovation kits (powered by vibe-kit)
-│   └── msr-channel/    # Partner channel onboarding
+│   └── channel-adapter/# Partner channel onboarding
 ├── infra/              # Infrastructure (nginx)
 └── docs/               # This wiki
 ```
@@ -111,8 +111,8 @@ The Automoto platform spans three environments across the API and client repos:
 │   │ api-dev          │    │ api-staging      │    │ api              │ │
 │   │                  │    │ staging          │    │                  │ │
 │   │ Client: local    │    │ Client: local    │    │ Client:          │ │
-│   │ dev servers      │    │ dev servers      │    │ msr-agents.      │ │
-│   │ (Vite HMR)       │    │ (Vite HMR)       │    │ microsoft.com    │ │
+│   │ dev servers      │    │ dev servers      │    │ automoto.        │ │
+│   │ (Vite HMR)       │    │ (Vite HMR)       │    │ example.com      │ │
 │   │                  │    │                  │    │ (nginx + Docker) │ │
 │   │ Relaxed auth     │    │ Prod-like auth   │    │ Full lockdown    │ │
 │   └──────────────────┘    └──────────────────┘    └──────────────────┘ │

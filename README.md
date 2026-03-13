@@ -1,4 +1,4 @@
-ov# Automoto
+# Automoto
 
 **AI-powered event recommendation agent** with multi-channel deployment support. Demonstrates production-ready agent patterns for Teams, Copilot, HTTP APIs, and CLI.
 
