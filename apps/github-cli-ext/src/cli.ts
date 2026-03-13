@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 /**
- * gh msr — GitHub CLI extension for Microsoft Research
+ * gh automoto — GitHub CLI extension for Automoto
  *
  * Usage:
- *   gh msr search <query>         Search publications, researchers, projects
- *   gh msr researcher <name>      Get researcher details
- *   gh msr publications [query]   Browse recent publications
- *   gh msr areas                  List research areas
- *   gh msr chat <message>         Chat with the MSR Research Assistant
- *   gh msr labs                   List MSR labs worldwide
- *   gh msr lab <id>               Detail view of a specific lab
- *   gh msr project <name>         Deep dive on a research project
- *   gh msr cite <paper>           Get citation (BibTeX/APA/MLA)
- *   gh msr trending [area]        Trending papers, optionally by area
- *   gh msr collab <researcher>    Show co-author graph
- *   gh msr summarize <paper>      AI-summarize a paper
- *   gh msr watch [area]           Watch a research area for updates
- *   gh msr status                 Platform service health
- *   gh msr channels               List channel adapters
- *   gh msr news                   Latest MSR news & highlights
- *   gh msr rag <query>            Semantic search in RAG knowledge base
- *   gh msr config [action]        Manage CLI configuration
- *   gh msr --help                 Show help
+ *   gh automoto search <query>         Search publications, people, projects
+ *   gh automoto researcher <name>      Get person details
+ *   gh automoto publications [query]   Browse recent publications
+ *   gh automoto areas                  List focus areas
+ *   gh automoto chat <message>         Chat with the Automoto Assistant
+ *   gh automoto labs                   List labs worldwide
+ *   gh automoto lab <id>               Detail view of a specific lab
+ *   gh automoto project <name>         Deep dive on a project
+ *   gh automoto cite <paper>           Get citation (BibTeX/APA/MLA)
+ *   gh automoto trending [area]        Trending papers, optionally by area
+ *   gh automoto collab <researcher>    Show co-author graph
+ *   gh automoto summarize <paper>      AI-summarize a paper
+ *   gh automoto watch [area]           Watch a research area for updates
+ *   gh automoto status                 Platform service health
+ *   gh automoto channels               List channel adapters
+ *   gh automoto news                   Latest Automoto news & highlights
+ *   gh automoto rag <query>            Semantic search in RAG knowledge base
+ *   gh automoto config [action]        Manage CLI configuration
+ *   gh automoto --help                 Show help
  *
  * Install:
- *   gh extension install microsoft/gh-msr
+ *   gh extension install automoto/gh-automoto
  *
  * Or link locally for development:
  *   cd apps/github-cli-ext && npm run build
@@ -53,20 +53,20 @@ import {
 } from "./commands.js";
 
 const HELP = `
-gh msr — Microsoft Research CLI
+gh automoto — Automoto CLI
 
 USAGE
-  gh msr <command> [arguments]
+  gh automoto <command> [arguments]
 
 COMMANDS
-  search <query>           Search across all MSR content
-  researcher <name>        Look up a researcher by name
+  search <query>           Search across all Automoto content
+  researcher <name>        Look up a person by name
   publications [query]     Browse or search publications
-  areas                    List research focus areas
-  chat <message>           Ask the MSR Research Assistant
-  labs                     List MSR labs worldwide
+  areas                    List focus areas
+  chat <message>           Ask the Automoto Assistant
+  labs                     List labs worldwide
   lab <id>                 Details for a specific lab
-  project <name>           Deep dive on a research project
+  project <name>           Deep dive on a project
   cite <paper>             Get BibTeX/APA/MLA citation
   trending [area]          Trending/recent papers by area
   collab <researcher>      Show co-author collaboration graph
@@ -74,7 +74,7 @@ COMMANDS
   watch [area]             Subscribe to new papers in an area
   status                   Show platform service health
   channels                 List registered channel adapters
-  news                     Latest MSR news & highlights
+  news                     Latest Automoto news & highlights
   rag <query>              Semantic search in RAG knowledge base
   config [list|set|get|reset]  Manage CLI configuration
 
@@ -88,19 +88,19 @@ OPTIONS
   --help, -h               Show this help
 
 EXAMPLES
-  gh msr search "transformer architecture"
-  gh msr researcher "John Smith"
-  gh msr publications --limit 10
-  gh msr cite "attention is all you need" --format apa
-  gh msr trending "quantum computing"
-  gh msr collab "Satya Nadella"
-  gh msr watch "reinforcement learning"
-  gh msr status
-  gh msr rag "how does RLHF work"
-  gh msr config set defaultLimit 10
+  gh automoto search "transformer architecture"
+  gh automoto researcher "John Smith"
+  gh automoto publications --limit 10
+  gh automoto cite "attention is all you need" --format apa
+  gh automoto trending "quantum computing"
+  gh automoto collab "Satya Nadella"
+  gh automoto watch "reinforcement learning"
+  gh automoto status
+  gh automoto rag "how does RLHF work"
+  gh automoto config set defaultLimit 10
 
 ENVIRONMENT
-  DATA_API_URL             MSR data service URL (default: http://localhost:7071)
+  DATA_API_URL             Automoto data service URL (default: http://localhost:7071)
   GATEWAY_URL              Gateway URL (default: http://localhost:4000)
 `.trim();
 
@@ -146,7 +146,7 @@ async function main(): Promise<void> {
         const query = positionals.join(" ");
         if (!query) {
           console.error(
-            "Error: search requires a query. Usage: gh msr search <query>",
+            "Error: search requires a query. Usage: gh automoto search <query>",
           );
           process.exit(1);
         }
@@ -157,7 +157,7 @@ async function main(): Promise<void> {
         const name = positionals.join(" ");
         if (!name) {
           console.error(
-            "Error: researcher requires a name. Usage: gh msr researcher <name>",
+            "Error: researcher requires a name. Usage: gh automoto researcher <name>",
           );
           process.exit(1);
         }
@@ -177,7 +177,7 @@ async function main(): Promise<void> {
         const message = positionals.join(" ");
         if (!message) {
           console.error(
-            "Error: chat requires a message. Usage: gh msr chat <message>",
+            "Error: chat requires a message. Usage: gh automoto chat <message>",
           );
           process.exit(1);
         }
@@ -191,7 +191,7 @@ async function main(): Promise<void> {
       case "lab": {
         const labId = positionals.join(" ");
         if (!labId) {
-          console.error("Error: lab requires an ID. Usage: gh msr lab <id>");
+          console.error("Error: lab requires an ID. Usage: gh automoto lab <id>");
           process.exit(1);
         }
         await getLabDetail(labId, { json: jsonOutput });
@@ -200,7 +200,7 @@ async function main(): Promise<void> {
       case "project": {
         const name = positionals.join(" ");
         if (!name) {
-          console.error("Error: project requires a name. Usage: gh msr project <name>");
+          console.error("Error: project requires a name. Usage: gh automoto project <name>");
           process.exit(1);
         }
         await getProject(name, { json: jsonOutput });
@@ -209,7 +209,7 @@ async function main(): Promise<void> {
       case "cite": {
         const query = positionals.join(" ");
         if (!query) {
-          console.error("Error: cite requires a paper query. Usage: gh msr cite <paper>");
+          console.error("Error: cite requires a paper query. Usage: gh automoto cite <paper>");
           process.exit(1);
         }
         await cite(query, { json: jsonOutput, format });
@@ -223,7 +223,7 @@ async function main(): Promise<void> {
       case "collab": {
         const researcher = positionals.join(" ");
         if (!researcher) {
-          console.error("Error: collab requires a researcher name. Usage: gh msr collab <name>");
+          console.error("Error: collab requires a researcher name. Usage: gh automoto collab <name>");
           process.exit(1);
         }
         await collab(researcher, { limit, json: jsonOutput });
@@ -232,7 +232,7 @@ async function main(): Promise<void> {
       case "summarize": {
         const query = positionals.join(" ");
         if (!query) {
-          console.error("Error: summarize requires a paper query. Usage: gh msr summarize <paper>");
+          console.error("Error: summarize requires a paper query. Usage: gh automoto summarize <paper>");
           process.exit(1);
         }
         await summarize(query, { json: jsonOutput });
@@ -258,7 +258,7 @@ async function main(): Promise<void> {
       case "rag": {
         const query = positionals.join(" ");
         if (!query) {
-          console.error("Error: rag requires a query. Usage: gh msr rag <query>");
+          console.error("Error: rag requires a query. Usage: gh automoto rag <query>");
           process.exit(1);
         }
         await rag(query, { json: jsonOutput, limit, collection });

@@ -2,7 +2,7 @@
   "topics": [
     {
       "name": "ResearchDiscovery",
-      "description": "Help users discover Microsoft Research projects, papers, and areas",
+      "description": "Help users discover Automoto projects, papers, and focus areas",
       "triggerPhrases": [
         "find research",
         "search papers",
@@ -14,7 +14,7 @@
     },
     {
       "name": "FindResearcher",
-      "description": "Find and learn about Microsoft researchers",
+      "description": "Find and learn about people in Automoto",
       "triggerPhrases": [
         "find researcher",
         "who works on",
@@ -36,12 +36,12 @@
     },
     {
       "name": "ResearchAreas",
-      "description": "Explore MSR research areas and labs",
+      "description": "Explore Automoto focus areas and labs",
       "triggerPhrases": [
         "research areas",
         "what labs",
         "focus areas",
-        "MSR labs"
+        "Automoto labs"
       ],
       "actions": ["get_research_areas"]
     }

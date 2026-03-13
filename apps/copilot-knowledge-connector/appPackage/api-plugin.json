@@ -1,17 +1,17 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.2/schema.json",
   "schema_version": "v2.2",
-  "name_for_human": "MSR Knowledge",
-  "description_for_human": "Access Microsoft Research publications, researchers, and projects.",
-  "description_for_model": "Use this plugin to search and retrieve information about Microsoft Research content including publications, researchers, research areas, projects, and labs. Call search_research for broad queries, get_researcher for specific people, and get_publications for papers.",
-  "logo_url": "https://www.microsoft.com/research/favicon.ico",
-  "contact_email": "msrhelp@microsoft.com",
-  "legal_info_url": "https://www.microsoft.com/servicesagreement",
-  "privacy_url": "https://privacy.microsoft.com/privacystatement",
+  "name_for_human": "Automoto Knowledge",
+  "description_for_human": "Access Automoto publications, people, and projects.",
+  "description_for_model": "Use this plugin to search and retrieve information about Automoto content including publications, people, focus areas, projects, and labs. Call search_research for broad queries, get_researcher for specific people, and get_publications for papers.",
+  "logo_url": "https://automoto.example.com/favicon.ico",
+  "contact_email": "support@example.com",
+  "legal_info_url": "https://automoto.example.com/terms",
+  "privacy_url": "https://automoto.example.com/privacy",
   "functions": [
     {
       "name": "search_research",
-      "description": "Search across all MSR content — publications, researchers, projects, and news. Returns the most relevant results for a given query.",
+      "description": "Search across all Automoto content — publications, people, projects, and news. Returns the most relevant results for a given query.",
       "parameters": {
         "type": "object",
         "required": ["query"],
@@ -73,7 +73,7 @@
     },
     {
       "name": "get_research_areas",
-      "description": "List all research areas and labs at Microsoft Research.",
+      "description": "List all focus areas and labs at Automoto.",
       "parameters": {
         "type": "object",
         "properties": {}

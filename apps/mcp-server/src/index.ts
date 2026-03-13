@@ -1,7 +1,7 @@
 /**
- * MSR MCP Server — Model Context Protocol server for Microsoft Research.
+ * Automoto MCP Server — Model Context Protocol server for Automoto.
  *
- * Exposes MSR tools (search, researchers, publications, RAG) and resources
+ * Exposes Automoto tools (search, researchers, publications, RAG) and resources
  * via the MCP protocol so any MCP-compatible client can access them:
  *   - Claude Desktop
  *   - VS Code Copilot (MCP support)
@@ -62,7 +62,7 @@ async function callDataApi(
 /* ── MCP Server Setup ─────────────────────────────────────── */
 
 const server = new McpServer({
-  name: "msr-research",
+  name: "automoto",
   version: "0.1.0",
 });
 
@@ -70,7 +70,7 @@ const server = new McpServer({
 
 server.tool(
   "search_research",
-  "Search across all Microsoft Research content — publications, researchers, projects, and news. Returns the most relevant results for a query.",
+  "Search across all Automoto content — publications, people, projects, and news. Returns the most relevant results for a query.",
   {
     query: z.string().describe("Search query (e.g., 'machine learning fairness')"),
     contentType: z.enum(["publication", "researcher", "project", "all"]).optional().describe("Filter by content type"),
@@ -87,10 +87,10 @@ server.tool(
 
 server.tool(
   "find_researchers",
-  "Find Microsoft Research researchers by name, topic, lab, or research area.",
+  "Find people in Automoto by name, topic, lab, or focus area.",
   {
     query: z.string().describe("Researcher name, topic, or research area"),
-    lab: z.string().optional().describe("Filter by lab (e.g., 'MSR Redmond')"),
+    lab: z.string().optional().describe("Filter by lab (e.g., 'Automoto Redmond')"),
     limit: z.number().optional().describe("Max results (default: 10)"),
   },
   async ({ query, lab, limit }) => {
@@ -104,7 +104,7 @@ server.tool(
 
 server.tool(
   "browse_publications",
-  "Search and browse Microsoft Research publications by topic, author, or date.",
+  "Search and browse Automoto publications by topic, author, or date.",
   {
     topic: z.string().optional().describe("Research topic or keyword"),
     author: z.string().optional().describe("Author name"),
@@ -123,7 +123,7 @@ server.tool(
 
 server.tool(
   "get_research_areas",
-  "List all research areas and labs at Microsoft Research.",
+  "List all focus areas and labs at Automoto.",
   {},
   async () => {
     const data = await callDataApi("/tools/quick_search", {
@@ -136,7 +136,7 @@ server.tool(
 
 server.tool(
   "get_latest_news",
-  "Fetch recent news, highlights, and blog posts from Microsoft Research.",
+  "Fetch recent news, highlights, and blog posts from Automoto.",
   {
     limit: z.number().optional().describe("Max results (default: 10)"),
   },
@@ -151,7 +151,7 @@ server.tool(
 
 server.tool(
   "search_rag_collection",
-  "Semantic search within the MSR RAG knowledge base. Use for grounded, citation-backed answers.",
+  "Semantic search within the Automoto RAG knowledge base. Use for grounded, citation-backed answers.",
   {
     query: z.string().describe("Semantic search query"),
     collectionId: z.string().optional().describe("Specific RAG collection to search"),
@@ -180,7 +180,7 @@ server.tool(
 
 server.resource(
   "rag-collections",
-  "msr://rag/collections",
+  "automoto://rag/collections",
   { description: "List of all RAG knowledge collections available for grounding" },
   async (uri) => {
     const data = await callDataApi("/mcp/rag-collections");
@@ -196,7 +196,7 @@ server.resource(
 
 server.resource(
   "rag-sources",
-  "msr://rag/sources",
+  "automoto://rag/sources",
   { description: "List of all RAG data sources (documents, APIs, etc.)" },
   async (uri) => {
     const data = await callDataApi("/mcp/rag-sources");
@@ -212,7 +212,7 @@ server.resource(
 
 server.resource(
   "research-area",
-  new ResourceTemplate("msr://research-areas/{areaId}", { list: undefined }),
+  new ResourceTemplate("automoto://research-areas/{areaId}", { list: undefined }),
   { description: "Details about a specific research area" },
   async (uri: URL, variables) => {
     const areaId = String(variables.areaId);
@@ -234,14 +234,14 @@ server.resource(
 
 server.prompt(
   "research-overview",
-  "Get a comprehensive overview of a Microsoft Research topic",
+  "Get a comprehensive overview of an Automoto topic",
   { topic: z.string().describe("Research topic to explore") },
   ({ topic }) => ({
     messages: [{
       role: "user" as const,
       content: {
         type: "text" as const,
-        text: `Give me a comprehensive overview of Microsoft Research's work on "${topic}". Include:\n1. Key researchers and their contributions\n2. Important publications\n3. Active projects\n4. Related research areas\n\nUse the search_research and browse_publications tools to find current information.`,
+        text: `Give me a comprehensive overview of Automoto's work on "${topic}". Include:\n1. Key people and their contributions\n2. Important publications\n3. Active projects\n4. Related focus areas\n\nUse the search_research and browse_publications tools to find current information.`,
       },
     }],
   }),
@@ -249,14 +249,14 @@ server.prompt(
 
 server.prompt(
   "find-expert",
-  "Find the right Microsoft Research expert for a topic",
+  "Find the right Automoto expert for a topic",
   { topic: z.string().describe("Topic or question to find an expert for") },
   ({ topic }) => ({
     messages: [{
       role: "user" as const,
       content: {
         type: "text" as const,
-        text: `Help me find the best Microsoft Research expert(s) for "${topic}". Use the find_researchers tool to search, then summarize each person's relevance, their lab, and their recent work.`,
+        text: `Help me find the best Automoto expert(s) for "${topic}". Use the find_researchers tool to search, then summarize each person's relevance, their lab, and their recent work.`,
       },
     }],
   }),

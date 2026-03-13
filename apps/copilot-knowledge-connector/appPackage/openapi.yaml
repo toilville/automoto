@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: MSR Knowledge API
-  description: API providing Microsoft Research knowledge for Copilot grounding — publications, researchers, projects, and research areas.
+  title: Automoto Knowledge API
+  description: API providing Automoto knowledge for Copilot grounding — publications, people, projects, and focus areas.
   version: 0.1.0
 
 servers:
@@ -17,7 +17,7 @@ paths:
   /api/search:
     get:
       operationId: search_research
-      summary: Search across all MSR content
+      summary: Search across all Automoto content
       parameters:
         - name: query
           in: query

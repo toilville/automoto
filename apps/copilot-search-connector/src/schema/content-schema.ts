@@ -1,8 +1,8 @@
 /**
- * Graph Connector schema definitions for MSR content types.
+ * Graph Connector schema definitions for Automoto content types.
  *
  * Defines the external connection schema that tells Microsoft Search / Copilot
- * how to interpret and display MSR content items. Maps to the card types
+ * how to interpret and display Automoto content items. Maps to the card types
  * defined in @automoto/chat-ui (publications, researchers, projects, etc.).
  *
  * Reference: https://learn.microsoft.com/graph/connecting-external-content-manage-schema
@@ -21,10 +21,10 @@ interface SchemaProperty {
 }
 
 /**
- * The unified schema for all MSR content types.
+ * The unified schema for all Automoto content types.
  * Each item has a `contentType` property to distinguish between types.
  */
-export const MSR_CONTENT_SCHEMA: SchemaProperty[] = [
+export const AUTOMOTO_CONTENT_SCHEMA: SchemaProperty[] = [
   // Common fields
   {
     name: "contentType",

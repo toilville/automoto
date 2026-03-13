@@ -6,7 +6,7 @@
  * Removes the connection and all indexed items.
  */
 import { createGraphClient } from "../index.js";
-import { getConnectionConfig } from "./msr-schema.js";
+import { getConnectionConfig } from "./content-schema.js";
 
 async function deleteConnection() {
   const client = createGraphClient();

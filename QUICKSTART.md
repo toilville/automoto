@@ -184,11 +184,11 @@ export FOUNDRY_MODEL_DEPLOYMENT="gpt-4o"
 
 **Test Agent Framework**:
 ```python
-from agent_framework_adapter import EventKitAgentFramework
+from agent_framework_adapter import EventKitAgentFramework as AutomotoAgentFramework
 import asyncio
 
 async def test():
-    agent = EventKitAgentFramework()
+    agent = AutomotoAgentFramework()
     response = await agent.run("recommend sessions about AI agents and machine learning")
     print(response)
 
@@ -332,7 +332,7 @@ python -m pytest tests --cov=. --cov-report=html
 
 ```ini
 [Unit]
-Description=Event Kit Agent
+Description=Automoto Agent
 After=network.target
 
 [Service]

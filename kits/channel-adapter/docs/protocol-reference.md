@@ -1,4 +1,4 @@
-# MSR Agent Protocol Reference
+# Agent Protocol Reference
 
 > The canonical pub/sub/stream contract that all channel adapters implement.
 
@@ -58,7 +58,7 @@ interface AgentContext {
 }
 ```
 
-### msr.sub — Outbound (Agent → Platform)
+### agent.sub — Outbound (Agent → Platform)
 
 The agent produces a complete response. The adapter formats it into your platform's native format.
 
@@ -90,7 +90,7 @@ interface Reference {
 }
 ```
 
-### msr.stream — Streaming (Agent → Platform, real-time)
+### agent.stream — Streaming (Agent → Platform, real-time)
 
 For streaming channels, each chunk is a discriminated union event:
 

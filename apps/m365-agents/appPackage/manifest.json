@@ -4,18 +4,18 @@
   "version": "0.1.0",
   "id": "{{BOT_ID}}",
   "developer": {
-    "name": "Microsoft Research",
-    "websiteUrl": "https://www.microsoft.com/research",
-    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
-    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement"
+    "name": "Automoto",
+    "websiteUrl": "https://automoto.example.com",
+    "privacyUrl": "https://automoto.example.com/privacy",
+    "termsOfUseUrl": "https://automoto.example.com/terms"
   },
   "name": {
-    "short": "MSR Agent",
-    "full": "Microsoft Research Agent"
+    "short": "Automoto Agent",
+    "full": "Automoto Agent"
   },
   "description": {
-    "short": "AI agent for exploring Microsoft Research",
-    "full": "A conversational AI agent that helps you discover research areas, find researchers, browse publications, and stay updated with Microsoft Research — powered by the M365 Agents platform."
+    "short": "AI agent for exploring Automoto content",
+    "full": "A conversational AI agent that helps you discover platform content, find people, browse publications, and stay updated with Automoto — powered by the M365 Agents platform."
   },
   "icons": {
     "color": "color.png",

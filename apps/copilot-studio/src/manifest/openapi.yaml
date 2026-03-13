@@ -1,17 +1,17 @@
 openapi: 3.0.1
 info:
-  title: MSR Research API
-  description: API for searching and browsing Microsoft Research publications, researchers, projects, and research areas.
+  title: Automoto API
+  description: API for searching and browsing Automoto publications, people, projects, and focus areas.
   version: 1.0.0
 servers:
   - url: "{DATA_API_URL}"
-    description: MSR Research Data API
+    description: Automoto Data API
 paths:
   /api/search:
     get:
       operationId: searchContent
-      summary: Search MSR content
-      description: Search across all Microsoft Research content including publications, researchers, and projects.
+      summary: Search Automoto content
+      description: Search across all Automoto content including publications, people, and projects.
       parameters:
         - name: query
           in: query
@@ -64,7 +64,7 @@ paths:
     get:
       operationId: getResearcher
       summary: Get researcher details
-      description: Get detailed information about a specific Microsoft researcher.
+      description: Get detailed information about a specific person.
       parameters:
         - name: name
           in: path
@@ -88,7 +88,7 @@ paths:
     get:
       operationId: getPublications
       summary: Browse publications
-      description: Browse and search academic publications from Microsoft Research.
+      description: Browse and search academic publications from Automoto.
       parameters:
         - name: query
           in: query
@@ -129,7 +129,7 @@ paths:
     get:
       operationId: getResearchAreas
       summary: List research areas
-      description: List all research areas and labs at Microsoft Research.
+      description: List all focus areas and labs at Automoto.
       responses:
         "200":
           description: List of research areas

@@ -1,7 +1,7 @@
 /**
  * Copilot Extension Request Handler
  *
- * Processes the Copilot Chat messages, calls the MSR data API for context,
+ * Processes the Copilot Chat messages, calls the Automoto data API for context,
  * and streams back a response using the Copilot Extensions SSE protocol.
  *
  * Slash Commands:
@@ -91,7 +91,7 @@ export async function handleCopilotRequest(req: Request, res: Response): Promise
     console.error("[Handler] Error:", err);
     sendSSEEvent(res, "copilot_message", {
       role: "assistant",
-      content: "I encountered an error while searching Microsoft Research. Please try again.",
+      content: "I encountered an error while searching Automoto. Please try again.",
     });
     sendSSEEvent(res, "done", "[DONE]");
     res.end();
@@ -176,7 +176,7 @@ async function handlePaperCommand(query: string, res: Response): Promise<void> {
     return;
   }
 
-  const results = await searchMSR(query, "publications", 3);
+  const results = await searchAutomoto(query, "publications", 3);
   const refs: CopilotReference[] = [];
 
   let text: string;
@@ -221,8 +221,8 @@ async function handleResearcherCommand(name: string, res: Response): Promise<voi
   }
 
   const [researchers, publications] = await Promise.all([
-    searchMSR(name, "researchers", 1),
-    searchMSR(`${name} publications`, "publications", 5),
+    searchAutomoto(name, "researchers", 1),
+    searchAutomoto(`${name} publications`, "publications", 5),
   ]);
 
   const refs: CopilotReference[] = [];
@@ -235,7 +235,7 @@ async function handleResearcherCommand(name: string, res: Response): Promise<voi
     text = `## 👤 ${r.title ?? name}\n\n`;
     if (r.snippet) text += `${r.snippet}\n\n`;
     if (r.url) {
-      text += `[MSR Profile](${r.url})\n\n`;
+      text += `[Automoto Profile](${r.url})\n\n`;
       refs.push({
         type: "url", id: "researcher-profile",
         data: { url: r.url, title: r.title ?? name, description: r.snippet ?? "" },
@@ -277,10 +277,10 @@ async function handleLabCommand(name: string, res: Response): Promise<void> {
     return;
   }
 
-  const results = await searchMSR(`microsoft research ${name} lab`, "all", 8);
+  const results = await searchAutomoto(`automoto ${name} lab`, "all", 8);
   const refs: CopilotReference[] = [];
 
-  let text = `## 🏢 MSR Lab: ${name}\n\n`;
+  let text = `## 🏢 Automoto Lab: ${name}\n\n`;
 
   if (results.length === 0) {
     text += `No information found for lab "${name}". Known labs include: Redmond, Cambridge, Asia, India, Montreal, New England, NYC.`;
@@ -318,7 +318,7 @@ async function handleCiteCommand(query: string, res: Response): Promise<void> {
     return;
   }
 
-  const results = await searchMSR(query, "publications", 1);
+  const results = await searchAutomoto(query, "publications", 1);
 
   if (results.length === 0) {
     sendSSEEvent(res, "copilot_message", {
@@ -345,19 +345,19 @@ async function handleCiteCommand(query: string, res: Response): Promise<void> {
   text += `  year      = {${year}},\n`;
   if (r.doi) text += `  doi       = {${r.doi}},\n`;
   if (r.url) text += `  url       = {${r.url}},\n`;
-  text += `  publisher = {Microsoft Research}\n`;
+  text += `  publisher = {Automoto}\n`;
   text += `}\n\`\`\`\n\n`;
 
   // APA
-  const authorStr = r.authors ?? "Microsoft Research";
+  const authorStr = r.authors ?? "Automoto";
   text += "### APA\n";
-  text += `> ${authorStr} (${year}). ${r.title ?? "Untitled"}. Microsoft Research.`;
+  text += `> ${authorStr} (${year}). ${r.title ?? "Untitled"}. Automoto.`;
   if (r.url) text += ` ${r.url}`;
   text += "\n\n";
 
   // MLA
   text += "### MLA\n";
-  text += `> ${authorStr}. "${r.title ?? "Untitled"}." Microsoft Research, ${year}.`;
+  text += `> ${authorStr}. "${r.title ?? "Untitled"}." Automoto, ${year}.`;
   if (r.url) text += ` ${r.url}`;
   text += "\n";
 
@@ -389,7 +389,7 @@ async function handleExplainCommand(query: string, res: Response): Promise<void>
   }
 
   const [papers, ragResults] = await Promise.all([
-    searchMSR(query, "publications", 1),
+    searchAutomoto(query, "publications", 1),
     searchRAG(`explain methodology ${query}`),
   ]);
 
@@ -412,7 +412,7 @@ async function handleExplainCommand(query: string, res: Response): Promise<void>
     }
 
     text += "### In Plain English\n\n";
-    text += `This research from Microsoft Research explores ${query}. `;
+    text += `This research from Automoto explores ${query}. `;
     if (paper.snippet) {
       text += `The key insight is: ${paper.snippet}`;
     }
@@ -454,7 +454,7 @@ async function handleRelatedCommand(
     searchQuery = recentMessages || "recent microsoft research publications";
   }
 
-  const results = await searchMSR(searchQuery, "publications", 8);
+  const results = await searchAutomoto(searchQuery, "publications", 8);
   const refs: CopilotReference[] = [];
 
   let text = `## 🔗 Related Papers\n\n`;
@@ -491,7 +491,7 @@ async function handleTrendsCommand(area: string, res: Response): Promise<void> {
     ? `trending recent ${area} research publications`
     : "trending recent research publications highlights";
 
-  const results = await searchMSR(query, "publications", 10);
+  const results = await searchAutomoto(query, "publications", 10);
   const refs: CopilotReference[] = [];
 
   let text = `## 📈 Trending Research${area ? `: ${area}` : ""}\n\n`;
@@ -549,8 +549,8 @@ async function handleCompareCommand(query: string, res: Response): Promise<void>
   }
 
   const [results1, results2] = await Promise.all([
-    searchMSR(paper1Query, "publications", 1),
-    searchMSR(paper2Query, "publications", 1),
+    searchAutomoto(paper1Query, "publications", 1),
+    searchAutomoto(paper2Query, "publications", 1),
   ]);
 
   const p1 = results1[0];
@@ -618,7 +618,7 @@ async function handleRagCommand(query: string, res: Response): Promise<void> {
       if (r.source) text += `*Source: ${r.source}*\n\n`;
       text += "---\n\n";
     }
-    text += "*Results are grounded in the MSR RAG knowledge base with citation backing.*";
+    text += "*Results are grounded in the Automoto RAG knowledge base with citation backing.*";
   }
 
   sendSSEEvent(res, "copilot_message", { role: "assistant", content: text });
@@ -629,7 +629,7 @@ async function handleRagCommand(query: string, res: Response): Promise<void> {
 // ── /help ────────────────────────────────────────────
 
 async function handleHelpCommand(res: Response): Promise<void> {
-  const text = `## 🤖 MSR Research Assistant — Commands
+  const text = `## 🤖 Automoto Assistant — Commands
 
 | Command | Description |
 |---------|-------------|
@@ -663,7 +663,7 @@ You can also ask questions in natural language without a slash command!
 // ── General query (no slash command) ─────────────────
 
 async function handleGeneralQuery(userMessage: string, res: Response): Promise<void> {
-  const searchResults = await searchMSR(userMessage, "all", 5);
+  const searchResults = await searchAutomoto(userMessage, "all", 5);
   const responseText = buildResponse(userMessage, searchResults);
 
   sendSSEEvent(res, "copilot_message", {
@@ -674,10 +674,10 @@ async function handleGeneralQuery(userMessage: string, res: Response): Promise<v
   if (searchResults.length > 0) {
     const references: CopilotReference[] = searchResults.slice(0, 5).map((result, i) => ({
       type: "url",
-      id: `msr-ref-${i}`,
+      id: `automoto-ref-${i}`,
       data: {
-        url: result.url ?? `https://www.microsoft.com/research`,
-        title: result.title ?? "Microsoft Research",
+        url: result.url ?? `https://automoto.example.com`,
+        title: result.title ?? "Automoto",
         description: result.snippet ?? "",
       },
     }));
@@ -695,7 +695,7 @@ function sendSSEEvent(res: Response, event: string, data: unknown): void {
   res.write(`data: ${JSON.stringify(data)}\n\n`);
 }
 
-async function searchMSR(
+async function searchAutomoto(
   query: string,
   type: string = "all",
   limit: number = 5,
@@ -741,14 +741,14 @@ async function searchRAG(query: string): Promise<RAGResult[]> {
 
 function buildResponse(query: string, results: SearchResult[]): string {
   if (results.length === 0) {
-    return `I searched Microsoft Research for "${query}" but didn't find specific results. ` +
+    return `I searched Automoto for "${query}" but didn't find specific results. ` +
       `Try asking about specific topics like machine learning, NLP, quantum computing, ` +
-      `or ask me to find a researcher by name.\n\n` +
-      `You can also browse [Microsoft Research](https://www.microsoft.com/research) directly.\n\n` +
+      `or ask me to find a person by name.\n\n` +
+      `You can also browse [Automoto](https://automoto.example.com) directly.\n\n` +
       `💡 *Tip: Use \`/help\` to see available slash commands for more targeted searches.*`;
   }
 
-  let response = `Here's what I found from Microsoft Research about "${query}":\n\n`;
+  let response = `Here's what I found from Automoto about "${query}":\n\n`;
 
   for (const result of results) {
     if (result.title) {
@@ -763,6 +763,6 @@ function buildResponse(query: string, results: SearchResult[]): string {
     response += "\n";
   }
 
-  response += `\n---\n*Results from Microsoft Research. Try \`/help\` for slash commands like \`/cite\`, \`/explain\`, and more.*`;
+  response += `\n---\n*Results from Automoto. Try \`/help\` for slash commands like \`/cite\`, \`/explain\`, and more.*`;
   return response;
 }

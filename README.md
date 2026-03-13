@@ -267,10 +267,10 @@ ngrok http 3978
 
 **Test in Teams**:
 ```
-@EventKit Agent recommend agents, machine learning
-@EventKit Agent explain "Session Title" --interests agents
-@EventKit Agent export agents --profile tech_days
-@EventKit Agent help
+@Automoto recommend agents, machine learning
+@Automoto explain "Session Title" --interests agents
+@Automoto export agents --profile tech_days
+@Automoto help
 ```
 
 **Best for**: End-to-end Teams testing, user acceptance testing
@@ -368,8 +368,8 @@ export FOUNDRY_PROJECT_NAME="eventkit-prod-project"
 
 **Test**:
 ```python
-from agent_framework_adapter import EventKitAgentFramework
-agent = EventKitAgentFramework()
+from agent_framework_adapter import EventKitAgentFramework as AutomotoAgentFramework
+agent = AutomotoAgentFramework()
 response = await agent.run("recommend sessions about AI agents")
 ```
 
@@ -433,7 +433,7 @@ response = await agent.run("recommend sessions about AI agents")
 - Marketing automating customer engagement
 - Rapid prototyping with business stakeholders
 
-**EventKit in Copilot Studio**:
+**Automoto in Copilot Studio**:
 - Use `copilot-plugin.json` manifest
 - Deploy via [docs/agents-sdk-setup.md](docs/agents-sdk-setup.md#copilot-integration)
 - Leverage built-in Teams integration
@@ -462,7 +462,7 @@ response = await agent.run("recommend sessions about AI agents")
 - Production ML workflows with advanced monitoring
 - Integration with legacy enterprise systems
 
-**EventKit in Microsoft Foundry**:
+**Automoto in Microsoft Foundry**:
 - Use `agent_framework_adapter.py` for Agent Framework
 - Deploy with `flow.dag.yaml` for Prompt Flow orchestration
 - Full guide: [docs/foundry-deployment.md](docs/foundry-deployment.md)
@@ -490,7 +490,7 @@ response = await agent.run("recommend sessions about AI agents")
 - Choose the right tool at build time, not purchase time
 - Flexibility as team composition changes
 
-**EventKit supports both**:
+**Automoto supports both**:
 - Bot Framework for Copilot Studio integration
 - Agent Framework for Foundry orchestration
 - Shared core logic (`core.py`) works across platforms
@@ -499,7 +499,7 @@ response = await agent.run("recommend sessions about AI agents")
 
 ### Feature Parity Reference
 
-| Feature | Copilot Studio | Microsoft Foundry | EventKit Support |
+| Feature | Copilot Studio | Microsoft Foundry | Automoto Support |
 |---------|----------------|-------------------|------------------|
 | **Multi-agent workflows** | ✅ | ✅ | ✅ Both |
 | **Tools/Plugins** | ✅ Built-in | ✅ Custom | ✅ Both |
@@ -610,7 +610,7 @@ response = await agent.run("recommend sessions about AI agents")
 | **Telemetry** | `telemetry.py` | Application Insights | ~200 |
 | **Settings** | `settings.py` | Configuration management | ~150 |
 
-**Architecture**: EventKit uses a **unified adapter pattern** to integrate with Azure AI Foundry, Power Platform, and Bot Framework. See [docs/UNIFIED_ADAPTER_ARCHITECTURE.md](docs/UNIFIED_ADAPTER_ARCHITECTURE.md) for details.
+**Architecture**: Automoto uses a **unified adapter pattern** to integrate with Azure AI Foundry, Power Platform, and Bot Framework. See [docs/UNIFIED_ADAPTER_ARCHITECTURE.md](docs/UNIFIED_ADAPTER_ARCHITECTURE.md) for details.
 
 ### Feature Matrix
 
@@ -853,11 +853,11 @@ To integrate with Microsoft 365 Agents SDK (Teams/Copilot Studio hosting):
 
 1. **See the full Agent SDK starter** in [`innovation-kit-repository/event-agent/starter-code/agents_sdk_integration/`](../innovation-kit-repository/event-agent/starter-code/agents_sdk_integration/)
 2. **Follow MVP_GUIDE.md** for Graph authentication, SharePoint publish, and SDK hosting setup
-3. **Compare patterns**: Event Kit (`eventkit/agent.py`) shows minimal logic; Agent SDK starter adds authentication, caching, and enterprise features
+3. **Compare patterns**: Automoto (`eventkit/agent.py`) shows minimal logic; Agent SDK starter adds authentication, caching, and enterprise features
 
 ### Key Differences
 
-| Feature          | Event Kit (`eventkit/`)      | Agent SDK Starter (`innovation-kit-repository/event-agent/`) |
+| Feature          | Automoto (`eventkit/`)       | Agent SDK Starter (`innovation-kit-repository/event-agent/`) |
 | ---------------- | ---------------------------- | ------------------------------------------------------------ |
 | **Auth**         | None (mock data)             | MSAL (Graph + SharePoint)                                    |
 | **Data Source**  | Static JSON or external file | Microsoft Graph Calendar                                     |
@@ -866,7 +866,7 @@ To integrate with Microsoft 365 Agents SDK (Teams/Copilot Studio hosting):
 | **Config**       | JSON manifest                | Pydantic settings + `.env`                                   |
 | **Dependencies** | None                         | `pydantic`, `msal`, `requests`, `botbuilder-core`            |
 
-**When to use Event Kit**: Prototyping agent logic, testing scoring algorithms, local demos
+**When to use Automoto**: Prototyping agent logic, testing scoring algorithms, local demos
 
 **When to use Agent SDK Starter**: Production deployment, Graph integration, Teams/Copilot experiences
 
@@ -1084,7 +1084,7 @@ python -m eventkit.adapters.directline_bot --port 3979
 ```
 
 - Exposes `/api/messages` for Direct Line / Bot Framework Web Chat.
-- Forwards user text to the Event Kit `/recommend` endpoint and returns an Adaptive Card attachment.
+- Forwards user text to the Automoto `/recommend` endpoint and returns an Adaptive Card attachment.
 - Deploy this container to Azure App Service/Container Apps, enable the Direct Line channel, and point Web Chat to the Direct Line token.
 
 ## Feature Flags
@@ -1122,7 +1122,7 @@ Adjust behavior in `agent.json > features`:
 
 ## 📚 Additional Resources
 
-### EventKit Documentation
+### Automoto Documentation
 
 **Getting Started**:
 - **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide (5 minutes)

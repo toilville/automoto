@@ -1,12 +1,12 @@
 {
   "schema_version": "v2.1",
-  "name_for_human": "MSR Research API",
-  "name_for_model": "msr_research",
-  "description_for_human": "Search and browse Microsoft Research publications, researchers, projects, and research areas.",
-  "description_for_model": "Plugin for querying the Microsoft Research data API. Use this to search across MSR content, look up researcher profiles, browse publications, and list research areas.",
+  "name_for_human": "Automoto API",
+  "name_for_model": "automoto_content",
+  "description_for_human": "Search and browse Automoto publications, people, projects, and focus areas.",
+  "description_for_model": "Plugin for querying the Automoto data API. Use this to search across platform content, look up people, browse publications, and list focus areas.",
   "logo_url": "{DATA_API_URL}/logo.png",
-  "contact_email": "msragents@microsoft.com",
-  "legal_info_url": "https://www.microsoft.com/en-us/research/",
+  "contact_email": "support@example.com",
+  "legal_info_url": "https://automoto.example.com",
   "auth": {
     "type": "none"
   },
@@ -17,7 +17,7 @@
   "functions": [
     {
       "name": "searchContent",
-      "description": "Search across all MSR content including publications, researchers, and projects. Returns ranked results with titles, descriptions, and links.",
+      "description": "Search across all Automoto content including publications, people, and projects. Returns ranked results with titles, descriptions, and links.",
       "parameters": {
         "type": "object",
         "required": ["query"],
@@ -40,7 +40,7 @@
     },
     {
       "name": "getResearcher",
-      "description": "Get detailed information about a specific Microsoft researcher including their bio, lab, research areas, and publication count.",
+      "description": "Get detailed information about a specific person including their bio, lab, focus areas, and publication count.",
       "parameters": {
         "type": "object",
         "required": ["name"],
@@ -54,7 +54,7 @@
     },
     {
       "name": "getPublications",
-      "description": "Browse and search academic publications from Microsoft Research. Filter by topic, author, or year.",
+      "description": "Browse and search academic publications from Automoto. Filter by topic, author, or year.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -71,7 +71,7 @@
     },
     {
       "name": "getResearchAreas",
-      "description": "List all research areas and labs at Microsoft Research with descriptions and counts.",
+      "description": "List all focus areas and labs at Automoto with descriptions and counts.",
       "parameters": {
         "type": "object",
         "properties": {}

@@ -10,7 +10,7 @@
 ### Step 1: Install Dependencies
 
 ```bash
-cd d:\code\event-agent-example
+cd d:\code\automoto
 pip install -r requirements.txt
 ```
 
@@ -208,7 +208,7 @@ WARNING:__main__:Automoto components not available: No module named 'agents_sdk_
 **Solution:**
 ```bash
 # Make sure you're in the project directory
-cd d:\code\event-agent-example
+cd d:\code\automoto
 
 # Verify files exist
 ls agents_sdk_adapter.py bot_handler.py
@@ -296,7 +296,7 @@ curl -X POST http://localhost:3978/api/messages \
     "type": "message",
     "text": "recommend agents",
     "from": {"id": "user1", "name": "Test User"},
-    "recipient": {"id": "bot", "name": "EventKit"},
+    "recipient": {"id": "bot", "name": "Automoto"},
     "id": "msg1",
     "channelId": "emulator",
     "conversation": {"id": "conv1"}
@@ -412,7 +412,7 @@ $body = @{
     type = "message"
     text = "recommend agents"
     from = @{ id = "user1"; name = "Test User" }
-    recipient = @{ id = "bot"; name = "EventKit" }
+    recipient = @{ id = "bot"; name = "Automoto" }
     id = "msg-$(Get-Random)"
     channelId = "test"
     conversation = @{ id = "conv1" }
@@ -439,7 +439,7 @@ def test_bot(message: str):
         "type": "message",
         "text": message,
         "from": {"id": "user1", "name": "Test User"},
-        "recipient": {"id": "bot", "name": "EventKit"},
+        "recipient": {"id": "bot", "name": "Automoto"},
         "id": f"msg-{hash(message)}",
         "channelId": "test",
         "conversation": {"id": "conv1"}

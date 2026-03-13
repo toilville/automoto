@@ -1,6 +1,6 @@
 /**
  * CLI command implementations.
- * Each command calls the MSR data API and formats output for the terminal.
+ * Each command calls the Automoto data API and formats output for the terminal.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -84,7 +84,7 @@ async function callApi(
 
 // ── Config management ────────────────────────────────
 
-const CONFIG_DIR = path.join(os.homedir(), ".config", "gh-msr");
+const CONFIG_DIR = path.join(os.homedir(), ".config", "gh-automoto");
 const CONFIG_FILE = path.join(CONFIG_DIR, "config.json");
 const WATCHES_FILE = path.join(CONFIG_DIR, "watches.json");
 
@@ -160,7 +160,7 @@ export async function search(
     return;
   }
 
-  console.log(bold(purple(`\n🔬 MSR Search: "${query}"\n`)));
+  console.log(bold(purple(`\n🔬 Automoto Search: "${query}"\n`)));
   for (const r of results) {
     console.log(`  ${bold(r.title ?? "Untitled")}`);
     if (r.type) console.log(`  ${dim(`[${r.type}]`)}`);
@@ -224,7 +224,7 @@ export async function getPublications(
   }
 
   console.log(
-    bold(purple(`\n📄 MSR Publications${query ? `: "${query}"` : ""}\n`)),
+    bold(purple(`\n📄 Automoto Publications${query ? `: "${query}"` : ""}\n`)),
   );
   for (const r of results) {
     console.log(`  ${bold(r.title ?? "Untitled")}`);
@@ -247,7 +247,7 @@ export async function getResearchAreas(opts: OutputOptions): Promise<void> {
   }
 
   const results = data.results ?? [];
-  console.log(bold(purple("\n🧪 MSR Research Areas\n")));
+  console.log(bold(purple("\n🧪 Automoto Focus Areas\n")));
   for (const r of results) {
     console.log(`  ${bold(r.title ?? "Unknown")} — ${r.snippet ?? ""}`);
   }
@@ -269,7 +269,7 @@ export async function chat(
   }
 
   const results = data.results ?? [];
-  console.log(bold(purple("\n🤖 MSR Research Assistant\n")));
+  console.log(bold(purple("\n🤖 Automoto Assistant\n")));
 
   if (results.length === 0) {
     console.log(`  I couldn't find specific results for "${message}".`);
@@ -309,7 +309,7 @@ export async function getLabs(opts: OutputOptions): Promise<void> {
   const labs = data.labs ?? [];
   const results = data.results ?? [];
 
-  console.log(bold(purple("\n🏢 MSR Labs Worldwide\n")));
+  console.log(bold(purple("\n🏢 Automoto Labs Worldwide\n")));
 
   if (labs.length > 0) {
     for (const lab of labs) {
@@ -346,7 +346,7 @@ export async function getLabDetail(
   const results = data.results ?? [];
   const lab = data.lab;
 
-  console.log(bold(purple(`\n🏢 MSR Lab: ${lab?.name ?? labId}\n`)));
+  console.log(bold(purple(`\n🏢 Automoto Lab: ${lab?.name ?? labId}\n`)));
 
   if (lab) {
     if (lab.location) console.log(`  ${dim(`📍 ${lab.location}`)}`);
@@ -383,7 +383,7 @@ export async function getProject(
   const results = data.results ?? [];
   const project = data.project;
 
-  console.log(bold(purple(`\n📁 MSR Project: ${project?.title ?? name}\n`)));
+  console.log(bold(purple(`\n📁 Automoto Project: ${project?.title ?? name}\n`)));
 
   if (project) {
     if (project.description) console.log(`  ${project.description}\n`);
@@ -444,18 +444,18 @@ export async function cite(
     console.log(`    year      = {${year}},`);
     if (r.doi) console.log(`    doi       = {${r.doi}},`);
     if (r.url) console.log(`    url       = {${r.url}},`);
-    console.log(`    publisher = {Microsoft Research}`);
+    console.log(`    publisher = {Automoto}`);
     console.log(`  }`);
   } else if (format === "apa") {
-    const authorStr = r.authors ?? "Microsoft Research";
-    console.log(`  ${authorStr} (${year}). ${r.title ?? "Untitled"}. Microsoft Research.`);
+    const authorStr = r.authors ?? "Automoto";
+    console.log(`  ${authorStr} (${year}). ${r.title ?? "Untitled"}. Automoto.`);
     if (r.url) console.log(`  ${r.url}`);
   } else if (format === "mla") {
-    const authorStr = r.authors ?? "Microsoft Research";
-    console.log(`  ${authorStr}. "${r.title ?? "Untitled"}." Microsoft Research, ${year}.`);
+    const authorStr = r.authors ?? "Automoto";
+    console.log(`  ${authorStr}. "${r.title ?? "Untitled"}." Automoto, ${year}.`);
     if (r.url) console.log(`  ${r.url}`);
   } else {
-    console.log(`  ${r.authors ?? "Microsoft Research"} (${year}). ${r.title ?? "Untitled"}.`);
+    console.log(`  ${r.authors ?? "Automoto"} (${year}). ${r.title ?? "Untitled"}.`);
     if (r.url) console.log(`  ${r.url}`);
   }
   console.log();
@@ -629,7 +629,7 @@ export async function watch(
     }
     console.log(bold(purple("\n👁️  Watched Research Areas\n")));
     if (watches.length === 0) {
-      console.log(dim("  No watches configured. Use `gh msr watch <area>` to add one."));
+      console.log(dim("  No watches configured. Use `gh automoto watch <area>` to add one."));
     } else {
       for (const w of watches) {
         console.log(`  ${bold("•")} ${w.area} ${dim(`(since ${w.addedAt.split("T")[0]})`)}`);
@@ -663,7 +663,7 @@ export async function watch(
   watches.push({ area, addedAt: new Date().toISOString() });
   saveWatches(watches);
   console.log(green(`  ✓ Now watching "${area}"`));
-  console.log(dim(`  Use \`gh msr trending ${area}\` to see latest publications`));
+  console.log(dim(`  Use \`gh automoto trending ${area}\` to see latest publications`));
 
   // Show a preview of recent work in the area
   const preview = (await callApi("/tools/quick_search", {
@@ -688,7 +688,7 @@ export async function status(opts: OutputOptions): Promise<void> {
     { name: "MCP Server", url: `${GATEWAY_URL}/mcp/health` },
     { name: "Teams Bot", url: `${GATEWAY_URL}/teams/health` },
     { name: "Copilot Extension", url: `${GATEWAY_URL}/copilot-ext/health` },
-    { name: "MSR Home", url: `${GATEWAY_URL}/home/health` },
+    { name: "Home", url: `${GATEWAY_URL}/home/health` },
   ];
 
   const results: Array<{ name: string; status: string; details?: ServiceHealth }> = [];
@@ -721,7 +721,7 @@ export async function status(opts: OutputOptions): Promise<void> {
     return;
   }
 
-  console.log(bold(purple("\n🔌 MSR Platform Status\n")));
+  console.log(bold(purple("\n🔌 Automoto Platform Status\n")));
 
   const maxNameLen = Math.max(...results.map((r) => r.name.length));
   for (const r of results) {
@@ -748,7 +748,7 @@ export async function channels(opts: OutputOptions): Promise<void> {
     }
 
     const adapters = data.adapters ?? [];
-    console.log(bold(purple("\n📡 MSR Channel Adapters\n")));
+    console.log(bold(purple("\n📡 Automoto Channel Adapters\n")));
 
     if (adapters.length === 0) {
       console.log(dim("  No adapters registered (gateway may be offline)"));
@@ -776,7 +776,7 @@ export async function channels(opts: OutputOptions): Promise<void> {
       return;
     }
 
-    console.log(bold(purple("\n📡 MSR Channels (static list)\n")));
+    console.log(bold(purple("\n📡 Automoto Channels (static list)\n")));
     console.log(yellow("  ⚠ Gateway offline — showing configured channels\n"));
     for (const ch of channelList) {
       console.log(`  ${bold("•")} ${ch}`);
@@ -799,7 +799,7 @@ export async function config(
       console.log(JSON.stringify(cfg, null, 2));
       return;
     }
-    console.log(bold(purple("\n⚙️  MSR CLI Configuration\n")));
+    console.log(bold(purple("\n⚙️  Automoto CLI Configuration\n")));
     console.log(`  ${bold("apiUrl")}         ${cfg.apiUrl}`);
     console.log(`  ${bold("gatewayUrl")}     ${cfg.gatewayUrl}`);
     console.log(`  ${bold("defaultLab")}     ${cfg.defaultLab ?? dim("(not set)")}`);
@@ -812,7 +812,7 @@ export async function config(
 
   if (action === "set") {
     if (!key || !value) {
-      console.error("Usage: gh msr config set <key> <value>");
+      console.error("Usage: gh automoto config set <key> <value>");
       process.exit(1);
     }
     const validKeys = ["apiUrl", "gatewayUrl", "defaultLab", "defaultLimit", "outputFormat"] as const;
@@ -832,7 +832,7 @@ export async function config(
 
   if (action === "get") {
     if (!key) {
-      console.error("Usage: gh msr config get <key>");
+      console.error("Usage: gh automoto config get <key>");
       process.exit(1);
     }
     const val = (cfg as unknown as Record<string, unknown>)[key];
@@ -864,7 +864,7 @@ export async function news(opts: OutputOptions): Promise<void> {
   }
 
   const results = data.results ?? [];
-  console.log(bold(purple("\n📰 MSR News & Highlights\n")));
+  console.log(bold(purple("\n📰 Automoto News & Highlights\n")));
 
   if (results.length === 0) {
     console.log(dim("  No recent news found"));
