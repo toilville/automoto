@@ -22,3 +22,5 @@ telemetry.jsonl
 
 # IDE
 .vscode/
+
+test-results.json
