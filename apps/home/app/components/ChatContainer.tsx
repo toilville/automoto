@@ -1,5 +1,5 @@
 /**
- * ChatContainer — Main chat layout for the MSR Homepage.
+ * ChatContainer — Main chat layout for the Automoto home experience.
  * Composes ChatWelcome, ChatMessage, ChatInput, and TypingIndicator.
  */
 import { useCallback } from "react";
@@ -87,7 +87,7 @@ export function ChatContainer({ uiText }: ChatContainerProps) {
       {/* Header */}
       <div className={styles.header}>
         <Text className={styles.headerTitle}>
-          {uiText?.title || "Microsoft Research Assistant"}
+          {uiText?.title || "Automoto Assistant"}
         </Text>
         {hasMessages && (
           <Button

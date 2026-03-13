@@ -1,15 +1,15 @@
-name: msr-homepage-agent
+name: automoto-home-agent
 version: 0.1.0
 description: >
-  Homepage chat agent for Microsoft Research.
-  Helps users discover research areas, find researchers, browse publications,
-  learn about labs and projects, and stay updated with MSR news.
+  Homepage chat agent for Automoto.
+  Helps users discover focus areas, find people, browse publications,
+  learn about labs and projects, and stay updated with Automoto news.
   All AI behavior (RAG, intent routing, prompts, guardrails) is handled by this agent.
   The web app is a thin UI proxy.
 
 instructions: |
-  You are the Microsoft Research Assistant. You help users explore and discover
-  the breadth of Microsoft Research — its research areas, labs, researchers,
+  You are the Automoto Assistant. You help users explore and discover
+  the breadth of the Automoto platform — its focus areas, labs, people,
   publications, projects, and latest news.
 
   ## Core Behavior
@@ -25,16 +25,16 @@ instructions: |
   - When comparing items, use a structured format (table or side-by-side).
 
   ## Intent Handling
-  - **Research Areas**: Browse and explain MSR's research areas, groups, and themes.
-  - **Researcher Discovery**: Find researchers by name, topic, lab, or publication history.
+  - **Focus Areas**: Browse and explain Automoto focus areas, groups, and themes.
+  - **People Discovery**: Find people by name, topic, lab, or publication history.
   - **Publication Search**: Search and discuss papers, reports, and technical publications.
-  - **Lab & Project Info**: Provide details about MSR labs, research groups, and ongoing projects.
-  - **Latest News**: Share recent highlights, announcements, and blog posts from MSR.
-  - **General MSR Info**: Answer general questions about Microsoft Research as an organization.
+  - **Lab & Project Info**: Provide details about labs, research groups, and ongoing projects.
+  - **Latest News**: Share recent highlights, announcements, and blog posts from Automoto.
+  - **General Platform Info**: Answer general questions about Automoto as an organization.
 
   ## Guardrails
   - Never fabricate researcher names, publication titles, or project details.
-  - Refuse off-topic requests politely: "I'm here to help you explore Microsoft Research. Would you like to discover research areas, find researchers, or browse publications?"
+  - Refuse off-topic requests politely: "I'm here to help you explore Automoto. Would you like to discover focus areas, find people, or browse publications?"
   - Do not discuss internal Microsoft business, HR, or confidential topics.
   - Block PII in responses.
 
@@ -64,16 +64,16 @@ routing:
 grounding:
   mode: hybrid
   data_connections:
-    - name: msr-knowledge-vector
+    - name: automoto-knowledge-vector
       type: vector_store
-      description: "Vector store of MSR research areas, researchers, publications, projects, and news"
+      description: "Vector store of Automoto focus areas, people, publications, projects, and news"
       embedding_model: text-embedding-3-small
       top_k: 8
-    - name: msr-search
+    - name: automoto-search
       type: search_index
-      description: "Azure AI Search index for keyword + semantic search across MSR content"
-      search_service: msr-ai-search
-      index_name: msr-content
+      description: "Azure AI Search index for keyword + semantic search across Automoto content"
+      search_service: automoto-ai-search
+      index_name: automoto-content
       top_k: 6
       query_type: semantic
   citations_required: true
@@ -84,12 +84,12 @@ guardrails:
   jailbreak_protection: standard
   off_topic:
     behavior: refuse
-    template: "I'm here to help you explore Microsoft Research. Would you like to discover research areas, find researchers, or browse publications?"
+    template: "I'm here to help you explore Automoto. Would you like to discover focus areas, find people, or browse publications?"
   content_filter: strict
 
 tools:
   - name: search_research
-    description: "Search across all MSR content — publications, researchers, projects, and news."
+    description: "Search across all Automoto content — publications, people, projects, and news."
     type: http
     method: POST
     url: "{{baseUrl}}/api/hybrid-search"
@@ -98,7 +98,7 @@ tools:
       limit?: number
 
   - name: get_research_areas
-    description: "List or browse research areas and labs across Microsoft Research."
+    description: "List or browse focus areas and labs across Automoto."
     type: http
     method: GET
     url: "{{baseUrl}}/api/research-areas"
@@ -130,7 +130,7 @@ tools:
       limit?: number
 
   - name: get_latest_news
-    description: "Fetch recent MSR news, highlights, and blog posts."
+    description: "Fetch recent Automoto news, highlights, and blog posts."
     type: http
     method: GET
     url: "{{baseUrl}}/api/news"
@@ -139,7 +139,7 @@ tools:
       category?: string
 
   - name: get_lab_details
-    description: "Get details about a specific MSR lab or research group."
+    description: "Get details about a specific Automoto lab or research group."
     type: http
     method: GET
     url: "{{baseUrl}}/api/labs/{labId}"

@@ -23,8 +23,8 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "MSR Event Agent Chat" },
-  { name: "description", content: "AI-powered event assistant for Microsoft Research events" },
+  { title: "Automoto Chat" },
+  { name: "description", content: "AI-powered event assistant for the Automoto platform" },
 ];
 
 const analytics = getAnalytics();

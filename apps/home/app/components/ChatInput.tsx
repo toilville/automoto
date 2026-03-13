@@ -50,7 +50,7 @@ interface ChatInputProps {
 export function ChatInput({
   onSend,
   disabled = false,
-  placeholder = "Ask about Microsoft Research...",
+  placeholder = "Ask about Automoto...",
   maxLength = 2000,
 }: ChatInputProps) {
   const styles = useStyles();

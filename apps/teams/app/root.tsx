@@ -29,8 +29,8 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "MSR Assistant — Teams" },
-  { name: "description", content: "Microsoft Research AI assistant embedded in Teams" },
+  { title: "Automoto Assistant — Teams" },
+  { name: "description", content: "Automoto AI assistant embedded in Teams" },
 ];
 
 function AppShell() {

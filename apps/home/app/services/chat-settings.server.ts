@@ -36,13 +36,13 @@ export async function loadChatUiText(): Promise<ChatUiText> {
   const chat = config.chat || {};
 
   cachedUiText = {
-    title: chat.title || "Microsoft Research Assistant",
+    title: chat.title || "Automoto Assistant",
     subtitle: chat.subtitle || "",
     disclaimer: chat.disclaimer || "AI-generated responses may contain inaccuracies.",
-    inputPlaceholder: chat.inputPlaceholder || "Ask about Microsoft Research...",
+    inputPlaceholder: chat.inputPlaceholder || "Ask about Automoto...",
     loadingText: chat.loadingText || "AI is thinking.",
     stillThinkingText: chat.stillThinkingText || "Gathering results...",
-    welcomeTitle: chat.welcomeTitle || "Explore Microsoft Research",
+    welcomeTitle: chat.welcomeTitle || "Explore Automoto",
     welcomeSubtitle: chat.welcomeSubtitle || "",
     welcomeCards: chat.welcomeCards || [],
   };

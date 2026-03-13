@@ -21,8 +21,8 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "MSR Agent — Azure AI SDK" },
-  { name: "description", content: "Chat with Microsoft Research using the Azure AI Agent Service SDK" },
+  { title: "Automoto Agent — Azure AI SDK" },
+  { name: "description", content: "Chat with the Automoto agent using the Azure AI Agent Service SDK" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

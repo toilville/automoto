@@ -1,22 +1,22 @@
-# MSR Homepage Chat — UI Configuration
+# Automoto Home Chat — UI Configuration
 # This file contains UI text and feature flags only.
 # All AI behavior (prompts, RAG, intent routing) is managed by the Foundry Agent.
 
 chat:
-  title: "Microsoft Research Assistant"
-  subtitle: "Explore Microsoft Research"
+  title: "Automoto Assistant"
+  subtitle: "Explore Automoto"
   disclaimer: "AI-generated responses may contain inaccuracies. Please verify important details."
-  inputPlaceholder: "Ask about Microsoft Research..."
+  inputPlaceholder: "Ask about Automoto..."
   loadingText: "AI is thinking."
   stillThinkingText: "Gathering results..."
 
-  welcomeTitle: "Explore Microsoft Research"
-  welcomeSubtitle: "Discover research areas, find researchers, browse publications, and stay up to date with the latest from MSR."
+  welcomeTitle: "Explore Automoto"
+  welcomeSubtitle: "Discover focus areas, find people, browse publications, and stay up to date with the latest from Automoto."
   welcomeCards:
     - id: "card-research-areas"
       icon: "🔬"
       title: "Explore Research Areas"
-      description: "Browse research areas and labs across MSR."
+      description: "Browse focus areas and labs across Automoto."
       action:
         type: "fastPath"
         payload: "explore-research-areas"
@@ -40,7 +40,7 @@ chat:
     - id: "card-news"
       icon: "📰"
       title: "Latest News"
-      description: "Recent highlights and announcements from MSR."
+      description: "Recent highlights and announcements from Automoto."
       action:
         type: "fastPath"
         payload: "latest-news"

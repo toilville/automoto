@@ -60,8 +60,8 @@ interface ChatWelcomeProps {
 }
 
 export function ChatWelcome({
-  title = "Explore Microsoft Research",
-  subtitle = "Discover research areas, find researchers, browse publications, and stay up to date with the latest from MSR.",
+  title = "Explore Automoto",
+  subtitle = "Discover focus areas, find people, browse publications, and stay up to date with the latest from Automoto.",
   cards = [],
   onAction,
 }: ChatWelcomeProps) {

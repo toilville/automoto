@@ -23,8 +23,8 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: "Microsoft Research Assistant" },
-  { name: "description", content: "AI-powered assistant for exploring Microsoft Research — discover research areas, researchers, publications, and more" },
+  { title: "Automoto Assistant" },
+  { name: "description", content: "AI-powered assistant for exploring Automoto — discover focus areas, people, publications, and more" },
 ];
 
 const analytics = getAnalytics();
