@@ -1,0 +1,64 @@
+# MSR Event Agent Chat — UI Configuration
+# This file contains UI text and feature flags only.
+# All AI behavior (prompts, RAG, intent routing) is managed by the Foundry Agent.
+
+chat:
+  title: "Event Assistant"
+  subtitle: "Explore this event"
+  disclaimer: "AI may be inaccurate. Recheck dates, times, and rooms."
+  inputPlaceholder: "Ask about this event."
+  loadingText: "AI is thinking."
+  stillThinkingText: "Gathering results..."
+
+  welcomeTitle: "Explore the Event"
+  welcomeSubtitle: "Search sessions, discover research projects, and build your personalized schedule."
+  welcomeCards:
+    - id: "card-explore"
+      icon: "🔍"
+      title: "View Sessions"
+      description: "Explore the full catalog of event activities."
+      action:
+        type: "fastPath"
+        payload: "show-projects"
+      order: 1
+    - id: "card-recommend"
+      icon: "⭐"
+      title: "Get Recommendations"
+      description: "Personalized suggestions based on your interests."
+      action:
+        type: "fastPath"
+        payload: "recommend-projects"
+      order: 2
+    - id: "card-bookmarks"
+      icon: "📌"
+      title: "My Bookmarks"
+      description: "View your saved sessions and projects."
+      action:
+        type: "fastPath"
+        payload: "view-bookmarks"
+      order: 3
+    - id: "card-schedule"
+      icon: "📅"
+      title: "Check Schedule"
+      description: "See what is happening now and next."
+      action:
+        type: "fastPath"
+        payload: "check-schedule"
+      order: 4
+
+  menu:
+    newConversation: "Restart conversation"
+    settingsSection: "Chat Settings"
+
+  projectCard:
+    locationPrefix: "📍"
+    teamPrefix: "👥"
+    locationTbd: "Location TBD"
+    addBookmark: "Add bookmark"
+    removeBookmark: "Remove bookmark"
+    viewCta: "View"
+    learnMoreCta: "Learn more"
+
+featureFlags:
+  chatEnabled: true
+  streamingEnabled: true

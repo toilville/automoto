@@ -1,0 +1,257 @@
+openapi: 3.0.1
+info:
+  title: MSR Research API
+  description: API for searching and browsing Microsoft Research publications, researchers, projects, and research areas.
+  version: 1.0.0
+servers:
+  - url: "{DATA_API_URL}"
+    description: MSR Research Data API
+paths:
+  /api/search:
+    get:
+      operationId: searchContent
+      summary: Search MSR content
+      description: Search across all Microsoft Research content including publications, researchers, and projects.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: The search query string
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          description: Filter results by content type
+          schema:
+            type: string
+            enum:
+              - publication
+              - researcher
+              - project
+              - all
+            default: all
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results to return
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 50
+      responses:
+        "200":
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SearchResult"
+                  totalCount:
+                    type: integer
+                    description: Total number of matching results
+        "400":
+          description: Invalid request parameters
+        "500":
+          description: Internal server error
+
+  /api/researchers/{name}:
+    get:
+      operationId: getResearcher
+      summary: Get researcher details
+      description: Get detailed information about a specific Microsoft researcher.
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the researcher
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Researcher details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Researcher"
+        "404":
+          description: Researcher not found
+        "500":
+          description: Internal server error
+
+  /api/publications:
+    get:
+      operationId: getPublications
+      summary: Browse publications
+      description: Browse and search academic publications from Microsoft Research.
+      parameters:
+        - name: query
+          in: query
+          required: false
+          description: Search query for publications
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of publications to return
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 50
+      responses:
+        "200":
+          description: List of publications
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publications:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Publication"
+                  totalCount:
+                    type: integer
+                    description: Total number of matching publications
+        "400":
+          description: Invalid request parameters
+        "500":
+          description: Internal server error
+
+  /api/research-areas:
+    get:
+      operationId: getResearchAreas
+      summary: List research areas
+      description: List all research areas and labs at Microsoft Research.
+      responses:
+        "200":
+          description: List of research areas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  areas:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ResearchArea"
+        "500":
+          description: Internal server error
+
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        contentType:
+          type: string
+          enum:
+            - publication
+            - researcher
+            - project
+          description: Type of content
+        title:
+          type: string
+          description: Title of the result
+        description:
+          type: string
+          description: Brief description or summary
+        url:
+          type: string
+          format: uri
+          description: Link to the full content
+        relevanceScore:
+          type: number
+          format: float
+          description: Relevance score for the search query
+
+    Researcher:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        name:
+          type: string
+          description: Full name of the researcher
+        role:
+          type: string
+          description: Job title or role
+        lab:
+          type: string
+          description: Research lab or group
+        bio:
+          type: string
+          description: Short biography
+        researchAreas:
+          type: array
+          items:
+            type: string
+          description: List of research areas
+        publicationCount:
+          type: integer
+          description: Number of publications
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+
+    Publication:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        title:
+          type: string
+          description: Publication title
+        authors:
+          type: array
+          items:
+            type: string
+          description: List of author names
+        abstract:
+          type: string
+          description: Publication abstract
+        date:
+          type: string
+          format: date
+          description: Publication date
+        researchAreas:
+          type: array
+          items:
+            type: string
+          description: Related research areas
+        url:
+          type: string
+          format: uri
+          description: Link to the publication
+
+    ResearchArea:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        name:
+          type: string
+          description: Name of the research area
+        description:
+          type: string
+          description: Description of the research area
+        labCount:
+          type: integer
+          description: Number of labs in this area
+        researcherCount:
+          type: integer
+          description: Number of researchers in this area

@@ -1,0 +1,93 @@
+{
+  "schema_version": "v2.1",
+  "name_for_human": "MSR Research API",
+  "name_for_model": "msr_research",
+  "description_for_human": "Search and browse Microsoft Research publications, researchers, projects, and research areas.",
+  "description_for_model": "Plugin for querying the Microsoft Research data API. Use this to search across MSR content, look up researcher profiles, browse publications, and list research areas.",
+  "logo_url": "{DATA_API_URL}/logo.png",
+  "contact_email": "msragents@microsoft.com",
+  "legal_info_url": "https://www.microsoft.com/en-us/research/",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "{DATA_API_URL}/openapi.yaml"
+  },
+  "functions": [
+    {
+      "name": "searchContent",
+      "description": "Search across all MSR content including publications, researchers, and projects. Returns ranked results with titles, descriptions, and links.",
+      "parameters": {
+        "type": "object",
+        "required": ["query"],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["publication", "researcher", "project", "all"],
+            "description": "Filter results by content type"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of results to return"
+          }
+        }
+      }
+    },
+    {
+      "name": "getResearcher",
+      "description": "Get detailed information about a specific Microsoft researcher including their bio, lab, research areas, and publication count.",
+      "parameters": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the researcher to look up"
+          }
+        }
+      }
+    },
+    {
+      "name": "getPublications",
+      "description": "Browse and search academic publications from Microsoft Research. Filter by topic, author, or year.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query for publications"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of publications to return"
+          }
+        }
+      }
+    },
+    {
+      "name": "getResearchAreas",
+      "description": "List all research areas and labs at Microsoft Research with descriptions and counts.",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "OpenApi",
+      "auth": {
+        "type": "None"
+      },
+      "spec": {
+        "url": "openapi.yaml"
+      },
+      "run_for_functions": ["searchContent", "getResearcher", "getPublications", "getResearchAreas"]
+    }
+  ]
+}

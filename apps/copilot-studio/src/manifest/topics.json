@@ -1,0 +1,49 @@
+{
+  "topics": [
+    {
+      "name": "ResearchDiscovery",
+      "description": "Help users discover Microsoft Research projects, papers, and areas",
+      "triggerPhrases": [
+        "find research",
+        "search papers",
+        "what research",
+        "discover projects",
+        "show me research on"
+      ],
+      "actions": ["search_research", "get_publications", "get_research_areas"]
+    },
+    {
+      "name": "FindResearcher",
+      "description": "Find and learn about Microsoft researchers",
+      "triggerPhrases": [
+        "find researcher",
+        "who works on",
+        "researcher profile",
+        "expert in"
+      ],
+      "actions": ["get_researcher", "search_research"]
+    },
+    {
+      "name": "BrowsePublications",
+      "description": "Browse and search academic publications",
+      "triggerPhrases": [
+        "recent papers",
+        "publications about",
+        "show papers",
+        "latest research"
+      ],
+      "actions": ["get_publications", "search_research"]
+    },
+    {
+      "name": "ResearchAreas",
+      "description": "Explore MSR research areas and labs",
+      "triggerPhrases": [
+        "research areas",
+        "what labs",
+        "focus areas",
+        "MSR labs"
+      ],
+      "actions": ["get_research_areas"]
+    }
+  ]
+}

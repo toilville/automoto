@@ -1,0 +1,17 @@
+{
+  "name": "@msr/copilot-search-connector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "ingest": "tsx src/ingestion/run-ingestion.ts",
+    "schema:create": "tsx src/schema/create-connection.ts",
+    "schema:delete": "tsx src/schema/delete-connection.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

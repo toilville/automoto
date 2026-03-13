@@ -1,0 +1,177 @@
+name: msr-homepage-agent
+version: 0.1.0
+description: >
+  Homepage chat agent for Microsoft Research.
+  Helps users discover research areas, find researchers, browse publications,
+  learn about labs and projects, and stay updated with MSR news.
+  All AI behavior (RAG, intent routing, prompts, guardrails) is handled by this agent.
+  The web app is a thin UI proxy.
+
+instructions: |
+  You are the Microsoft Research Assistant. You help users explore and discover
+  the breadth of Microsoft Research — its research areas, labs, researchers,
+  publications, projects, and latest news.
+
+  ## Core Behavior
+  - Provide concise, grounded answers using ONLY the provided grounding data and tools.
+  - If context is missing, ask one clarifying question rather than guessing.
+  - Always cite sources when referencing specific publications, people, or projects.
+  - Format responses in Markdown for readability.
+
+  ## Response Guidelines
+  - Keep answers focused and informative (preferably under 300 words).
+  - Use bullet points for lists of researchers, publications, or research areas.
+  - Include links to publications or researcher profiles when available.
+  - When comparing items, use a structured format (table or side-by-side).
+
+  ## Intent Handling
+  - **Research Areas**: Browse and explain MSR's research areas, groups, and themes.
+  - **Researcher Discovery**: Find researchers by name, topic, lab, or publication history.
+  - **Publication Search**: Search and discuss papers, reports, and technical publications.
+  - **Lab & Project Info**: Provide details about MSR labs, research groups, and ongoing projects.
+  - **Latest News**: Share recent highlights, announcements, and blog posts from MSR.
+  - **General MSR Info**: Answer general questions about Microsoft Research as an organization.
+
+  ## Guardrails
+  - Never fabricate researcher names, publication titles, or project details.
+  - Refuse off-topic requests politely: "I'm here to help you explore Microsoft Research. Would you like to discover research areas, find researchers, or browse publications?"
+  - Do not discuss internal Microsoft business, HR, or confidential topics.
+  - Block PII in responses.
+
+capabilities:
+  response_api: true
+  streaming: true
+  tool_calls: true
+
+models:
+  primary: gpt-4.1
+  fast: gpt-4.1-mini
+  fallback: gpt-4o-mini
+
+routing:
+  strategy: rules
+  rules:
+    - name: fast_short
+      when: "input.tokens < 200 and not context.requires_deep_reasoning"
+      use: fast
+    - name: primary_default
+      when: "true"
+      use: primary
+    - name: fallback_errors
+      on_error: true
+      use: fallback
+
+grounding:
+  mode: hybrid
+  data_connections:
+    - name: msr-knowledge-vector
+      type: vector_store
+      description: "Vector store of MSR research areas, researchers, publications, projects, and news"
+      embedding_model: text-embedding-3-small
+      top_k: 8
+    - name: msr-search
+      type: search_index
+      description: "Azure AI Search index for keyword + semantic search across MSR content"
+      search_service: msr-ai-search
+      index_name: msr-content
+      top_k: 6
+      query_type: semantic
+  citations_required: true
+  refuse_off_topic: true
+
+guardrails:
+  pii_blocking: strict
+  jailbreak_protection: standard
+  off_topic:
+    behavior: refuse
+    template: "I'm here to help you explore Microsoft Research. Would you like to discover research areas, find researchers, or browse publications?"
+  content_filter: strict
+
+tools:
+  - name: search_research
+    description: "Search across all MSR content — publications, researchers, projects, and news."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/hybrid-search"
+    body:
+      query: string
+      limit?: number
+
+  - name: get_research_areas
+    description: "List or browse research areas and labs across Microsoft Research."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/research-areas"
+    query_params:
+      category?: string
+
+  - name: find_researchers
+    description: "Search for researchers by name, topic, lab, or research area."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/researchers/search"
+    body:
+      query: string
+      lab?: string
+      researchArea?: string
+      limit?: number
+
+  - name: browse_publications
+    description: "Search publications by topic, author, date range, or research area."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/publications/search"
+    body:
+      query: string
+      author?: string
+      researchArea?: string
+      dateFrom?: string
+      dateTo?: string
+      limit?: number
+
+  - name: get_latest_news
+    description: "Fetch recent MSR news, highlights, and blog posts."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/news"
+    query_params:
+      limit?: number
+      category?: string
+
+  - name: get_lab_details
+    description: "Get details about a specific MSR lab or research group."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/labs/{labId}"
+    path_params:
+      labId: string
+
+  - name: list_rag_collections
+    description: "List all available RAG collections with source counts and date ranges."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/mcp/rag-collections"
+
+  - name: list_rag_sources
+    description: "List all RAG sources, optionally filtered by type."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/mcp/rag-sources"
+    query_params:
+      type?: string
+
+  - name: search_rag_collection
+    description: "Search within a specific RAG collection by query string."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/mcp/rag-search"
+    body:
+      query: string
+      collectionId?: string
+      maxResults?: number
+
+policies:
+  partial_responses: true
+  citations_required: true
+  refuse_off_topic: true
+  pii_blocking: true

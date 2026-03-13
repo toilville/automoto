@@ -1,0 +1,21 @@
+{
+  "name": "@msr/devtools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev",
+    "dev:mock": "MOCK_MODE=true react-router dev",
+    "build": "react-router build",
+    "start": "react-router-serve ./build/server/index.js",
+    "lint": "eslint --ext .ts,.tsx app",
+    "lint:fix": "eslint --ext .ts,.tsx app --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:unit": "vitest run --passWithNoTests --exclude 'app/tests/**'",
+    "test:integration": "vitest run app/tests/channels.integration.test.ts",
+    "test:watch": "vitest"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,42 @@
+:root {
+  --chat-max-width: 800px;
+  --chat-bg: #fafafa;
+  --chat-surface: #ffffff;
+  --chat-border: #e0e0e0;
+  --chat-text: #242424;
+  --chat-text-secondary: #616161;
+  --chat-user-bubble: #e8f0fe;
+  --chat-assistant-bubble: #ffffff;
+  --chat-input-bg: #ffffff;
+  --chat-spacing: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chat-bg: #1a1a1a;
+    --chat-surface: #2d2d2d;
+    --chat-border: #404040;
+    --chat-text: #e0e0e0;
+    --chat-text-secondary: #a0a0a0;
+    --chat-user-bubble: #1a3a5c;
+    --chat-assistant-bubble: #2d2d2d;
+    --chat-input-bg: #2d2d2d;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--chat-bg);
+  color: var(--chat-text);
+  -webkit-font-smoothing: antialiased;
+}

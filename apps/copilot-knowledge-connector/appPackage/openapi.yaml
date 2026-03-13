@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: MSR Knowledge API
+  description: API providing Microsoft Research knowledge for Copilot grounding — publications, researchers, projects, and research areas.
+  version: 0.1.0
+
+servers:
+  - url: https://{hostname}:{port}
+    description: Knowledge connector API server
+    variables:
+      hostname:
+        default: localhost
+      port:
+        default: "8080"
+
+paths:
+  /api/search:
+    get:
+      operationId: search_research
+      summary: Search across all MSR content
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query
+        - name: contentType
+          in: query
+          schema:
+            type: string
+            enum: [publication, researcher, project, all]
+            default: all
+          description: Filter by content type
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Maximum results
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SearchResult"
+                  total:
+                    type: integer
+
+  /api/researchers/{name}:
+    get:
+      operationId: get_researcher
+      summary: Get researcher details
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Researcher name
+      responses:
+        "200":
+          description: Researcher details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Researcher"
+        "404":
+          description: Researcher not found
+
+  /api/publications:
+    get:
+      operationId: get_publications
+      summary: Browse and search publications
+      parameters:
+        - name: topic
+          in: query
+          schema:
+            type: string
+        - name: author
+          in: query
+          schema:
+            type: string
+        - name: year
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Publication list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Publication"
+                  total:
+                    type: integer
+
+  /api/research-areas:
+    get:
+      operationId: get_research_areas
+      summary: List all research areas
+      responses:
+        "200":
+          description: Research areas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  areas:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ResearchArea"
+
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+        contentType:
+          type: string
+          enum: [publication, researcher, project]
+        title:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        relevanceScore:
+          type: number
+
+    Researcher:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+        lab:
+          type: string
+        bio:
+          type: string
+        researchAreas:
+          type: array
+          items:
+            type: string
+        publicationCount:
+          type: integer
+        url:
+          type: string
+
+    Publication:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        authors:
+          type: array
+          items:
+            type: string
+        abstract:
+          type: string
+        date:
+          type: string
+          format: date
+        researchAreas:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+
+    ResearchArea:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        labCount:
+          type: integer
+        researcherCount:
+          type: integer

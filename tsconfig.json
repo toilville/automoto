@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [],
+  "references": [
+    { "path": "./packages/analytics" },
+    { "path": "./packages/chat-ui" },
+    { "path": "./packages/data-client" },
+    { "path": "./apps/chat" }
+  ]
+}

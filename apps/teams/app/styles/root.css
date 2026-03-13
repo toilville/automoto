@@ -1,0 +1,65 @@
+:root {
+  --chat-max-width: 800px;
+  --chat-bg: #fafafa;
+  --chat-surface: #ffffff;
+  --chat-border: #e0e0e0;
+  --chat-text: #242424;
+  --chat-text-secondary: #616161;
+  --chat-user-bubble: #e8f0fe;
+  --chat-assistant-bubble: #ffffff;
+  --chat-input-bg: #ffffff;
+  --chat-spacing: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chat-bg: #1a1a1a;
+    --chat-surface: #2d2d2d;
+    --chat-border: #404040;
+    --chat-text: #e0e0e0;
+    --chat-text-secondary: #a0a0a0;
+    --chat-user-bubble: #1a3a5c;
+    --chat-assistant-bubble: #2d2d2d;
+    --chat-input-bg: #2d2d2d;
+  }
+}
+
+/* Teams-specific: use Teams theme when available */
+body[data-teams-theme="dark"] {
+  --chat-bg: #1b1a19;
+  --chat-surface: #292827;
+  --chat-border: #484644;
+  --chat-text: #f3f2f1;
+  --chat-text-secondary: #c8c6c4;
+  --chat-user-bubble: #2b3544;
+  --chat-assistant-bubble: #292827;
+  --chat-input-bg: #292827;
+}
+
+body[data-teams-theme="contrast"] {
+  --chat-bg: #000000;
+  --chat-surface: #1f1f1f;
+  --chat-border: #ffffff;
+  --chat-text: #ffffff;
+  --chat-text-secondary: #ffffff;
+  --chat-user-bubble: #1aebff;
+  --chat-assistant-bubble: #1f1f1f;
+  --chat-input-bg: #000000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--chat-bg);
+  color: var(--chat-text);
+  -webkit-font-smoothing: antialiased;
+}

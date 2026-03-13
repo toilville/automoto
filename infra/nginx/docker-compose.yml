@@ -1,0 +1,278 @@
+version: "3.9"
+
+# MSR Universal Client Platform — Full Stack
+# Usage: docker-compose up -d
+# Requires: .env file with configuration (see README.md)
+
+x-common-env: &common-env
+  NODE_ENV: ${NODE_ENV:-production}
+  LOG_LEVEL: ${LOG_LEVEL:-info}
+
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
+services:
+  # ─── Reverse Proxy ────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: msr-nginx
+    ports:
+      - "${NGINX_HTTPS_PORT:-443}:443"
+      - "${NGINX_HTTP_PORT:-80}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./includes:/etc/nginx/includes:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      gateway:
+        condition: service_healthy
+      chat:
+        condition: service_healthy
+      msr-home:
+        condition: service_healthy
+      teams:
+        condition: service_healthy
+      agents-sdk:
+        condition: service_healthy
+      m365-agents:
+        condition: service_healthy
+      message-extension:
+        condition: service_healthy
+      copilot-knowledge-connector:
+        condition: service_healthy
+      power-platform:
+        condition: service_healthy
+      github-copilot-ext:
+        condition: service_healthy
+      direct-line:
+        condition: service_healthy
+      mcp-server:
+        condition: service_healthy
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  # ─── API Gateway ──────────────────────────────────────
+  gateway:
+    build:
+      context: ../../
+      dockerfile: apps/gateway/Dockerfile
+    container_name: msr-gateway
+    environment:
+      <<: *common-env
+      PORT: 8080
+    expose:
+      - "8080"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  # ─── React Router SSR Apps ────────────────────────────
+  chat:
+    build:
+      context: ../../
+      dockerfile: apps/chat/Dockerfile
+    container_name: msr-chat
+    environment:
+      <<: *common-env
+      PORT: 5173
+      AZURE_OPENAI_ENDPOINT: ${AZURE_OPENAI_ENDPOINT:-}
+      AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY:-}
+      AZURE_OPENAI_DEPLOYMENT: ${AZURE_OPENAI_DEPLOYMENT:-gpt-4o}
+    expose:
+      - "5173"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5173/"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  msr-home:
+    build:
+      context: ../../
+      dockerfile: apps/msr-home/Dockerfile
+    container_name: msr-home
+    environment:
+      <<: *common-env
+      PORT: 5174
+    expose:
+      - "5174"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5174/"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  teams:
+    build:
+      context: ../../
+      dockerfile: apps/teams/Dockerfile
+    container_name: msr-teams
+    environment:
+      <<: *common-env
+      PORT: 5175
+    expose:
+      - "5175"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5175/"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  agents-sdk:
+    build:
+      context: ../../
+      dockerfile: apps/agents-sdk/Dockerfile
+    container_name: msr-agents-sdk
+    environment:
+      <<: *common-env
+      PORT: 5176
+    expose:
+      - "5176"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5176/"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  # ─── Express/Node.js API Servers ──────────────────────
+  m365-agents:
+    build:
+      context: ../../
+      dockerfile: apps/m365-agents/Dockerfile
+    container_name: msr-m365-agents
+    environment:
+      <<: *common-env
+      PORT: 3978
+      BOT_ID: ${BOT_ID:-}
+      BOT_PASSWORD: ${BOT_PASSWORD:-}
+      BOT_TYPE: ${BOT_TYPE:-MultiTenant}
+    expose:
+      - "3978"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3978/api/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  message-extension:
+    build:
+      context: ../../
+      dockerfile: apps/message-extension/Dockerfile
+    container_name: msr-message-extension
+    environment:
+      <<: *common-env
+      PORT: 7074
+      BOT_ID: ${ME_BOT_ID:-}
+      BOT_PASSWORD: ${ME_BOT_PASSWORD:-}
+    expose:
+      - "7074"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:7074/api/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  copilot-knowledge-connector:
+    build:
+      context: ../../
+      dockerfile: apps/copilot-knowledge-connector/Dockerfile
+    container_name: msr-copilot-knowledge
+    environment:
+      <<: *common-env
+      PORT: 8081
+    expose:
+      - "8081"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8081/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  power-platform:
+    build:
+      context: ../../
+      dockerfile: apps/power-platform/Dockerfile
+    container_name: msr-power-platform
+    environment:
+      <<: *common-env
+      PORT: 7072
+    expose:
+      - "7072"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:7072/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  github-copilot-ext:
+    build:
+      context: ../../
+      dockerfile: apps/github-copilot-ext/Dockerfile
+    container_name: msr-github-copilot
+    environment:
+      <<: *common-env
+      PORT: 7073
+      GITHUB_APP_ID: ${GITHUB_APP_ID:-}
+      GITHUB_APP_PRIVATE_KEY: ${GITHUB_APP_PRIVATE_KEY:-}
+    expose:
+      - "7073"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:7073/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  direct-line:
+    build:
+      context: ../../
+      dockerfile: apps/direct-line/Dockerfile
+    container_name: msr-direct-line
+    environment:
+      <<: *common-env
+      PORT: 7075
+      DIRECT_LINE_SECRET: ${DIRECT_LINE_SECRET:-}
+    expose:
+      - "7075"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:7075/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+  mcp-server:
+    build:
+      context: ../../
+      dockerfile: apps/mcp-server/Dockerfile
+    container_name: msr-mcp-server
+    environment:
+      <<: *common-env
+      PORT: 3100
+    expose:
+      - "3100"
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/health"]
+    networks:
+      - msr-network
+    restart: unless-stopped
+
+networks:
+  msr-network:
+    driver: bridge

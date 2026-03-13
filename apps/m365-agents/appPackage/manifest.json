@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "0.1.0",
+  "id": "{{BOT_ID}}",
+  "developer": {
+    "name": "Microsoft Research",
+    "websiteUrl": "https://www.microsoft.com/research",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement"
+  },
+  "name": {
+    "short": "MSR Agent",
+    "full": "Microsoft Research Agent"
+  },
+  "description": {
+    "short": "AI agent for exploring Microsoft Research",
+    "full": "A conversational AI agent that helps you discover research areas, find researchers, browse publications, and stay updated with Microsoft Research — powered by the M365 Agents platform."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#0078D4",
+  "bots": [
+    {
+      "botId": "{{BOT_ID}}",
+      "scopes": ["personal", "team", "groupChat"],
+      "commandLists": [
+        {
+          "scopes": ["personal"],
+          "commands": [
+            { "title": "research", "description": "Explore research areas" },
+            { "title": "find", "description": "Find researchers by name or topic" },
+            { "title": "papers", "description": "Browse recent publications" },
+            { "title": "help", "description": "Show available commands" }
+          ]
+        }
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": []
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@msr/msr-home",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "start": "react-router-serve ./build/server/index.js",
+    "lint": "eslint --ext .ts,.tsx app",
+    "lint:fix": "eslint --ext .ts,.tsx app --fix",
+    "lint:css": "stylelint \"app/**/*.css\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

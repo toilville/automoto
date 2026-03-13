@@ -1,0 +1,32 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "aad",
+          "clientId": "[AZURE_CLIENT_ID]",
+          "scopes": ["api://msr-research/.default"],
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "properties": {
+            "IsFirstParty": "False",
+            "AzureActiveDirectoryResourceId": "api://msr-research"
+          },
+          "customParameters": {
+            "tenantId": {
+              "value": "[AZURE_TENANT_ID]"
+            },
+            "resourceUri": {
+              "value": "api://msr-research"
+            }
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#742774",
+    "capabilities": [],
+    "publisher": "Microsoft Research",
+    "stackOwner": "Microsoft Research"
+  }
+}

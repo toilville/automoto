@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "0.1.0",
+  "id": "{{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "Microsoft Research",
+    "websiteUrl": "https://www.microsoft.com/research",
+    "privacyUrl": "https://privacy.microsoft.com/privacystatement",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement"
+  },
+  "name": {
+    "short": "MSR Assistant",
+    "full": "Microsoft Research Assistant"
+  },
+  "description": {
+    "short": "Chat with an AI assistant about Microsoft Research",
+    "full": "Discover research areas, find researchers, browse publications, and stay up to date with the latest from Microsoft Research — all from within Microsoft Teams."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#0078D4",
+  "staticTabs": [
+    {
+      "entityId": "msr-chat",
+      "name": "MSR Assistant",
+      "contentUrl": "https://{{HOSTNAME}}/",
+      "scopes": ["personal"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["{{HOSTNAME}}"],
+  "defaultInstallScope": "personal",
+  "defaultGroupCapability": {}
+}

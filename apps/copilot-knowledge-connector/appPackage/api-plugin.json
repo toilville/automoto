@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.2/schema.json",
+  "schema_version": "v2.2",
+  "name_for_human": "MSR Knowledge",
+  "description_for_human": "Access Microsoft Research publications, researchers, and projects.",
+  "description_for_model": "Use this plugin to search and retrieve information about Microsoft Research content including publications, researchers, research areas, projects, and labs. Call search_research for broad queries, get_researcher for specific people, and get_publications for papers.",
+  "logo_url": "https://www.microsoft.com/research/favicon.ico",
+  "contact_email": "msrhelp@microsoft.com",
+  "legal_info_url": "https://www.microsoft.com/servicesagreement",
+  "privacy_url": "https://privacy.microsoft.com/privacystatement",
+  "functions": [
+    {
+      "name": "search_research",
+      "description": "Search across all MSR content — publications, researchers, projects, and news. Returns the most relevant results for a given query.",
+      "parameters": {
+        "type": "object",
+        "required": ["query"],
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query (e.g., 'machine learning fairness', 'quantum computing')"
+          },
+          "contentType": {
+            "type": "string",
+            "enum": ["publication", "researcher", "project", "all"],
+            "description": "Filter by content type. Default: all"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum results to return. Default: 10"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_researcher",
+      "description": "Get details about a specific researcher including their bio, lab, research areas, and recent publications.",
+      "parameters": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The researcher's name (full or partial)"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_publications",
+      "description": "Browse and search publications by topic, author, or date range.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string",
+            "description": "Research topic or keyword"
+          },
+          "author": {
+            "type": "string",
+            "description": "Author name"
+          },
+          "year": {
+            "type": "integer",
+            "description": "Publication year"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum results. Default: 10"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_research_areas",
+      "description": "List all research areas and labs at Microsoft Research.",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "OpenApi",
+      "auth": {
+        "type": "OAuthPluginVault"
+      },
+      "spec": {
+        "url": "openapi.yaml"
+      },
+      "run_for_functions": ["search_research", "get_researcher", "get_publications", "get_research_areas"]
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "MSR Research",
+    "description": "Search Microsoft Research publications, find researchers, and discover research areas. Powered by Azure AI Agent Service.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "MSR Engineering",
+      "url": "https://www.microsoft.com/research"
+    }
+  },
+  "host": "msr-power-connector.azurewebsites.net",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "oauth2_auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "scopes": {
+        "api://msr-research/.default": "Access MSR Research API"
+      }
+    }
+  },
+  "paths": {
+    "/search": {
+      "get": {
+        "operationId": "SearchResearch",
+        "summary": "Search Microsoft Research",
+        "description": "Search across publications, researchers, projects, and news from Microsoft Research",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Search query"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string",
+            "enum": ["all", "publications", "researchers", "projects"],
+            "default": "all"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "schema": {
+              "$ref": "#/definitions/SearchResponse"
+            }
+          }
+        }
+      }
+    },
+    "/researchers/{name}": {
+      "get": {
+        "operationId": "GetResearcher",
+        "summary": "Get researcher details",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Researcher details",
+            "schema": {
+              "$ref": "#/definitions/ResearcherResponse"
+            }
+          }
+        }
+      }
+    },
+    "/publications": {
+      "get": {
+        "operationId": "GetPublications",
+        "summary": "Browse publications",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publications list",
+            "schema": {
+              "$ref": "#/definitions/PublicationsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/research-areas": {
+      "get": {
+        "operationId": "GetResearchAreas",
+        "summary": "List research areas",
+        "responses": {
+          "200": {
+            "description": "Research areas",
+            "schema": {
+              "$ref": "#/definitions/ResearchAreasResponse"
+            }
+          }
+        }
+      }
+    },
+    "/agent/chat": {
+      "post": {
+        "operationId": "ChatWithAgent",
+        "summary": "Chat with MSR Research Assistant",
+        "description": "Send a message to the AI-powered research assistant",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChatRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent response",
+            "schema": {
+              "$ref": "#/definitions/ChatResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SearchResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResearcherResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "researchAreas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PublicationsResponse": {
+      "type": "object",
+      "properties": {
+        "publications": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "ResearchAreasResponse": {
+      "type": "object",
+      "properties": {
+        "areas": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "ChatRequest": {
+      "type": "object",
+      "required": ["message"],
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

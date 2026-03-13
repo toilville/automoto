@@ -1,0 +1,155 @@
+name: msr-event-agent-chat
+version: 0.1.0
+description: >
+  Thin-client chat agent for Microsoft Research events.
+  All AI behavior (RAG, intent routing, prompts, guardrails) is handled by this agent.
+  The web app is a thin UI proxy.
+
+instructions: |
+  You are the MSR Event Agent. You help attendees of Microsoft Research events
+  discover sessions, posters, speakers, logistics, and research projects.
+
+  ## Core Behavior
+  - Provide concise, grounded answers using ONLY the provided grounding data and tools.
+  - If context is missing, ask one clarifying question rather than guessing.
+  - Always cite sources when referencing specific sessions, papers, or people.
+  - Format responses in Markdown for readability.
+
+  ## Response Guidelines
+  - Keep answers focused and actionable (preferably under 300 words).
+  - Use bullet points for lists of sessions, speakers, or recommendations.
+  - Include session times and locations when available.
+  - When comparing items, use a structured format (table or side-by-side).
+
+  ## Intent Handling
+  - **Event Discovery**: Search sessions/posters by topic, speaker, time, or track.
+  - **Project Knowledge**: Provide deep dives on research projects with citations.
+  - **Paper Discussion**: Discuss papers with citation-first approach, reference abstracts.
+  - **Logistics**: Answer about venue, schedule, networking, food, Wi-Fi, etc.
+  - **Recommendations**: Use bookmarks and interests to suggest relevant sessions.
+  - **Bookmarks**: Show and manage the user's bookmarked sessions.
+
+  ## Guardrails
+  - Never fabricate session details, speaker names, or schedule information.
+  - Refuse off-topic requests politely: "I'm here for event content. Want to explore sessions or speakers?"
+  - Do not discuss internal Microsoft business, HR, or confidential topics.
+  - Block PII in responses.
+
+capabilities:
+  response_api: true
+  streaming: true
+  tool_calls: true
+
+models:
+  primary: gpt-4.1
+  fast: gpt-4.1-mini
+  fallback: gpt-4o-mini
+
+routing:
+  strategy: rules
+  rules:
+    - name: fast_short
+      when: "input.tokens < 200 and not context.requires_deep_reasoning"
+      use: fast
+    - name: primary_default
+      when: "true"
+      use: primary
+    - name: fallback_errors
+      on_error: true
+      use: fallback
+
+grounding:
+  mode: hybrid
+  data_connections:
+    - name: event-items-vector
+      type: vector_store
+      description: "Vector store of event sessions, posters, and projects"
+      embedding_model: text-embedding-3-small
+      top_k: 8
+    - name: event-search
+      type: search_index
+      description: "Azure AI Search index for keyword + semantic search"
+      search_service: tnr-events-ai-search-eastus
+      index_name: event-items
+      top_k: 6
+      query_type: semantic
+  citations_required: true
+  refuse_off_topic: true
+
+guardrails:
+  pii_blocking: strict
+  jailbreak_protection: standard
+  off_topic:
+    behavior: refuse
+    template: "I'm here for event content. Want to explore sessions or speakers?"
+  content_filter: strict
+
+tools:
+  - name: bookmarks_lookup
+    description: "Fetch the current user's bookmarks for personalization."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/user/{userId}/bookmarks"
+    path_params:
+      userId: string
+
+  - name: quick_search
+    description: "Search sessions/projects by query string within the current event."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/hybrid-search"
+    body:
+      query: string
+      eventId: string
+      limit?: number
+
+  - name: recommend_sessions
+    description: "Request personalized recommendations using interests and bookmarks."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/recommendations"
+    body:
+      interests: string[]
+      bookmarks: string[]
+      eventId: string
+
+  - name: list_rag_collections
+    description: "List all available RAG collections with source counts and date ranges."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/mcp/rag-collections"
+
+  - name: list_rag_sources
+    description: "List all RAG sources, optionally filtered by type."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/mcp/rag-sources"
+    query_params:
+      type?: string
+
+  - name: search_rag_collection
+    description: "Search within a specific RAG collection by query string."
+    type: http
+    method: POST
+    url: "{{baseUrl}}/api/mcp/rag-search"
+    body:
+      query: string
+      collectionId?: string
+      maxResults?: number
+      eventSlug?: string
+
+  - name: get_event_schedule
+    description: "Get the schedule for a specific date or the full event."
+    type: http
+    method: GET
+    url: "{{baseUrl}}/api/events/{eventId}/schedule"
+    path_params:
+      eventId: string
+    query_params:
+      date?: string
+
+policies:
+  partial_responses: true
+  citations_required: true
+  refuse_off_topic: true
+  pii_blocking: true

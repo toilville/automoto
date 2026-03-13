@@ -1,0 +1,12 @@
+{
+  "name": "@msr/copilot-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "deploy": "echo 'Upload manifest to Copilot Studio portal or use Power Platform CLI'"
+  },
+  "devDependencies": {}
+}

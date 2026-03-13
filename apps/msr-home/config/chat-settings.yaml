@@ -1,0 +1,55 @@
+# MSR Homepage Chat — UI Configuration
+# This file contains UI text and feature flags only.
+# All AI behavior (prompts, RAG, intent routing) is managed by the Foundry Agent.
+
+chat:
+  title: "Microsoft Research Assistant"
+  subtitle: "Explore Microsoft Research"
+  disclaimer: "AI-generated responses may contain inaccuracies. Please verify important details."
+  inputPlaceholder: "Ask about Microsoft Research..."
+  loadingText: "AI is thinking."
+  stillThinkingText: "Gathering results..."
+
+  welcomeTitle: "Explore Microsoft Research"
+  welcomeSubtitle: "Discover research areas, find researchers, browse publications, and stay up to date with the latest from MSR."
+  welcomeCards:
+    - id: "card-research-areas"
+      icon: "🔬"
+      title: "Explore Research Areas"
+      description: "Browse research areas and labs across MSR."
+      action:
+        type: "fastPath"
+        payload: "explore-research-areas"
+      order: 1
+    - id: "card-researchers"
+      icon: "👩‍🔬"
+      title: "Find Researchers"
+      description: "Search for researchers by name, topic, or lab."
+      action:
+        type: "fastPath"
+        payload: "find-researchers"
+      order: 2
+    - id: "card-publications"
+      icon: "📄"
+      title: "Browse Publications"
+      description: "Discover papers and technical reports."
+      action:
+        type: "fastPath"
+        payload: "browse-publications"
+      order: 3
+    - id: "card-news"
+      icon: "📰"
+      title: "Latest News"
+      description: "Recent highlights and announcements from MSR."
+      action:
+        type: "fastPath"
+        payload: "latest-news"
+      order: 4
+
+  menu:
+    newConversation: "Restart conversation"
+    settingsSection: "Chat Settings"
+
+featureFlags:
+  chatEnabled: true
+  streamingEnabled: true
