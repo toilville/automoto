@@ -1,5 +1,5 @@
 /**
- * GitHub Copilot Extension — @msr-research
+ * GitHub Copilot Extension — @automoto
  *
  * Handles incoming messages from GitHub Copilot Chat and streams responses
  * using the Copilot Extensions API protocol (SSE).

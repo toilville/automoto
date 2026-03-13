@@ -1,5 +1,5 @@
 /**
- * Unit tests for gh msr CLI commands.
+ * Unit tests for the gh automoto CLI commands.
  * Mocks global fetch to avoid needing a running API server.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
