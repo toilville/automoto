@@ -4,7 +4,7 @@ You are helping a developer build or integrate with MSR Agent channels. This ski
 
 ## Core Concept: pub / sub / stream
 
-Every channel in the MSR platform implements the `ChannelAdapter` interface from `@msr/channel-adapter`. It normalizes platform-native formats to/from a canonical protocol:
+Every channel in the MSR platform implements the `ChannelAdapter` interface from `@automoto/channel-adapter`. It normalizes platform-native formats to/from a canonical protocol:
 
 ```
 Partner Platform ──pub()──→ MSRAgentRequest ──→ Agent Backend
@@ -84,7 +84,7 @@ type ChannelType =
 6. Optionally add gateway service entry
 
 ### Embedding an EXISTING channel (consumer):
-1. For UI: vendor `@msr/chat-ui` + `@msr/data-client`, wrap in `ChatAdapterProvider` + `ChannelProvider`
+1. For UI: vendor `@automoto/chat-ui` + `@automoto/data-client`, wrap in `ChatAdapterProvider` + `ChannelProvider`
 2. For API: call gateway `POST /api/v1/:channel` with channel-native payload
 3. For Direct Line: embed widget via `<script src="/.../embed.js">`
 

@@ -1,4 +1,4 @@
-# @msr/sharepoint — SPFx Web Part for MSR Research Chat
+# @automoto/sharepoint — SPFx Web Part for MSR Research Chat
 
 Scaffold for a SharePoint Framework (SPFx) web part that embeds the MSR Research chat experience into SharePoint pages and Viva Connections dashboards.
 

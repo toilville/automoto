@@ -2,13 +2,13 @@
  * MSR Agent Chat — React Embed Example
  *
  * Demonstrates embedding the MSR Agent chat UI into a React application
- * using the vendored @msr/chat-ui and @msr/data-client packages.
+ * using the vendored @automoto/chat-ui and @automoto/data-client packages.
  *
  * This is the consumer pattern — you don't implement a new channel,
  * you embed an EXISTING channel's UI into your app.
  */
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
-import { ChatContainer } from "@msr/chat-ui";
+import { ChatContainer } from "@automoto/chat-ui";
 
 // TODO: Configure these for your deployment
 const CONFIG = {

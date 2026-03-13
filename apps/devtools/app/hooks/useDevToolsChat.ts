@@ -7,8 +7,8 @@
  */
 import { useState, useCallback, useRef } from "react";
 import { getDevToolsState } from "~/store/devtools-store.js";
-import type { ChannelType } from "@msr/channel-adapter";
-import type { ChatMessage as ChatMessageType } from "@msr/chat-ui";
+import type { ChannelType } from "@automoto/channel-adapter";
+import type { ChatMessage as ChatMessageType } from "@automoto/chat-ui";
 
 let counter = 0;
 function uid() {

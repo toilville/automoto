@@ -7,14 +7,14 @@
  * TODO: Replace the placeholder native types with your platform's actual types.
  */
 import { randomUUID } from "node:crypto";
-import type { ChannelAdapter } from "@msr/channel-adapter";
+import type { ChannelAdapter } from "@automoto/channel-adapter";
 import type {
   ChannelType,
   MSRAgentRequest,
   MSRAgentResponse,
   MSRMessage,
   MSRStreamEvent,
-} from "@msr/channel-adapter";
+} from "@automoto/channel-adapter";
 
 /* ── Native Types ─────────────────────────────────────────── */
 // TODO: Replace these with your platform's actual request/response shapes.

@@ -8,14 +8,14 @@
  * (Teams, M365 Agents, Copilot Studio, or any Bot Framework-compatible service).
  */
 import { randomUUID } from "node:crypto";
-import type { ChannelAdapter } from "@msr/channel-adapter";
+import type { ChannelAdapter } from "@automoto/channel-adapter";
 import type {
   ChannelType,
   MSRAgentRequest,
   MSRAgentResponse,
   MSRCard,
   MSRStreamEvent,
-} from "@msr/channel-adapter";
+} from "@automoto/channel-adapter";
 
 /* ── Native Types (Bot Framework Activity) ────────────────── */
 

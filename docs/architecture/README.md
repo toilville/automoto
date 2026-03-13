@@ -7,10 +7,10 @@ System architecture overview for the MSR Event Agent Client monorepo.
 ```
 msr-event-agent-client/
 ├── packages/           # 4 shared libraries
-│   ├── analytics/      # @msr/analytics — telemetry abstraction
-│   ├── channel-adapter/# @msr/channel-adapter — pub/sub/stream protocol
-│   ├── chat-ui/        # @msr/chat-ui — React chat components
-│   └── data-client/    # @msr/data-client — API client
+│   ├── analytics/      # @automoto/analytics — telemetry abstraction
+│   ├── channel-adapter/# @automoto/channel-adapter — pub/sub/stream protocol
+│   ├── chat-ui/        # @automoto/chat-ui — React chat components
+│   └── data-client/    # @automoto/data-client — API client
 ├── apps/               # 17 applications
 │   ├── chat/           # Main chat app (default dev server)
 │   ├── msr-home/       # MSR homepage
@@ -42,7 +42,7 @@ Workspaces are managed via npm (`"workspaces": ["packages/*", "apps/*"]`).
 
 ## Channel Adapter Protocol
 
-The core abstraction is `@msr/channel-adapter`. Every channel app implements three methods:
+The core abstraction is `@automoto/channel-adapter`. Every channel app implements three methods:
 
 ```
 Partner Platform ──pub()──→ MSRAgentRequest ──→ Agent Backend
@@ -65,12 +65,12 @@ See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-r
 │  (chat, msr-home, teams, agents-sdk, ...)                │
 │                                                           │
 │  Import from:                                             │
-│    @msr/chat-ui        — UI components                   │
-│    @msr/data-client    — API client + search              │
-│    @msr/analytics      — Telemetry                       │
-│    @msr/channel-adapter — Channel utilities               │
+│    @automoto/chat-ui        — UI components              │
+│    @automoto/data-client    — API client + search        │
+│    @automoto/analytics      — Telemetry                  │
+│    @automoto/channel-adapter — Channel utilities          │
 └──────────────────┬───────────────────────────────────────┘
-                   │ HTTP requests via @msr/data-client
+                   │ HTTP requests via @automoto/data-client
                    ▼
 ┌──────────────────────────────────────────────────────────┐
 │              msr-event-agent-api                          │

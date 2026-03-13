@@ -8,7 +8,7 @@
  * minimal modifications for the devtools context.
  */
 import { DefaultAzureCredential } from "@azure/identity";
-import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@msr/data-client";
+import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@automoto/data-client";
 import type { ChatRequest, StreamEvent, TokenUsage, CarouselCard } from "~/models/types";
 
 /* ── Configuration ────────────────────────────────────────── */

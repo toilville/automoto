@@ -8,13 +8,13 @@
  * (e.g., Slack incoming webhook, GitHub webhook, custom HTTP callback).
  */
 import { randomUUID } from "node:crypto";
-import type { ChannelAdapter } from "@msr/channel-adapter";
+import type { ChannelAdapter } from "@automoto/channel-adapter";
 import type {
   ChannelType,
   MSRAgentRequest,
   MSRAgentResponse,
   MSRStreamEvent,
-} from "@msr/channel-adapter";
+} from "@automoto/channel-adapter";
 
 /* ── Native Types ─────────────────────────────────────────── */
 // TODO: Match these to your webhook's actual payload shape.

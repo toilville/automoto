@@ -3,7 +3,7 @@
  *
  * Defines the external connection schema that tells Microsoft Search / Copilot
  * how to interpret and display MSR content items. Maps to the card types
- * defined in @msr/chat-ui (publications, researchers, projects, etc.).
+ * defined in @automoto/chat-ui (publications, researchers, projects, etc.).
  *
  * Reference: https://learn.microsoft.com/graph/connecting-external-content-manage-schema
  */

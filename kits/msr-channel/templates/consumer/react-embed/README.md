@@ -1,6 +1,6 @@
 # MSR Agent Chat — React Embed
 
-Embed the MSR Agent chat UI into your React application. Uses the vendored `@msr/chat-ui` and `@msr/data-client` packages.
+Embed the MSR Agent chat UI into your React application. Uses the vendored `@automoto/chat-ui` and `@automoto/data-client` packages.
 
 ## Quick Start
 
@@ -13,8 +13,8 @@ npm run dev
 
 This template uses the **consumer** path — you don't build a new channel, you embed an existing one:
 
-1. **`@msr/chat-ui`** provides `ChatContainer`, message rendering, typing indicators
-2. **`@msr/data-client`** handles API communication with the MSR Agent backend
+1. **`@automoto/chat-ui`** provides `ChatContainer`, message rendering, typing indicators
+2. **`@automoto/data-client`** handles API communication with the MSR Agent backend
 3. **Fluent UI v9** provides the design system (theming, components)
 
 ## Configuration

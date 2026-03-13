@@ -139,7 +139,7 @@ export type ChannelType =
 
 ```typescript
 import { randomUUID } from "node:crypto";
-import type { ChannelAdapter, ChannelType, MSRAgentRequest, MSRAgentResponse, MSRStreamEvent } from "@msr/channel-adapter";
+import type { ChannelAdapter, ChannelType, MSRAgentRequest, MSRAgentResponse, MSRStreamEvent } from "@automoto/channel-adapter";
 
 interface CLIInbound { command: string; args: string[] }
 interface CLIOutbound { text: string; exitCode: number }

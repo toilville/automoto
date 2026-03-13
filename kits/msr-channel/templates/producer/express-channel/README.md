@@ -1,6 +1,6 @@
 # __CHANNEL_DISPLAY_NAME__ Channel
 
-A new MSR Agent channel powered by the `@msr/channel-adapter` pub/sub/stream protocol.
+A new MSR Agent channel powered by the `@automoto/channel-adapter` pub/sub/stream protocol.
 
 ## Quick Start
 

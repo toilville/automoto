@@ -4,7 +4,7 @@ kit_info:
   display_name: MSR Channel Onboarding Kit
   description: >
     Scaffold a new MSR Agent channel (producer) or embed an existing channel
-    into your app (consumer). Powered by the @msr/channel-adapter pub/sub/stream
+    into your app (consumer). Powered by the @automoto/channel-adapter pub/sub/stream
     protocol from msr-event-agent-client.
   created_date: 2026-03-12
   last_updated: 2026-03-12

@@ -3,7 +3,7 @@
  *
  * These templates produce Adaptive Card JSON (schema v1.5) that the M365
  * platform renders natively in Teams, Outlook, and Copilot conversations.
- * They mirror the card types defined in @msr/chat-ui but in JSON format
+ * They mirror the card types defined in @automoto/chat-ui but in JSON format
  * for the Bot Framework CardFactory.
  */
 

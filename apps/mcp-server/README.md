@@ -1,4 +1,4 @@
-# @msr/mcp-server
+# @automoto/mcp-server
 
 Model Context Protocol (MCP) server for Microsoft Research. Exposes MSR tools — search, researchers, publications, and RAG knowledge bases — to any MCP-compatible client.
 

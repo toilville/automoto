@@ -27,7 +27,7 @@ npm run typecheck          # Type-check without emitting
 
 See [docs/architecture/](docs/architecture/) for full system design.
 
-**Core abstraction:** `@msr/channel-adapter` with `pub()` / `sub()` / `stream()` methods.
+**Core abstraction:** `@automoto/channel-adapter` with `pub()` / `sub()` / `stream()` methods.
 Key types in `packages/channel-adapter/src/protocol.ts`: `ChannelType`, `MSRAgentRequest`, `MSRAgentResponse`, `MSRStreamEvent`, `ChannelAdapter<TInbound, TOutbound, TStreamChunk>`.
 7 concrete adapters: Web, BotFramework, GitHubCopilot, MCP, PowerPlatform, DirectLine, CLI.
 
@@ -35,10 +35,10 @@ Key types in `packages/channel-adapter/src/protocol.ts`: `ChannelType`, `MSRAgen
 
 | Package | Purpose |
 |---------|---------|
-| `@msr/chat-ui` | Reusable chat UI components |
-| `@msr/data-client` | API client for event data, search, tools |
-| `@msr/analytics` | Analytics abstraction (1DS + App Insights) |
-| `@msr/channel-adapter` | Channel adapter protocol + implementations |
+| `@automoto/chat-ui` | Reusable chat UI components |
+| `@automoto/data-client` | API client for event data, search, tools |
+| `@automoto/analytics` | Analytics abstraction (1DS + App Insights) |
+| `@automoto/channel-adapter` | Channel adapter protocol + implementations |
 
 ### Apps (17)
 

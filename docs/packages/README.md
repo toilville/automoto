@@ -6,16 +6,16 @@
 
 | Package | Path | Description |
 |---------|------|-------------|
-| `@msr/chat-ui` | `packages/chat-ui` | Reusable chat UI components (React 19 + Fluent UI v9) |
-| `@msr/data-client` | `packages/data-client` | API client for the MSR data service |
-| `@msr/analytics` | `packages/analytics` | Analytics abstraction with pluggable providers |
-| `@msr/channel-adapter` | `packages/channel-adapter` | Channel adapter protocol — pub/sub/stream |
+| `@automoto/chat-ui` | `packages/chat-ui` | Reusable chat UI components (React 19 + Fluent UI v9) |
+| `@automoto/data-client` | `packages/data-client` | API client for the MSR data service |
+| `@automoto/analytics` | `packages/analytics` | Analytics abstraction with pluggable providers |
+| `@automoto/channel-adapter` | `packages/channel-adapter` | Channel adapter protocol — pub/sub/stream |
 
 All packages export from `src/index.ts` and compile to `dist/` via TypeScript.
 
 ---
 
-## @msr/chat-ui
+## @automoto/chat-ui
 
 Reusable React chat components built on Fluent UI v9.
 
@@ -25,12 +25,12 @@ Reusable React chat components built on Fluent UI v9.
 - Message rendering components, typing indicator, auto-scroll
 
 ```tsx
-import { ChatContainer, ChatAdapterProvider } from "@msr/chat-ui";
+import { ChatContainer, ChatAdapterProvider } from "@automoto/chat-ui";
 ```
 
 ---
 
-## @msr/data-client
+## @automoto/data-client
 
 Shared API client for the MSR data service (`msr-event-agent-api`).
 
@@ -40,12 +40,12 @@ Shared API client for the MSR data service (`msr-event-agent-api`).
 - Search utilities
 
 ```tsx
-import { ... } from "@msr/data-client";
+import { ... } from "@automoto/data-client";
 ```
 
 ---
 
-## @msr/analytics
+## @automoto/analytics
 
 Generic analytics abstraction with pluggable providers for telemetry.
 
@@ -65,7 +65,7 @@ Generic analytics abstraction with pluggable providers for telemetry.
 
 ---
 
-## @msr/channel-adapter
+## @automoto/channel-adapter
 
 Channel adapter protocol for multi-channel communication.
 
@@ -83,7 +83,7 @@ See [Channel Onboarding → Protocol Reference](../channel-onboarding/protocol-r
 
 ### Within the monorepo
 
-Apps consume packages via npm workspace resolution (`"@msr/chat-ui": "*"` in root `devDependencies`).
+Apps consume packages via npm workspace resolution (`"@automoto/chat-ui": "*"` in root `devDependencies`).
 
 ### In downstream repos (vendoring)
 

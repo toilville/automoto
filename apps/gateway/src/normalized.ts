@@ -21,7 +21,7 @@ import {
   type MSRAgentRequest,
   type MSRAgentResponse,
   type MSRStreamEvent,
-} from "@msr/channel-adapter";
+} from "@automoto/channel-adapter";
 
 const DATA_API_URL = process.env.DATA_API_URL ?? "http://localhost:7071";
 const FOUNDRY_ENDPOINT = process.env.FOUNDRY_ENDPOINT ?? "";

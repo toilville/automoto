@@ -53,7 +53,7 @@ QUESTIONS = [
         prompt="How do you want to consume?",
         options=["react-embed", "api-client", "direct-line-embed"],
         descriptions=[
-            "Embed React chat UI (vendor @msr/chat-ui + @msr/data-client)",
+            "Embed React chat UI (vendor @automoto/chat-ui + @automoto/data-client)",
             "Call REST API directly (TypeScript, Python, curl examples)",
             "Drop-in web chat widget (iframe/script tag, no framework needed)",
         ],

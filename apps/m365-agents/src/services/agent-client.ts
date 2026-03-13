@@ -11,7 +11,7 @@
  *   5. Repeat until the run completes (up to 5 rounds)
  */
 import { DefaultAzureCredential } from "@azure/identity";
-import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@msr/data-client";
+import { executeToolCall, type DataClientConfig, type ToolCallRequest } from "@automoto/data-client";
 
 /* ── Types ────────────────────────────────────────────────── */
 
